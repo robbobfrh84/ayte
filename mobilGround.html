@@ -7,7 +7,7 @@
   <link rel="ayte icon" href="ayteFlower.png"/>
   <style>
 
-    * { margin: 0;}
+    * { margin: 0; font-size: 0}
 
     body {
       font-family: Courier;
@@ -42,9 +42,9 @@
     }
 
     .ayte { display: inline-block;
-      width: 72px;
-      height: 72px;
-      margin: 2px;
+      width: 10%;
+      height: 10%;
+      margin: 0.5%;
       /*border-radius: 10px;*/
       background-color: #333; box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.2);
     }
@@ -67,20 +67,14 @@
       if (i % 8 === 0){ ayteframe.innerHTML += '<br>';}
       var blk = document.createElement('div');
       blk.className = 'ayte'; blk.id = 'blk'+i;
-      blk.setAttribute('onmousemove', 'draw(blk'+i+')');
-      blk.setAttribute('onmousedown', 'mouseState(true, blk'+i+')');
-      blk.setAttribute('onmouseup', 'mouseState(false)');
+      blk.setAttribute('onmousedown', 'draw(blk'+i+')');
       ayteframe.appendChild(blk);
     }
 
-    var mouseDown;
-    function draw(bId){ if(mouseDown){
-      bId.style.backgroundColor = brush;}
+    function draw(bId){
+      bId.style.backgroundColor = brush;
     }
 
-    function mouseState(state, bId){ if (state){mouseDown = true;
-      if(bId){bId.style.backgroundColor = brush;} } else {mouseDown = false;}
-    }
 
   </script>
 </body>

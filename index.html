@@ -7,14 +7,19 @@
   <link rel="ayte icon" href="ayteFlower.png"/>
   <style>
 
-    /*body, html{ background-color: #d8d8d8;
-      max-width: 640px;
-      margin: auto; margin-top: 10px;
+    body, html{ background-color: #d8d8d8;
+      /*max-width: 640px;*/
+      /*min-width: 100%;*/
+      margin: auto;
+      /*margin-top: 10px;*/
       text-align: center;
       /*font-size: 0;
-      user-select: none;
-    }*/
+      user-select: none;*/
+    }
 
+    #ayteframe{
+      max-width: 100%;
+    }
 
     .ayte { display: inline-block;
       width: 2em;
@@ -33,9 +38,14 @@
   </style>
 </head>
 <body id="body" onmousedown='mouseState(true)' onmouseup='mouseState(false)'>
-  <div id='ayteframe' style='margin-bottom: 10px;'></div>
+  <header>
+      <h1>Ayte</h1>
+      <h2>login</h2>
+  </header>
+  <div id='ayteframe' ></div>
   <div id='swatchframe' style='margin-bottom: 10px;'></div>
   <script>
+
 
     var brush = '#6495ed';
 

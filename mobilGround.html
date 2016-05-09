@@ -6,28 +6,37 @@
   <link rel="ayte icon" href="ayteFlower.png"/>
   <style>
 
-    body, *{
-      margin: 0 !important;
-      padding: 0 !important;
+    * { margin: 0; }
+
+    body {
+      font-family: Courier;
+      background-color: #eee;
     }
 
     header {
-      text-align: center;
-      background-color: green;
+      background-color: cornflowerblue;
     }
 
-    /*#ayteframe{
-      max-width: 100%;
-      background-color: blue;
-    }*/
+    .log{ display: inline-block;
+      float: right; padding-top: 14px; padding-right: 20px;
+      color: #333;
+    }
+
+    #ayteframe{
+      width: 96%; height: 1000px;
+      margin: auto;
+      margin-top: 2%;
+      background-color: #888;
+    }
 
   </style>
 </head>
 <body >
   <header>
     <a id='banner'>
-      <h1>Ayte</h1>
-      <h2>login</h2>
+      <h1 style='display: inline-block; color: #333; padding: 5px;'> &nbsp;  &nbsp; Ayte-by8</h1>
+      <nav class='log'>{Log in}</nav>
+      <nav class='log'>{Sign up}</nav>
     </a>
   </header>
   <div id='ayteframe' ></div>

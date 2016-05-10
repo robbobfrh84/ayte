@@ -44,15 +44,6 @@
       box-shadow: inset 0px 0px 5px 2px rgba(0,0,0,0.2);
     }
 
-    @media screen and (min-width: 768px) {
-
-      #font-color{
-        font-size: 15px;
-        margin: 0;
-        height: 50px;
-      }
-    }
-
     #ayteframe {
       font-size: 0;
       width: 96%;
@@ -69,6 +60,16 @@
       height: 8em;
       margin: 0.4em;
       border-radius: 1.5em;
+      -webkit-text-size-adjust: 50%;
+
+    }
+
+    @media screen and (min-width: 768px) {
+      #font-color{
+        font-size: 15px;
+        margin: 0;
+        height: 50px;
+      }
     }
 
   </style>
@@ -96,9 +97,12 @@
   <div id='ayteframe' ></div>
   <script>
 
-    var ash = '#444';//darkgrey
+    var ash = 'rgb(68, 68, 68)';//darkgrey
+    var egg = 'rgb(240,234,214)';//eggshell
     var cfb = 'rgb(102, 155, 235)';//cornflowerblue
-    var gdr = '#daa520';
+    var gdr = 'rgb(214, 163, 48)';//goldenrod
+    var grn = 'rgb(0, 128, 0)';//green
+    var fbc = 'rgb(169, 53, 47)';//firebrick
     var brush = cfb;
 
     for (var i = 0; i < 64; i++){

@@ -56,8 +56,8 @@
     .ayte { display: inline-block; background-color: #444;
       /*box-shadow: inset 0px 0px 10px 2px rgba(0,0,0,0.3);*/
       font-size: 6px;
-      width: 8em;
-      height: 8em;
+      width: 7em;
+      height: 7em;
       margin: 0.4em;
       border-radius: 1.5em;
     }
@@ -75,7 +75,7 @@
       -webkit-text-size-adjust: 50%;
       background-color: cornflowerblue;
       box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.5);
-      /*-webkit-text-size-adjust: 52%;*/
+      -webkit-text-size-adjust: 52%;
     }
 
     #swatchContainer{
@@ -87,16 +87,16 @@
       display: inline-block;
       box-shadow: inset 0px 3px 2px 0px rgba(0,0,0,0.3);
       font-size: 6px;
-      width: 11em;
+      width: 12em;
       height: 8em;
       /*margin: 1px;*/
       /*border-radius: 0.4em;*/
     }
-    #swt7,#swt8,#swt9,#swt10 {box-shadow: inset 0px -3px 2px 0px rgba(0,0,0,0.3);}
+    #swt8,#swt9,#swt10,#swt11,#swt12,#swt13,#swt14 {box-shadow: inset 0px -3px 2px 0px rgba(0,0,0,0.3);}
     #swt0 { border-top-left-radius: 2em; box-shadow: inset 3px 3px 2px 0px rgba(0,0,0,0.3);}
-    #swt5 { border-top-right-radius: 2em; box-shadow: inset -3px 3px 2px 0px rgba(0,0,0,0.3);}
-    #swt6 { border-bottom-left-radius: 2em; box-shadow: inset 3px -3px 2px 0px rgba(0,0,0,0.3);}
-    #swt11 { border-bottom-right-radius: 2em; box-shadow: inset -3px -3px 2px 0px rgba(0,0,0,0.3);}
+    #swt7 { border-top-right-radius: 2em; box-shadow: inset -3px 3px 2px 0px rgba(0,0,0,0.3);}
+    #swt8 { border-bottom-left-radius: 2em; box-shadow: inset 3px -3px 2px 0px rgba(0,0,0,0.3);}
+    #swt15 { border-bottom-right-radius: 2em; box-shadow: inset -3px -3px 2px 0px rgba(0,0,0,0.3);}
 
     @media screen and (min-width: 768px) {
       #font-color{
@@ -142,14 +142,20 @@
     var gdr = 'rgb(214, 163, 48)';//goldenrod
     var grn = 'rgb(0, 128, 0)';//green
     var fbc = 'rgb(169, 53, 47)';//firebrick
-    var gry = 'rgb(170, 170, 170)';//lightgrey
+    var slb = 'rgb(106, 90, 205)';//lightgrey
+    var ogr = 'rgb(255, 69, 0)';//lightgrey
+
+    var ltg = 'rgb(100, 100, 100)';//lightgrey
+    var gry = 'rgb(180, 180, 180)';//grey
     var org = 'rgb(235, 120, 0)';//orange
     var ind = 'rgb(96, 58, 134)';//indigo
     var pru = 'rgb(160, 82, 45)';//sienna
     var pnk = 'rgb(245, 182, 193)';//pink
     var sgn = 'rgb(32, 178, 170)';//lightseagreen
+    var ygr = 'rgb(154, 205, 50)';//lightseagreen
     var brush = cfb;
-    var swatch = [ash,egg,cfb,gdr,grn,fbc,gry,org,sgn,pru,pnk,ind]
+    var swatch = [ash,egg,cfb,gdr,grn,fbc,slb,ogr
+                 ,ltg,gry,org,sgn,pru,pnk,ind,ygr]
 
     for (var i = 0; i < 64; i++){
       if (i % 8 === 0){ ayteFrame.innerHTML += '<br>';}
@@ -165,8 +171,8 @@
       else {bId.style.backgroundColor = ash;}
     }
 
-    for (var i = 0; i < 12; i++){
-      if (i % 6 === 0){ swatchContainer.innerHTML += '<br>';}
+    for (var i = 0; i < 16; i++){
+      if (i % 8 === 0){ swatchContainer.innerHTML += '<br>';}
       var swt = document.createElement('div');
       swt.className = 'swatch'; swt.id = 'swt'+i;
       swt.style.backgroundColor = swatch[i];

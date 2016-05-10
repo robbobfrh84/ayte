@@ -22,8 +22,8 @@
 
     .log { display: inline-block; color: #333;
       float: right;
-      padding: 16px;
-      padding-right: 2.4%;
+      padding: 0.8em;
+      padding-right: 0.8em;
       font-size: 20px;
     }
 
@@ -33,7 +33,7 @@
       text-align: center;
       margin: auto;
       margin-top: 5%;
-      /*background-color: green;*/
+      background-color: green;
     }
 
     .ayte { display: inline-block; background-color: #444;
@@ -45,22 +45,15 @@
       border-radius: 1.5em;
     }
 
-    @media -webkit-device-min-pixel-ratio: 2 {
-      .log {
-        padding: 16px;
-        color: #999;
-      }
-    }
-
   </style>
 </head>
 <body >
-  <header style='background-color: cornflowerblue; '>
-    <a id='banner'>
-      <h1> Ayte-by8</h1>
-      <nav class='log'>{Log in}</nav>
-      <nav class='log'> Sign up </nav>
-    </a>
+  <header style='background-color: cornflowerblue;'>
+    <h1> Ayte-by8</h1>
+    <nav class='log'>Sign up&nbsp;</nav>
+    <nav class='log'>{Log in}</nav>
+
+    </div>
   </header>
   <div id='ayteframe' ></div>
   <script>

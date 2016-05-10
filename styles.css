@@ -1,12 +1,12 @@
 body {
-  -webkit-text-size-adjust: 70%;
+  -webkit-text-size-adjust: 100%;
 }
 
 .navbar-brand{
   /*height: 60px;*/
   /*font-size: 50px;*/
-  margin: auto;
-  font-size: 40px;
+  margin: 0;
+  font-size: 30px;
   /*margin: 8px;*/
   font-family: courier;
 }
@@ -20,13 +20,13 @@ body {
 }
 
 #font-color, #title{
-  color: red;
+  color: #333;
 }
 
 #font-color{
-  font-size: 30px;
-  margin-top: 20px;
-  height: 75px;
+  font-size: 20px;
+  margin-top: 10px;
+  height: 50px;
 }
 
 .navbar-default .navbar-toggle {
@@ -45,11 +45,7 @@ body {
 }*/
 
 @media screen and (min-width: 768px) {
-	.navbar-brand {
-    height: 50px;
-    font-size: 40px;
-    margin: auto;
-	}
+
   #font-color{
     font-size: 15px;
     margin: 0;

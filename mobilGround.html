@@ -51,7 +51,6 @@
       text-align: center;
       padding-top: 15px;
       -webkit-text-size-adjust: 50%;
-      /*background-color: green;*/
     }
 
     .ayte { display: inline-block; background-color: #444;
@@ -63,14 +62,32 @@
       border-radius: 1.5em;
     }
 
-    #swatchframe {
-      width: 96%; height: 50px;
+    #paletteframe {
+      width: 96%;
+      height: 8em;
       text-align: center;
       margin: auto;
       margin-top: 15px;
       border-radius: 1.5em;
+      padding: 0.5em;
+      padding-left: 1.5em;
       -webkit-text-size-adjust: 50%;
       background-color: cornflowerblue;
+    }
+
+    #swatchContainer{
+      font-size: 0;
+      float: left;
+    }
+
+    .swatch {
+      display: inline-block;
+      box-shadow: inset 0px 0px 10px 2px rgba(0,0,0,0.3);
+      font-size: 6px;
+      width: 10em;
+      height: 8em;
+      margin: 0.1em;
+      border-radius: 0.4em;
     }
 
     @media screen and (min-width: 768px) {
@@ -104,7 +121,9 @@
     </div>
   </nav>
   <div id='ayteframe' ></div>
-  <div id='swatchframe' >swatch</div>
+  <div id='paletteframe' >
+    <div id='swatchContainer'></div>
+  </div>
 
   <script>
 
@@ -114,7 +133,19 @@
     var gdr = 'rgb(214, 163, 48)';//goldenrod
     var grn = 'rgb(0, 128, 0)';//green
     var fbc = 'rgb(169, 53, 47)';//firebrick
+    var gry = 'rgb(170, 170, 170)';//lightgrey
+    var org = 'rgb(235, 120, 0)';//orange
+    var ind = 'rgb(96, 58, 134)';//indigo
+    var pru = 'rgb(160, 82, 45)';//sienna
+    var pnk = 'rgb(245, 182, 193)';//pink
+    var sgn = 'rgb(32, 178, 170)';//lightseagreen
+
+
+
+
+
     var brush = cfb;
+    var swatch = [ash,egg,cfb,gdr,grn,fbc,gry,org,sgn,pru,pnk,ind]
 
     for (var i = 0; i < 64; i++){
       if (i % 8 === 0){ ayteframe.innerHTML += '<br>';}
@@ -127,9 +158,21 @@
     function draw(bId){
       col = bId.style.backgroundColor;
       if(col !== brush) {bId.style.backgroundColor = brush;}
-
       else {bId.style.backgroundColor = ash;}
-      console.log(col+'-'+brush);
+    }
+
+    for (var i = 0; i < 12; i++){
+      if (i % 6 === 0){ swatchContainer.innerHTML += '<br>';}
+      var swt = document.createElement('div');
+      swt.className = 'swatch'; swt.id = 'swt'+i;
+      swt.style.backgroundColor = swatch[i];
+      swt.setAttribute('onmousedown', 'colorSwap('+i+')');
+      swatchContainer.appendChild(swt);
+    }
+
+    function colorSwap(newCol){
+      brush = swatch[newCol];
+      console.log(brush);
     }
 
   </script>

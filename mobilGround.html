@@ -4,29 +4,54 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ayte</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
   <link rel="ayte icon" href="ayteFlower.png"/>
   <style>
-
-    /** { margin: 0; }
-
-    body { background-color: #eee;
-      font-family: Courier;
-      -webkit-text-size-adjust: 50%;
+    body {
+      -webkit-text-size-adjust: 100%;
     }
 
-    h1 { display: inline-block; color: #333;
-      padding: 0.12em;
-      padding-left: 0.5em;
-      font-size: 50px;
+    .navbar-brand{
+      font-size: 30px;
+      font-family: courier;
     }
 
-    .log { display: inline-block; color: #333;
-      float: right;
-      padding-top: 1.2em;
-      /*padding-bottom: 0.8em;
-      padding-right: 0.5em;
-      font-size: 25px;
-    }*/
+    .navbar-default{
+      font-size: 18px;
+      font-family: courier;
+      background-color: cornflowerblue;
+      border-color: cornflowerblue;
+      border-radius: 0;
+    }
+
+    #font-color, #title{
+      color: #333;
+    }
+
+    #font-color{
+      font-size: 20px;
+      margin-top: 10px;
+      height: 50px;
+    }
+
+    .navbar-default .navbar-toggle {
+      background-color: #ccc;
+      border: none;
+      box-shadow: inset 0px 0px 5px 2px rgba(0,0,0,0.2);
+    }
+
+    @media screen and (min-width: 768px) {
+
+      #font-color{
+        font-size: 15px;
+        margin: 0;
+        height: 50px;
+      }
+    }
 
     #ayteframe {
       font-size: 0;
@@ -48,18 +73,31 @@
 
   </style>
 </head>
-<body >
-  <header style='background-color: cornflowerblue;'>
-    <h1> Ayte-by8</h1>
-    <nav class='log'>{Log in}</nav>
-    <nav class='log'>Sign up&nbsp;</nav>
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only active" id="hamburger">Toggle navigation</span>
+          <span class="icon-bar" id='linez' style='background-color: firebrick;'></span>
+          <span class="icon-bar" id='linez'style='background-color: darkgoldenrod;'></span>
+          <span class="icon-bar" id='linez'style='background-color: green;'></span>
+        </button>
+        <a class="navbar-brand" href="#" id='title'>Ayte-by8</a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#" id="font-color" >{LOG IN} / {Sign UP}</a></li>
+          <li><a href="#" id="font-color" >Gallery</a></li>
+        </ul>
+      </div>
     </div>
-  </header>
+  </nav>
   <div id='ayteframe' ></div>
   <script>
 
     var ash = '#444';//darkgrey
-    var cfb = '#6495ed';//cornflowerblue
+    var cfb = 'rgb(102, 155, 235)';//cornflowerblue
     var gdr = '#daa520';
     var brush = cfb;
 
@@ -74,7 +112,9 @@
     function draw(bId){
       col = bId.style.backgroundColor;
       if(col !== brush) {bId.style.backgroundColor = brush;}
-      brush = col;
+
+      else {bId.style.backgroundColor = ash;}
+      console.log(col+'-'+brush);
     }
 
   </script>

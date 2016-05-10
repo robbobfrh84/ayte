@@ -3,11 +3,8 @@ body {
 }
 
 .navbar-brand{
-  /*height: 60px;*/
-  /*font-size: 50px;*/
-  margin: 0;
+  /*margin: 0;*/
   font-size: 30px;
-  /*margin: 8px;*/
   font-family: courier;
 }
 
@@ -30,19 +27,10 @@ body {
 }
 
 .navbar-default .navbar-toggle {
-  /*width: 60px; height: 60px;*/
   background-color: #ccc;
   border: none;
   box-shadow: inset 0px 0px 5px 2px rgba(0,0,0,0.2);
 }
-
-/*#linez {
-  width: 40px;
-  height: 4px;
-  border-radius: 2px;
-  margin-top: 6px;
-  margin-bottom: 6px;
-}*/
 
 @media screen and (min-width: 768px) {
 

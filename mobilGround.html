@@ -3,71 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- <meta name="viewport" content="height=device-height, initial-scale=1"> -->
-
   <title>ayte</title>
   <link rel="ayte icon" href="ayteFlower.png"/>
   <style>
 
-    * { margin: 0; font-size: 0}
+    * { margin: 0; }
 
-    body {
+    body { background-color: #eee;
       font-family: Courier;
-      background-color: #eee;
       -webkit-text-size-adjust: 60%;
     }
 
-    header {
-      background-color: cornflowerblue;
-    }
-
-    h1 {
-      display: inline-block;
-      color: #333;
-      padding: 5px; padding-left: 15px;
+    h1 { display: inline-block; color: #333;
+      padding: 5px;
+      padding-left: 3%;
       font-size: 40px;
     }
 
-    .log { display: inline-block;
+    .log { display: inline-block; color: #333;
       float: right;
-      padding-top: 15px;
-      padding-right: 15px;
-      color: #333;
+      padding: 16px;
+      padding-right: 2.4%;
       font-size: 20px;
     }
 
-    #ayteframe{
+    #ayteframe {
+      font-size: 0;
       width: 96%;
-      /*height: 614px;*/
       text-align: center;
       margin: auto;
       margin-top: 5%;
       /*background-color: green;*/
     }
 
-    .ayte { display: inline-block;
+    .ayte { display: inline-block; background-color: #444;
+      box-shadow: inset 0px 0px 10px 2px rgba(0,0,0,0.3);
       font-size: 6px;
       width: 8em;
       height: 8em;
       margin: 0.4em;
-      border-radius: 10px;
-      background-color: #444;
-      box-shadow: inset 0px 0px 10px 2px rgba(0,0,0,0.3);
+      border-radius: 1.5em;
+    }
+
+    @media -webkit-device-min-pixel-ratio: 2 {
+      .element {
+          width: 200px;
+      }
     }
 
   </style>
 </head>
 <body >
-  <header>
+  <header style='background-color: cornflowerblue;'>
     <a id='banner'>
       <h1> Ayte-by8</h1>
       <nav class='log'>{Log in}</nav>
-      <nav class='log'>{Sign up}</nav>
+      <nav class='log'> Sign up </nav>
     </a>
   </header>
   <div id='ayteframe' ></div>
   <script>
-    var brush = '#6495ed';
+
+    var ash = '#444';//darkgrey
+    var cfb = '#6495ed';//cornflowerblue
+    var gdr = '#daa520';
+    var brush = cfb;
 
     for (var i = 0; i < 64; i++){
       if (i % 8 === 0){ ayteframe.innerHTML += '<br>';}
@@ -78,9 +78,10 @@
     }
 
     function draw(bId){
-      bId.style.backgroundColor = brush;
+      col = bId.style.backgroundColor;
+      if(col !== brush) {bId.style.backgroundColor = brush;}
+      brush = col;
     }
-
 
   </script>
 </body>

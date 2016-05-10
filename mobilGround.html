@@ -12,7 +12,9 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
   <link rel="ayte icon" href="ayteFlower.png"/>
   <style>
+
     body {
+      font-family: courier;
       -webkit-text-size-adjust: 100%;
     }
 
@@ -23,7 +25,6 @@
 
     .navbar-default{
       font-size: 18px;
-      font-family: courier;
       background-color: cornflowerblue;
       border-color: cornflowerblue;
       border-radius: 0;
@@ -50,7 +51,7 @@
       width: 96%;
       text-align: center;
       margin: auto;
-      margin-top: 15px;
+      margin-top: 1.5em;
       /*background-color: green;*/
     }
 
@@ -62,7 +63,14 @@
       margin: 0.4em;
       border-radius: 1.5em;
       -webkit-text-size-adjust: 50%;
+    }
 
+    #swatchframe {
+      width: 96%;
+      text-align: center;
+      margin: auto;
+      margin-top: 1.5em;
+      background-color: green;
     }
 
     @media screen and (min-width: 768px) {
@@ -96,6 +104,8 @@
     </div>
   </nav>
   <div id='ayteframe' ></div>
+  <div id='swatchframe' >swatch</div>
+
   <script>
 
     var ash = 'rgb(68, 68, 68)';//darkgrey

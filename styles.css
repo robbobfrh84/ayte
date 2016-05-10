@@ -1,11 +1,11 @@
 body {
-  -webkit-text-size-adjust: 80%;
+  -webkit-text-size-adjust: 70%;
 }
 
 .navbar-brand{
   /*height: 60px;*/
   /*font-size: 50px;*/
-
+  margin: auto;
   font-size: 40px;
   /*margin: 8px;*/
   font-family: courier;

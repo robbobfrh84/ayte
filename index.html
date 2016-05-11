@@ -219,7 +219,7 @@
     function touchMove(e){
       var x = document.getElementById(e.targetTouches);
       x.style.backgroundColor = ygr;
-      document.getElementById('xtmove').value = e.touches[0].id;
+      document.getElementById('xtmove').value = e.touches[0].pageX;
       document.getElementById('ytmove').value = e.targetTouches;
       // x.style.backgroundColor = 'rgb('+random(0,255)+', '+random(0,255)+', '+random(0,255)+')';
     }

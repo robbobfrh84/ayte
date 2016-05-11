@@ -185,7 +185,7 @@
       if (i % 8 === 0){ ayteFrame.innerHTML += '<br>';}
       var blk = document.createElement('div');
       blk.className = 'ayte'; blk.id = 'blk'+i;
-      blk.setAttribute('onmousedown', 'draw(blk'+i+')');
+      // blk.setAttribute('onmousedown', 'draw(blk'+i+')');
       blk.setAttribute('touchmove','touchMove(blk'+i+')');
 
       ayteFrame.appendChild(blk);
@@ -200,7 +200,7 @@
 
     function touchMove(blk){
       console.log(blk);
-      bId.style.backgroundColor = red;
+      blk.style.backgroundColor = red;
     }
 
     for (var i = 0; i < 15; i++){

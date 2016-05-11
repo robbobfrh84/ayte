@@ -186,8 +186,8 @@
       var blk = document.createElement('div');
       blk.className = 'ayte'; blk.id = 'blk'+i;
       blk.setAttribute('onmousedown', 'draw(blk'+i+')');
-      blk.setAttribute('onmousemove','mouseMove(blk'+i+')');
-      blk.setAttribute('ontouchmove','touchMove(blk'+i+')');
+      blk.setAttribute('onmousemove','mouseMove(blk'+i+',event)');
+      blk.setAttribute('ontouchmove','touchMove(blk'+i+',event)');
       blk.setAttribute('ontouchstart','touchStart(blk'+i+')');
       ayteFrame.appendChild(blk);
     }
@@ -198,15 +198,14 @@
       else {bId.style.backgroundColor = ash;}
     }
 
-    function mouseMove(bId){
+    function mouseMove(bId, e){
       bId.style.backgroundColor = egg;
-      touchMove(bId);
+      touchMove(bId, e);
     }
 
-    function touchMove(bId){
-      console.log(bId);
+    function touchMove(bId, e){
+      console.log(e.srcElement.id);
       bId.style.backgroundColor = 'rgb('+random(0,255)+', '+random(0,255)+', '+random(0,255)+')';
-      touchStart(bId);
     }
 
     function touchStart(bId){

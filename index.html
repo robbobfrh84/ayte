@@ -186,8 +186,8 @@
       var blk = document.createElement('div');
       blk.className = 'ayte'; blk.id = 'blk'+i;
       // blk.setAttribute('onmousedown', 'draw(blk'+i+')');
-      blk.setAttribute('ontouchmove','touchMove(blk'+i+')');
-      // blk.setAttribute('ontouchstart','touchst(blk'+i+')');
+      // blk.setAttribute('ontouchmove','touchMove(blk'+i+')');
+      blk.setAttribute('ontouchstart','touchst(blk'+i+')');
 
 
       ayteFrame.appendChild(blk);
@@ -200,15 +200,15 @@
     // }
 
 
-    function touchMove(bid){
-      console.log(bid);
-      bid.style.backgroundColor = sgn;
-    }
-
-    // function touchst(bid){
+    // function touchMove(bid){
     //   console.log(bid);
-    //   bid.style.backgroundColor = pru;
+    //   bid.style.backgroundColor = sgn;
     // }
+
+    function touchst(bid){
+      console.log(bid);
+      bid.style.backgroundColor = pru;
+    }
 
     for (var i = 0; i < 15; i++){
       if (i % 5 === 0){ swatchContainer.innerHTML += '<br>';}

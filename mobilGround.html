@@ -14,6 +14,7 @@
   <style>
 
     body {
+      text-align: center;
       font-family: courier;
       -webkit-text-size-adjust: 100%;
       background-color: #eee
@@ -101,9 +102,9 @@
 
     .button1 {   display: inline-block;
       opacity: 0.75;
-      font-size: 35px;
+      font-size: 30px;
       color: #222;
-      width: 5em;
+      width: 6em;
       height: 1.5em;
       margin: 0.3em;
       border-radius: 0.2em;
@@ -147,11 +148,13 @@
   <div id='ayteFrame' ></div>
     <div id='paletteFrame' >
       <div id='swatchContainer'></div>
-      <div id='chgBtn' onclick="changeBuild();" class='button1' style='background-color: #777'>Off Air</div>
-      <div id='chgBtn' onclick="changeBuild();" class='button1' style='background-color: #555'>Save</div>
-
+      <div id='chgBtn' onclick="changeBuild();" class='button1'
+        style='color: rgba(0,0,0,0.4); background-color: rgba(0,0,0,0.2)'>Off Air</div>
+      <div id='chgBtn' onclick="changeBuild();" class='button1'
+        style='background-color: rgba(0,0,0,0.5)'>Save</div>
     </div>
-
+    <div id='chgBtn' onclick="changeBuild();" class='button1'
+      style='background-color: rgba(0,0,0,0.2); font-size: 20px;'>Clear All</div>
   <script>
 
     var ash = 'rgb(68, 68, 68)';//darkgrey

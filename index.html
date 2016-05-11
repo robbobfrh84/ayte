@@ -187,9 +187,8 @@
       blk.className = 'ayte'; blk.id = 'blk'+i;
       blk.setAttribute('onmousedown', 'draw(blk'+i+')');
       blk.setAttribute('onmousemove','mouseMove(blk'+i+')');
-      blk.setAttribute('ontouchmove',touchMove);
+      blk.setAttribute('ontouchmove','touchMove(blk'+i+')');
       blk.setAttribute('ontouchstart','touchStart(blk'+i+')');
-
       ayteFrame.appendChild(blk);
     }
 
@@ -199,23 +198,20 @@
       else {bId.style.backgroundColor = ash;}
     }
 
-    function mouseMove(bid){
-      console.log(bid);
-      bid.style.backgroundColor = grn;
-      touchMove();
-
+    function mouseMove(bId){
+      bId.style.backgroundColor = grn;
+      touchMove(bId);
     }
 
-    function touchMove(e){
-
-      console.log(e.touches[0].clientX,e.touches[0].clientY);
-      bid.style.backgroundColor = gdr;
+    function touchMove(bId){
+      console.log(bId);
+      bId.style.backgroundColor = gdr;
     }
 
-    function touchStart(bid){
-      console.log(bid);
-      bid.style.backgroundColor = org;
+    function touchStart(bId){
+      bId.style.backgroundColor = org;
     }
+
 
     ayteFrame.addEventListener('touchmove', function (event) {
         event.preventDefault();

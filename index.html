@@ -209,20 +209,19 @@
     }
 
     function mouseMove(e){
-      var x = document.getElementById(e.srcElement.id);
-      x.style.backgroundColor = 'pink';
+      var x = document.elementFromPoint(e.pageX, e.pageY);
+      x.style.backgroundColor = 'green';
       // document.getElementById('xtmove').value = e.target.id;
       // document.getElementById('ytmove').value = e.srcElement.id;
-      console.log(e);
+      console.log(x);
+
     }
 
     function touchMove(e){
-      var myLoc = e.originalEvent.changedTouches[0];
-      var x = document.elementFromPoint(myLoc.clientX, myLoc..clientY);
-      // var x = document.getElementById(e.target.id);
+      var x = document.elementFromPoint(e.touches[0].pageX, e.touches[0].pageY);
       x.style.backgroundColor = ygr;
-      document.getElementById('xtmove').value = e.touches[0].id;
-      document.getElementById('ytmove').value = e.touches.length;
+      document.getElementById('xtmove').value = e.touches[0].pageX;
+      document.getElementById('ytmove').value = e.touches[0].pageY;
       // x.style.backgroundColor = 'rgb('+random(0,255)+', '+random(0,255)+', '+random(0,255)+')';
     }
 

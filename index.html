@@ -187,6 +187,8 @@
       blk.className = 'ayte'; blk.id = 'blk'+i;
       // blk.setAttribute('onmousedown', 'draw(blk'+i+')');
       blk.setAttribute('touchmove','touchMove(blk'+i+')');
+      blk.setAttribute('touchstart','touchMove(blk'+i+')');
+
 
       ayteFrame.appendChild(blk);
     }
@@ -200,7 +202,12 @@
 
     function touchMove(blk){
       console.log(blk);
-      blk.style.backgroundColor = red;
+      blk.style.backgroundColor = sgn;
+    }
+
+    function touchMove(blk){
+      console.log(blk);
+      blk.style.backgroundColor = pru;
     }
 
     for (var i = 0; i < 15; i++){

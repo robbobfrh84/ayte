@@ -149,6 +149,15 @@
     </div>
   </nav>
   <div id='ayteFrame' ></div>
+
+
+    <br>
+    <a>X:</a><input id='xtmove' value='0' style=' width: 60px; display: inline-block;'></input>
+    <a>Y:</a><input id='ytmove' value='0' style=' width: 60px; display: inline-block;'>touchmove</input>
+    <br>
+
+
+
     <div id='paletteFrame' >
       <div id='swatchContainer'></div>
       <div id='chgBtn' onclick="changeBuild();" class='button1'
@@ -202,14 +211,16 @@
 
     function mouseMove(e){
       var x = document.getElementById(e.srcElement.id);
-      x.style.backgroundColor = grn;
-      //touchMove(bId, e);
+      x.style.backgroundColor = egg;
+      document.getElementById('xtmove').value = e.srcElement.id;
+      document.getElementById('ytmove').value = e.srcElement.id;
     }
 
     function touchMove(e){
       var x = document.getElementById(e.srcElement.id);
-      // console.log(x);
       x.style.backgroundColor = ygr;
+      document.getElementById('xtmove').value = e.srcElement.id;
+      document.getElementById('ytmove').value = e.srcElement.id;
       // x.style.backgroundColor = 'rgb('+random(0,255)+', '+random(0,255)+', '+random(0,255)+')';
     }
 

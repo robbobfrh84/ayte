@@ -199,13 +199,14 @@
     }
 
     function mouseMove(bId, e){
-      bId.style.backgroundColor = egg;
-      touchMove(bId, e);
+      var x = document.getElementById(e.srcElement.id);
+      x.style.backgroundColor = egg;
+      //touchMove(bId, e);
     }
 
     function touchMove(bId, e){
       var x = document.getElementById(e.srcElement.id);
-      console.log(x);
+      // console.log(x);
       x.style.backgroundColor = ygr;
       // x.style.backgroundColor = 'rgb('+random(0,255)+', '+random(0,255)+', '+random(0,255)+')';
     }

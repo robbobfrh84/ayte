@@ -16,6 +16,7 @@
     body {
       font-family: courier;
       -webkit-text-size-adjust: 100%;
+      background-color: #eee
     }
 
     .navbar-brand{
@@ -54,6 +55,7 @@
     }
 
     .ayte { display: inline-block; background-color: #444;
+      box-shadow: inset 0px 0px 5px 2px rgba(0,0,0,0.2);
       font-size: 6px;
       width: 8em;
       height: 8em;
@@ -64,13 +66,13 @@
     #paletteFrame {
       /*width: 68.5%;*/
       width: 96%;
-      height: 8em;
+      height: 11.5em;
       text-align: center;
       margin: auto;
       margin-top: 15px;
       border-radius: 1.5em;
       padding: 0.6em;
-      padding-left: 1.5em;
+      padding-left: 1.4em;
       background-color: cornflowerblue;
       box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.5);
       -webkit-text-size-adjust: 50%;
@@ -88,15 +90,23 @@
       width: 12em;
       height: 8em;
     }
-    #swt8,#swt9,#swt10,#swt11,#swt12,#swt13,#swt14 {box-shadow: inset 0px -3px 2px 0px rgba(0,0,0,0.3);}
+    #swt6,#swt7,#swt8{box-shadow: inset 0px 0px 2px 0px rgba(0,0,0,0.3);}
+    #swt11,#swt12,#swt13{box-shadow: inset 0px -3px 2px 0px rgba(0,0,0,0.3);}
+    #swt5 {box-shadow: inset 3px 0px 2px 0px rgba(0,0,0,0.3);}
+    #swt9 {box-shadow: inset -3px 0px 2px 0px rgba(0,0,0,0.3);}
     #swt0 { border-top-left-radius: 2em; box-shadow: inset 3px 3px 2px 0px rgba(0,0,0,0.3);}
-    #swt7 { border-top-right-radius: 2em; box-shadow: inset -3px 3px 2px 0px rgba(0,0,0,0.3);}
-    #swt8 { border-bottom-left-radius: 2em; box-shadow: inset 3px -3px 2px 0px rgba(0,0,0,0.3);}
-    #swt15 { border-bottom-right-radius: 2em; box-shadow: inset -3px -3px 2px 0px rgba(0,0,0,0.3);}
+    #swt4 { border-top-right-radius: 2em; box-shadow: inset -3px 3px 2px 0px rgba(0,0,0,0.3);}
+    #swt10 { border-bottom-left-radius: 2em; box-shadow: inset 3px -3px 2px 0px rgba(0,0,0,0.3);}
+    #swt14 { border-bottom-right-radius: 2em; box-shadow: inset -3px -3px 2px 0px rgba(0,0,0,0.3);}
 
-    .button1 {   display: inline-block; opacity: 0.75;
-      font-size: 24px; color: cornflowerblue;
-      width: 150px; height: 30px; margin: 3px; border-radius: 10px;
+    .button1 {   display: inline-block;
+      opacity: 0.75;
+      font-size: 35px;
+      color: #222;
+      width: 5em;
+      height: 1.5em;
+      margin: 0.3em;
+      border-radius: 0.2em;
       transition: opacity .25s ease-in-out;
     }
 
@@ -134,12 +144,14 @@
       </div>
     </div>
   </nav>
-  <div id='ayteFrame' >
-
-  </div>
+  <div id='ayteFrame' ></div>
     <div id='paletteFrame' >
       <div id='swatchContainer'></div>
+      <div id='chgBtn' onclick="changeBuild();" class='button1' style='background-color: #777'>Off Air</div>
+      <div id='chgBtn' onclick="changeBuild();" class='button1' style='background-color: #555'>Save</div>
+
     </div>
+
   <script>
 
     var ash = 'rgb(68, 68, 68)';//darkgrey
@@ -149,9 +161,8 @@
     var grn = 'rgb(0, 128, 0)';//green
     var fbc = 'rgb(169, 53, 47)';//firebrick
     var slb = 'rgb(106, 90, 205)';//lightgrey
-    var ogr = 'rgb(255, 69, 0)';//lightgrey
-
-    var ltg = 'rgb(100, 100, 100)';//lightgrey
+    var ogr = 'rgb(255, 69, 0)';//orangered
+    // var ltg = 'rgb(100, 100, 100)';//lightgrey
     var gry = 'rgb(180, 180, 180)';//grey
     var org = 'rgb(235, 120, 0)';//orange
     var ind = 'rgb(96, 58, 134)';//indigo
@@ -160,8 +171,9 @@
     var sgn = 'rgb(32, 178, 170)';//lightseagreen
     var ygr = 'rgb(154, 205, 50)';//lightseagreen
     var brush = cfb;
-    var swatch = [ash,egg,cfb,gdr,grn,fbc,slb,ogr
-                 ,ltg,gry,org,sgn,pru,pnk,ind,ygr]
+    var swatch = [ash,egg,cfb,gdr,grn
+                 ,gry,fbc,slb,ogr,org
+                 ,sgn,pru,pnk,ind,ygr];
 
     for (var i = 0; i < 64; i++){
       if (i % 8 === 0){ ayteFrame.innerHTML += '<br>';}
@@ -177,8 +189,8 @@
       else {bId.style.backgroundColor = ash;}
     }
 
-    for (var i = 0; i < 16; i++){
-      if (i % 8 === 0){ swatchContainer.innerHTML += '<br>';}
+    for (var i = 0; i < 15; i++){
+      if (i % 5 === 0){ swatchContainer.innerHTML += '<br>';}
       var swt = document.createElement('div');
       swt.className = 'swatch'; swt.id = 'swt'+i;
       swt.style.backgroundColor = swatch[i];

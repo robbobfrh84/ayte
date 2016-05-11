@@ -186,21 +186,21 @@
       var blk = document.createElement('div');
       blk.className = 'ayte'; blk.id = 'blk'+i;
       blk.setAttribute('onmousedown', 'draw(blk'+i+')');
-      blk.setAttribute('ontouchmove','touchMove(blk'+i+')');
+      blk.setAttribute('touchmove','touchMove(blk'+i+')');
 
       ayteFrame.appendChild(blk);
     }
 
-    function draw(bId){
-      col = bId.style.backgroundColor;
-      if(col !== brush) {bId.style.backgroundColor = brush;}
-      else {bId.style.backgroundColor = ash;}
-    }
+    // function draw(bId){
+    //   col = bId.style.backgroundColor;
+    //   if(col !== brush) {bId.style.backgroundColor = brush;}
+    //   else {bId.style.backgroundColor = ash;}
+    // }
 
 
     function touchMove(blk){
       console.log(blk);
-      bId.style.backgroundColor = brush;
+      bId.style.backgroundColor = red;
     }
 
     for (var i = 0; i < 15; i++){

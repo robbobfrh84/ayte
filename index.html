@@ -154,7 +154,7 @@
       <div id='chgBtn' onclick="changeBuild();" class='button1'
         style='color: rgba(0,0,0,0.4); background-color: rgba(0,0,0,0.2)'>Off Air</div>
       <div id='chgBtn' onclick="changeBuild();" class='button1'
-        style='background-color: #555'>Save!!!</div>
+        style='background-color: #555'>Save</div>
     </div>
     <div id='chgBtn' onclick="changeBuild();" class='button1 fiftyPM'
       style='background-color: rgba(0,0,0,0.2); font-size: 20px; width: 6em;'>Clear All</div>
@@ -186,8 +186,8 @@
       var blk = document.createElement('div');
       blk.className = 'ayte'; blk.id = 'blk'+i;
       // blk.setAttribute('onmousedown', 'draw(blk'+i+')');
-      // blk.setAttribute('touchmove','touchMove(blk'+i+')');
-      blk.setAttribute('ontouchstart','touchst(blk'+i+')');
+      blk.setAttribute('ontouchmove','touchMove(blk'+i+')');
+      // blk.setAttribute('ontouchstart','touchst(blk'+i+')');
 
 
       ayteFrame.appendChild(blk);
@@ -200,15 +200,15 @@
     // }
 
 
-    // function touchMove(blk){
-    //   console.log(blk);
-    //   blk.style.backgroundColor = sgn;
-    // }
-
-    function touchst(bid){
+    function touchMove(bid){
       console.log(bid);
-      bid.style.backgroundColor = pru;
+      bid.style.backgroundColor = sgn;
     }
+
+    // function touchst(bid){
+    //   console.log(bid);
+    //   bid.style.backgroundColor = pru;
+    // }
 
     for (var i = 0; i < 15; i++){
       if (i % 5 === 0){ swatchContainer.innerHTML += '<br>';}

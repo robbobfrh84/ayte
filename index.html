@@ -204,8 +204,9 @@
     }
 
     function touchMove(bId, e){
-      console.log(e.srcElement.id);
-      bId.style.backgroundColor = 'rgb('+random(0,255)+', '+random(0,255)+', '+random(0,255)+')';
+      var x = document.getElementById(e.srcElement.id);
+      console.log(x);
+      x.style.backgroundColor = 'rgb('+random(0,255)+', '+random(0,255)+', '+random(0,255)+')';
     }
 
     function touchStart(bId){

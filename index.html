@@ -213,14 +213,14 @@
       var x = document.getElementById(e.srcElement.id);
       x.style.backgroundColor = egg;
       document.getElementById('xtmove').value = e.srcElement.id;
-      document.getElementById('ytmove').value = e.srcElement.id;
+      document.getElementById('ytmove').value = e.touches[0].pageY;
     }
 
     function touchMove(e){
       var x = document.getElementById(e.srcElement.id);
       x.style.backgroundColor = ygr;
-      document.getElementById('xtmove').value = e.srcElement.id;
-      document.getElementById('ytmove').value = e.srcElement.id;
+      document.getElementById('xtmove').value = e.touches[0].pageX;
+      document.getElementById('ytmove').value = e.touches[0].pageY;
       // x.style.backgroundColor = 'rgb('+random(0,255)+', '+random(0,255)+', '+random(0,255)+')';
     }
 

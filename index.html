@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
   <title>ayte</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -211,15 +210,16 @@
 
     function mouseMove(e){
       var x = document.getElementById(e.srcElement.id);
-      x.style.backgroundColor = egg;
-      document.getElementById('xtmove').value = e.srcElement.id;
-      document.getElementById('ytmove').value = e.touches[0].pageY;
+      x.style.backgroundColor = fbc;
+      // document.getElementById('xtmove').value = e.srcElement.id;
+      // document.getElementById('ytmove').value = e.srcElement.id;
+      console.log(e);
     }
 
     function touchMove(e){
       var x = document.getElementById(e.srcElement.id);
       x.style.backgroundColor = ygr;
-      document.getElementById('xtmove').value = e.touches[0].pageX;
+      document.getElementById('xtmove').value = e.touches[0].id;
       document.getElementById('ytmove').value = e.touches[0].pageY;
       // x.style.backgroundColor = 'rgb('+random(0,255)+', '+random(0,255)+', '+random(0,255)+')';
     }

@@ -187,7 +187,9 @@
       blk.className = 'ayte'; blk.id = 'blk'+i;
       blk.setAttribute('onmousedown', 'draw(blk'+i+')');
       blk.setAttribute('onmousemove','onmouseMove(blk'+i+')');
-      blk.setAttribute('ontouchmove','touchMove(blk'+i+')');
+      // blk.setAttribute('ontouchmove','touchMove(blk'+i+')');
+      blk.addEventListener('touchmove','touchMove(blk'+i+')');
+
       blk.setAttribute('ontouchstart','touchStart(blk'+i+')');
 
       ayteFrame.appendChild(blk);

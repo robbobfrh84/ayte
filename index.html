@@ -186,9 +186,9 @@
       var blk = document.createElement('div');
       blk.className = 'ayte'; blk.id = 'blk'+i;
       blk.setAttribute('onmousedown', 'draw(blk'+i+')');
-      blk.setAttribute('onmousemove','mouseMove(blk'+i+',event)');
-      // blk.setAttribute('ontouchmove','touchMove(blk'+i+',event)');
-      ayteFrame.addEventListener('touchmove', touchMove);
+      ayteFrame.setAttribute('onmousemove','mouseMove(blk'+i+',event)');
+      ayteFrame.setAttribute('ontouchmove','touchMove(event)');
+      // ayteFrame.addEventListener('touchmove', touchMove);
       blk.setAttribute('ontouchstart','touchStart(blk'+i+')');
       ayteFrame.appendChild(blk);
     }
@@ -201,7 +201,7 @@
 
     function mouseMove(bId, e){
       var x = document.getElementById(e.srcElement.id);
-      x.style.backgroundColor = egg;
+      x.style.backgroundColor = grn;
       //touchMove(bId, e);
     }
 

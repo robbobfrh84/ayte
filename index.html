@@ -187,7 +187,7 @@
       blk.className = 'ayte'; blk.id = 'blk'+i;
       blk.setAttribute('onmousedown', 'draw(blk'+i+')');
       blk.setAttribute('onmousemove','mouseMove(blk'+i+')');
-      blk.setAttribute('ontouchmove','touchMove(blk'+i+')');
+      blk.setAttribute('ontouchmove',touchMove);
       blk.setAttribute('ontouchstart','touchStart(blk'+i+')');
 
       ayteFrame.appendChild(blk);
@@ -202,12 +202,13 @@
     function mouseMove(bid){
       console.log(bid);
       bid.style.backgroundColor = grn;
-      touchMove(bid);
+      touchMove();
 
     }
 
-    function touchMove(bid){
-      console.log(bid);
+    function touchMove(e){
+
+      console.log(e.touches[0].clientX,e.touches[0].clientY);
       bid.style.backgroundColor = gdr;
     }
 

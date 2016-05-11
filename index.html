@@ -199,12 +199,12 @@
     }
 
     function mouseMove(bId){
-      bId.style.backgroundColor = brush;
+      bId.style.backgroundColor = 'brown';
     }
 
     function touchMove(e){
       var x = document.elementFromPoint(e.touches[0].pageX, e.touches[0].pageY);
-      x.style.backgroundColor = brush;
+      if( x[0]+x[1]+x[2] === 'blk') {x.style.backgroundColor = brush;}
     }
 
     function touchStart(bId){

@@ -186,7 +186,7 @@
       var blk = document.createElement('div');
       blk.className = 'ayte'; blk.id = 'blk'+i;
       blk.setAttribute('onmousedown', 'draw(blk'+i+')');
-      blk.setAttribute('ontouchmove','touchMove('+blk+i+')');
+      blk.setAttribute('ontouchmove','touchMove(blk'+i+')');
 
       ayteFrame.appendChild(blk);
     }
@@ -198,7 +198,7 @@
     }
 
 
-    function touchMove (blk){
+    function touchMove(blk){
       console.log(blk);
       bId.style.backgroundColor = brush;
     }

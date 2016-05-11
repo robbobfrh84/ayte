@@ -64,6 +64,10 @@
       border-radius: 1.5em;
     }
 
+    #bottomFrame {
+      background-color: blue;
+    }
+
     #paletteFrame {
       /*width: 68.5%;*/
       width: 72%;
@@ -147,15 +151,17 @@
     </div>
   </nav>
   <div id='ayteFrame' ></div>
-    <div id='paletteFrame' >
-      <div id='swatchContainer'></div>
+    <div id='bottomFrame'>
+      <div id='paletteFrame' >
+        <div id='swatchContainer'></div>
+        <div id='chgBtn' onclick="changeBuild();" class='button1'
+          style='color: rgba(0,0,0,0.4); background-color: rgba(0,0,0,0.2)'>Off Air</div>
+        <div id='chgBtn' onclick="changeBuild();" class='button1'
+          style='background-color: #555'>Save</div>
+      </div>
       <div id='chgBtn' onclick="changeBuild();" class='button1'
-        style='color: rgba(0,0,0,0.4); background-color: rgba(0,0,0,0.2)'>Off Air</div>
-      <div id='chgBtn' onclick="changeBuild();" class='button1'
-        style='background-color: #555'>Save</div>
+        style='background-color: rgba(0,0,0,0.2); font-size: 20px; width: 6em;'>Clear All</div>
     </div>
-    <div id='chgBtn' onclick="changeBuild();" class='button1'
-      style='background-color: rgba(0,0,0,0.2); font-size: 20px; width: 6em;'>Clear All</div>
   <script>
 
     var ash = 'rgb(68, 68, 68)';//darkgrey

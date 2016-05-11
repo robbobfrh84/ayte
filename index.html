@@ -199,13 +199,14 @@
     }
 
     function mouseMove(bId){
-      bId.style.backgroundColor = grn;
+      bId.style.backgroundColor = egg;
       touchMove(bId);
     }
 
     function touchMove(bId){
       console.log(bId);
       bId.style.backgroundColor = 'rgb('+random(0,255)+', '+random(0,255)+', '+random(0,255)+')';
+      touchStart(bId);
     }
 
     function touchStart(bId){

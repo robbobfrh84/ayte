@@ -221,7 +221,7 @@
       swt.className = 'swatch'; swt.id = 'swt'+i;
       swt.style.backgroundColor = swatch[i];
       swt.setAttribute('onmousedown', 'colorSwap('+i+')');
-      swt.setAttribute('ontouchstart','touchStart(swt'+i+')');
+      swt.setAttribute('ontouchstart','colorSwap('+i+')');
       swatchContainer.appendChild(swt);
     }
 

@@ -186,7 +186,6 @@
       blk.className = 'ayte'; blk.id = 'blk'+i;
       blk.setAttribute('onmousedown', 'draw(blk'+i+')');
       blk.setAttribute('onmousemove','mouseMove(blk'+i+',event)');
-      blk.setAttribute('ontouchmove','touchMove(event)');
       blk.setAttribute('ontouchstart','touchStart(blk'+i+')');
       ayteFrame.appendChild(blk);
     }
@@ -199,14 +198,10 @@
     }
 
     function mouseMove(bId,e){
-      // var x = document.elementFromPoint(e.pageX, e.pageY);
-      //
-      // var r = x.id[0]+x.id[1]+x.id[2]
-      //
-      // console.log(r);
       bId.style.backgroundColor = 'tan';
     }
 
+    ayteFrame.setAttribute('ontouchmove','touchMove(event)');
     function touchMove(e){
       var x = document.elementFromPoint(e.touches[0].pageX, e.touches[0].pageY);
       if( x.id[0]+x.id[1]+x.id[2] === 'blk') {x.style.backgroundColor = brush;}

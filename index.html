@@ -198,16 +198,16 @@
     }
 
     function mouseMove(bId,e){
-      bId.style.backgroundColor = 'tan';
+      bId.style.backgroundColor = brush;
     }
 
-    ayteFrame.setAttribute('ontouchmove', function touchMove(e){
+    ayteFrame.setAttribute('ontouchmove', function(e){
       var x = document.elementFromPoint(e.touches[0].pageX, e.touches[0].pageY);
       if( x.id[0]+x.id[1]+x.id[2] === 'blk') {x.style.backgroundColor = brush;}
     });
 
     function touchStart(bId){
-      bId.style.backgroundColor = org;
+      bId.style.backgroundColor = brush;
     }
 
     ayteFrame.addEventListener('touchmove', function (event) {

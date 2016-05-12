@@ -156,7 +156,7 @@
         style='background-color: #555'>Save</div>
     </div>
     <div id='chgBtn' onclick="changeBuild();" class='button1 fiftyPM'
-      style='background-color: rgba(0,0,0,0.2); font-size: 20px; width: 6em;'>Clear All!!!</div>
+      style='background-color: rgba(0,0,0,0.2); font-size: 20px; width: 6em;'>Clear All</div>
   <script>
 
     var ash = 'rgb(68, 68, 68)';//darkgrey
@@ -201,10 +201,11 @@
       bId.style.backgroundColor = brush;
     }
 
-    ayteFrame.setAttribute('ontouchmove', function(e){
+    ayteFrame.setAttribute('ontouchmove', touchMove);
+    function touchMove(e){
       var x = document.elementFromPoint(e.touches[0].pageX, e.touches[0].pageY);
       if( x.id[0]+x.id[1]+x.id[2] === 'blk') {x.style.backgroundColor = brush;}
-    });
+    }
 
     function touchStart(bId){
       bId.style.backgroundColor = brush;

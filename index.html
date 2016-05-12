@@ -150,13 +150,13 @@
   <div id='ayteFrame' ></div>
     <div id='paletteFrame' >
       <div id='swatchContainer'></div>
-      <div id='chgBtn' onclick="changeBuild();" class='button1'
+      <div class='button1'
         style='color: rgba(0,0,0,0.4); background-color: rgba(0,0,0,0.2)'>Off Air</div>
-      <div id='chgBtn' onclick="changeBuild();" class='button1'
+      <div class='button1'
         style='background-color: #555'>Save</div>
-    </div>
-    <div id='chgBtn' onclick="changeBuild();" class='button1 fiftyPM'
-      style='background-color: rgba(0,0,0,0.2); font-size: 20px; width: 6em;'>Clear All</div>
+    </div><br>
+    <div id='allash' onclick="fill(ash)" class='button1'
+      style='background-color: rgba(0,0,0,0.2); width: 8em;'>Clear All</div>
   <script>
 
     var ash = 'rgb(68, 68, 68)';//darkgrey
@@ -184,21 +184,17 @@
       if (i % 8 === 0){ ayteFrame.innerHTML += '<br>';}
       var blk = document.createElement('div');
       blk.className = 'ayte'; blk.id = 'blk'+i;
-      blk.setAttribute('onmousedown', 'draw(blk'+i+')');
-      blk.setAttribute('onmousemove','mouseMove(blk'+i+',event)');
+      blk.setAttribute('onmousedown', 'mouseState(true, blk'+i+')');
+      blk.setAttribute('onmousemove', 'draw(blk'+i+')');
+      blk.setAttribute('onmouseup', 'mouseState(false)');
+      blk.setAttribute('onmouseup', 'mouseState(false)');
       blk.setAttribute('ontouchstart','touchStart(blk'+i+')');
       ayteFrame.appendChild(blk);
     }
-
-// make annonomus function
-    function draw(bId){
-      col = bId.style.backgroundColor;
-      if(col !== brush) {bId.style.backgroundColor = brush;}
-      // else {bId.style.backgroundColor = ash;}
-    }
-
-    function mouseMove(bId,e){
-      bId.style.backgroundColor = brush;
+    var mouseDown = false;
+    function draw(bId){ if(mouseDown){ bId.style.backgroundColor = brush;}}
+    function mouseState(state, bId){ if (state){mouseDown = true;
+      if(bId){bId.style.backgroundColor = brush;} } else {mouseDown = false;}
     }
 
     ayteFrame.addEventListener('touchmove', touchMove);
@@ -220,14 +216,20 @@
       var swt = document.createElement('div');
       swt.className = 'swatch'; swt.id = 'swt'+i;
       swt.style.backgroundColor = swatch[i];
-      swt.setAttribute('onmousedown', 'colorSwap('+i+')');
-      swt.setAttribute('ontouchstart','colorSwap('+i+')');
+      swt.setAttribute('onmousedown', 'brushSwap('+i+')');
+      swt.setAttribute('ontouchstart','brushSwap('+i+')');
       swatchContainer.appendChild(swt);
     }
 
-    function colorSwap(newCol){
+    function brushSwap(newCol){
       brush = swatch[newCol];
       paletteFrame.style.backgroundColor = brush;
+    }
+
+    function fill(col){
+      for (var i = 0; i < 64; i++){
+        document.getElementById('blk'+i).style.backgroundColor = ash;
+      }
     }
 
   </script>

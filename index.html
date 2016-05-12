@@ -153,7 +153,7 @@
       <div id='chgBtn' onclick="changeBuild();" class='button1'
         style='color: rgba(0,0,0,0.4); background-color: rgba(0,0,0,0.2)'>Off Air</div>
       <div id='chgBtn' onclick="changeBuild();" class='button1'
-        style='background-color: #555'>Save!</div>
+        style='background-color: #555'>Save</div>
     </div>
     <div id='chgBtn' onclick="changeBuild();" class='button1 fiftyPM'
       style='background-color: rgba(0,0,0,0.2); font-size: 20px; width: 6em;'>Clear All</div>
@@ -194,7 +194,7 @@
     function draw(bId){
       col = bId.style.backgroundColor;
       if(col !== brush) {bId.style.backgroundColor = brush;}
-      else {bId.style.backgroundColor = ash;}
+      // else {bId.style.backgroundColor = ash;}
     }
 
     function mouseMove(bId,e){
@@ -221,6 +221,7 @@
       swt.className = 'swatch'; swt.id = 'swt'+i;
       swt.style.backgroundColor = swatch[i];
       swt.setAttribute('onmousedown', 'colorSwap('+i+')');
+      swt.setAttribute('ontouchstart','touchStart(swt'+i+')');
       swatchContainer.appendChild(swt);
     }
 

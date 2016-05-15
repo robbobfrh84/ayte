@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-
   <title>ayte</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
   <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
-  <link rel="ayte icon" href="ayteFlower.png"/>
+  <link rel="ayte icon" href="gfx/ayteFlower.png"/>
   <style>
 
     body {
@@ -89,6 +88,7 @@
       width: 12em;
       height: 8em;
     }
+
     #swt6,#swt7,#swt8{box-shadow: inset 0px 0px 2px 0px rgba(0,0,0,0.3);}
     #swt11,#swt12,#swt13{box-shadow: inset 0px -3px 2px 0px rgba(0,0,0,0.3);}
     #swt5 {box-shadow: inset 3px 0px 2px 0px rgba(0,0,0,0.3);}
@@ -167,7 +167,6 @@
     var fbc = 'rgb(169, 53, 47)';//firebrick
     var slb = 'rgb(106, 90, 205)';//lightgrey
     var ogr = 'rgb(255, 69, 0)';//orangered
-    // var ltg = 'rgb(100, 100, 100)';//lightgrey
     var gry = 'rgb(180, 180, 180)';//grey
     var org = 'rgb(235, 120, 0)';//orange
     var ind = 'rgb(96, 58, 134)';//indigo
@@ -231,6 +230,48 @@
         document.getElementById('blk'+i).style.backgroundColor = ash;
       }
     }
+
+//-----------------------------------------------------------------------------
+//---------------------PUBNUB MESSAGE CENTER-----------------------------------
+//-----------------------------------------------------------------------------
+    //DONE!!   12:30                 //-BEFORE WE WRITE OUR CODE HERE...
+    //DONE!!      "                   //...Test mkr1000 with old 8x8 code and dirty pubnub publish. JUST MAKE IT WORK!
+    //DONE!!      "                   //...We'll clean it up when we re-write the code. just need to see if there's problems with LEDS.
+    //DONE!!    2:37                  // run! - - -
+    //DONE!!    3:33                  //-create empty index array
+    var ayteRGB = [[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],
+                  [0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],
+                  [0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],
+                  [0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],
+                  [0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],
+                  [0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],
+                  [0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],
+                  [0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]];
+
+    var ayteByte = "0000000000000000000000000000000000000000000000000000000000000000";
+    
+    //-update live click(change to Live! in red)
+    //-create funtion to update to live 8! & check history for last Ayte-by8
+    //-checks every 200ms....
+    //-creat *if(we're live?) function that auto updates pixel changes to change live-8...
+      //...Create JSON object and publish channel "Ayte-by8".
+
+    //-create NEW ARDUINO arrey(of our 15 colors) in a 64 byte arrey.....
+      //....update and publish live arrey("")
+    //-create save button. calls function that publishes to channel "Gallery" With ALERT...
+      //...Alert pops up entry text to name ayte.
+      //...publish with time stamp? Google pubnub for info...It'll all be saved! don't need to generate ids.
+    // set up frame display with mkr set up.
+    // clean code. you're done!
+
+    //*BONUS*
+    //Write ard code that runs your three animations every 5 minutes and checks for updats every 5 sec.
+    //IF there's an update, show and start/restart clock for 5 min to go back to animations.
+    //set sleep timer to 1 hour... after that you've got to hit restart.
+    //on restart you FIRST check for last pubnub post, display in display 5 min function...
+
+
+
 
   </script>
 </body>

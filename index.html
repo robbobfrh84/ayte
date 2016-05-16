@@ -99,18 +99,18 @@
     #swt14 { border-bottom-right-radius: 2em; box-shadow: inset -3px -3px 2px 0px rgba(0,0,0,0.3);}
 
     .button1 {   display: inline-block;
-      opacity: 0.85;
       font-size: 26px;
       color: #111;
+      background-color: rgba(15,15,15,0.1);
       width: 5em;
       height: 1.5em;
       margin: 0.3em;
       border-radius: 0.2em;
-      transition: opacity .25s ease-in-out;
+      transition: background-color .25s ease-in-out;
     }
 
-    .button1:hover { opacity: 1;
-      transition: opacity .25s ease-in-out;
+    .button1:hover { background-color: rgba(15,15,15,0.3);
+      transition: color .25s ease-in-out;
     }
 
     .fiftyPM {
@@ -150,14 +150,16 @@
   <div id='ayteFrame' ></div>
     <div id='paletteFrame' >
       <div id='swatchContainer'></div>
-      <div class='button1'
-        style='color: rgba(0,0,0,0.4); background-color: rgba(0,0,0,0.2)'>Off Air</div>
-      <div class='button1'
-        style='background-color: #555'>Save</div>
+      <div id='liveBtn' class='button1' onmousedown='liveStatus()'>Off Air</div>
+      <div id='saveBtn' class='button1'>Save</div>
     </div><br>
     <div id='allash' onclick="fill(ash)" class='button1'
       style='background-color: rgba(0,0,0,0.2); width: 8em;'>Clear All</div>
+  <script src="http://cdn.pubnub.com/pubnub-3.7.15.min.js"></script>
   <script>
+
+    var ayteRGB = [];
+    var ayteByte = "0000000000000000000000000000000000000000000000000000000000000000";
 
     var ash = 'rgb(68, 68, 68)';//darkgrey
     var egg = 'rgb(240,234,214)';//eggshell
@@ -183,17 +185,32 @@
       if (i % 8 === 0){ ayteFrame.innerHTML += '<br>';}
       var blk = document.createElement('div');
       blk.className = 'ayte'; blk.id = 'blk'+i;
-      blk.setAttribute('onmousedown', 'mouseState(true, blk'+i+')');
-      blk.setAttribute('onmousemove', 'draw(blk'+i+')');
-      blk.setAttribute('onmouseup', 'mouseState(false)');
-      blk.setAttribute('onmouseup', 'mouseState(false)');
-      blk.setAttribute('ontouchstart','touchStart(blk'+i+')');
+      blk.setAttribute('onmousedown', 'mouseState(true, blk'+i+','+i+')');
+      blk.setAttribute('onmousemove', 'draw(blk'+i+','+i+')');
+      //blk.setAttribute('onmouseup', 'mouseState(false)');
+      blk.setAttribute('ontouchstart','touchStart(blk'+i+','+i+')');
       ayteFrame.appendChild(blk);
     }
     var mouseDown = false;
-    function draw(bId){ if(mouseDown){ bId.style.backgroundColor = brush;}}
-    function mouseState(state, bId){ if (state){mouseDown = true;
-      if(bId){bId.style.backgroundColor = brush;} } else {mouseDown = false;}
+    document.body.setAttribute('onmousedown', 'mouseState(true)');
+    document.body.setAttribute('onmouseup', 'mouseState(false)');
+
+    function draw(bId, x){
+      if(mouseDown){
+        bId.style.backgroundColor = brush;
+        if (live) { ayteRGB[0][0][x] = brush; publishRGB(ayteRGB[0][0]); }
+      }
+    }
+    function mouseState(state, bId, x){
+      if (state){
+        mouseDown = true;
+        if(bId){
+          bId.style.backgroundColor = brush;
+          if (live) { ayteRGB[0][0][x] = brush; publishRGB(ayteRGB[0][0]); }
+        }
+      } else {
+        mouseDown = false;
+      }
     }
 
     ayteFrame.addEventListener('touchmove', touchMove);
@@ -230,32 +247,82 @@
         document.getElementById('blk'+i).style.backgroundColor = ash;
       }
     }
+    var live = false; waitForMsg = false;
+    function liveStatus(){
+      if (!live) { live = true;
+        liveBtn.style.color = fbc;
+        liveBtn.innerHTML = 'Live!';
+        historyRGB(1);
+        //var checkForNewMsg = setInterval(function(){ historyRGB(1); }, 30);
+      } else { live = false;
+        //clearInterval(checkForNewMsg);
+        liveBtn.style.color = '#111';
+        liveBtn.innerHTML = 'Off Air';
+      }
+    }
 
 //-----------------------------------------------------------------------------
 //---------------------PUBNUB MESSAGE CENTER-----------------------------------
 //-----------------------------------------------------------------------------
+  var settings = {
+    channel: '1a',
+    publish_key: 'pub-c-926e03e9-2cbb-4a3d-b17a-2ee47ca078a5',
+    subscribe_key: 'sub-c-b3fbc6fa-0bf5-11e6-a8fd-02ee2ddab7fe'
+  };
+  var pubnub = PUBNUB(settings);
+
+  function historyRGB(amount) {
+    pubnub.history({
+      channel: settings.channel,
+      callback: function(m) {
+        console.log('Last Ayte-by8 published', m);
+        ayteRGB = m;
+        updateAyte()
+      },
+      count : amount,
+      reverse : false
+    });
+  }
+
+  pubnub.subscribe({
+    channel: settings.channel,
+    callback: function(m) {
+      console.log('Saw new live Ayte-by8 was published');
+      updateAyte();
+    },
+    error: function(err) {console.log(err);}
+  });
+
+  function publishRGB(data) {
+    pubnub.publish({
+      channel: settings.channel,
+      message: data
+    });
+    console.log("Published new live Ayte-by8");
+  }
+
+  function updateAyte() {
+    for (var i = 0; i < 64; i++){
+      var bId = document.getElementById('blk'+i);
+      bId.style.backgroundColor = ayteRGB[0][0][i];
+    }
+  }
+
+
     //DONE!!   12:30                 //-BEFORE WE WRITE OUR CODE HERE...
     //DONE!!      "                   //...Test mkr1000 with old 8x8 code and dirty pubnub publish. JUST MAKE IT WORK!
     //DONE!!      "                   //...We'll clean it up when we re-write the code. just need to see if there's problems with LEDS.
     //DONE!!    2:37                  // run! - - -
     //DONE!!    3:33                  //-create empty index array
-    var ayteRGB = [[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],
-                  [0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],
-                  [0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],
-                  [0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],
-                  [0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],
-                  [0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],
-                  [0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],
-                  [0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]];
+    //DONE!!    4:20                  //-update live click(change to Live! in red)
+    //DONE!!    4:20                  //fix mouseDown bool by removing it from individual blocks and ading it to ayteframe.
+    //DONE!!    6:50                  //-create funtion to update to live 8! & check history for last Ayte-by8
 
-    var ayteByte = "0000000000000000000000000000000000000000000000000000000000000000";
-    
-    //-update live click(change to Live! in red)
-    //-create funtion to update to live 8! & check history for last Ayte-by8
-    //-checks every 200ms....
+      //-checks every 200ms....
+
+    //fix mouseDown bool by removing it from individual blocks and ading it to ayteframe.
     //-creat *if(we're live?) function that auto updates pixel changes to change live-8...
       //...Create JSON object and publish channel "Ayte-by8".
-
     //-create NEW ARDUINO arrey(of our 15 colors) in a 64 byte arrey.....
       //....update and publish live arrey("")
     //-create save button. calls function that publishes to channel "Gallery" With ALERT...
@@ -269,9 +336,6 @@
     //IF there's an update, show and start/restart clock for 5 min to go back to animations.
     //set sleep timer to 1 hour... after that you've got to hit restart.
     //on restart you FIRST check for last pubnub post, display in display 5 min function...
-
-
-
 
   </script>
 </body>

@@ -158,14 +158,18 @@
   <script src="http://cdn.pubnub.com/pubnub-3.7.15.min.js"></script>
   <script>
 
-    var ayteRGB = [[],[],[],[],[],[],[],[]
-                  ,[],[],[],[],[],[],[],[]
-                  ,[],[],[],[],[],[],[],[]
-                  ,[],[],[],[],[],[],[],[]
-                  ,[],[],[],[],[],[],[],[]
-                  ,[],[],[],[],[],[],[],[]
-                  ,[],[],[],[],[],[],[],[]
-                  ,[],[],[],[],[],[],[],[]];
+    var userName = 'robbobfrh84'
+    var ayteRGB = {
+                  user : userName,
+                  ayte : [[],[],[],[],[],[],[],[]
+                          ,[],[],[],[],[],[],[],[]
+                          ,[],[],[],[],[],[],[],[]
+                          ,[],[],[],[],[],[],[],[]
+                          ,[],[],[],[],[],[],[],[]
+                          ,[],[],[],[],[],[],[],[]
+                          ,[],[],[],[],[],[],[],[]
+                          ,[],[],[],[],[],[],[],[]]
+                  };
 
     var ayteByte = "0000000000000000000000000000000000000000000000000000000000000000";
 
@@ -196,25 +200,28 @@
       blk.setAttribute('onmousedown', 'mouseState(true, blk'+i+','+i+')');
       blk.setAttribute('onmousemove', 'draw(blk'+i+','+i+')');
       //blk.setAttribute('onmouseup', 'mouseState(false)');
-      blk.setAttribute('ontouchstart','touchStart(blk'+i+','+i+')');
+      blk.setAttribute('ontouchstart','draw(blk'+i+','+i+')');
       ayteFrame.appendChild(blk);
     }
     var mouseDown = false;
+    //var waitForMsg = false;
     document.body.setAttribute('onmousedown', 'mouseState(true)');
     document.body.setAttribute('onmouseup', 'mouseState(false)');
 
     function draw(bId, x){
       if(mouseDown){
         bId.style.backgroundColor = brush;
-        if (live) { ayteRGB[0][0][x] = brush; publishRGB(ayteRGB[0][0]); }
+        if (live) { ayteRGB.ayte[x] = brush; publishRGB(ayteRGB); }
       }
     }
-    function mouseState(state, bId, x){
+
+    function mouseState(state, bId, x){ // draw and mouseState should be together!!!
       if (state){
         mouseDown = true;
         if(bId){
-          bId.style.backgroundColor = brush;
-          if (live) { ayteRGB[0][0][x] = brush; publishRGB(ayteRGB[0][0]); }
+          draw(bId, x)
+          // bId.style.backgroundColor = brush;
+          // if (live) { ayteRGB[0][0][x] = brush; publishRGB(ayteRGB[0][0]); }
         }
       } else {
         mouseDown = false;
@@ -225,15 +232,17 @@
     function touchMove(e){
       var x = document.elementFromPoint(e.touches[0].pageX, e.touches[0].pageY);
       if( x.id[0]+x.id[1]+x.id[2] === 'blk') {
-        x.style.backgroundColor = brush;
+        //CALL DRAW HERE INSTEAD
+        draw(x, x.id[4])
+        //x.style.backgroundColor = brush;
         //if (live) { ayteRGB[0][0][x] = brush; publishRGB(ayteRGB[0][0]);}
       }
     }
 
-    function touchStart(bId){
-      bId.style.backgroundColor = brush;
-      //if (live) { ayteRGB[0][0][x] = brush; publishRGB(ayteRGB[0][0]);}
-    }
+    // function touchStart(bId){
+    //   bId.style.backgroundColor = brush;
+    //   //if (live) { ayteRGB[0][0][x] = brush; publishRGB(ayteRGB[0][0]);}
+    // }
 
     ayteFrame.addEventListener('touchmove', function (event) {
         event.preventDefault();
@@ -285,11 +294,12 @@
     pubnub.history({
       channel: settings.channel,
       callback: function(m) {
-        console.log('Last Ayte-by8 published', m);
-        ayteRGB = m;
+        ayteRGB = m[0][0];
+        console.log('Last Ayte-by8 published', ayteRGB);
         updateAyte();
       },
       count : amount,
+      //count : 2,
       reverse : false
     });
   }
@@ -297,14 +307,16 @@
   pubnub.subscribe({
     channel: settings.channel,
     callback: function(m) {
-      console.log('Saw new live Ayte-by8 was published');
       ayteRGB = m;
+      console.log('Saw new live Ayte-by8 was published', ayteRGB);
       updateAyte();
+      waitForMsg = false;
     },
     error: function(err) {console.log(err);}
   });
 
   function publishRGB(data) {
+    //waitForMsg = true;
     pubnub.publish({
       channel: settings.channel,
       message: data
@@ -314,10 +326,9 @@
 
   //publishRGB(ayteRGB);
   function updateAyte() {
-    console.log(ayteRGB);
     for (var i = 0; i < 64; i++){
       var bId = document.getElementById('blk'+i);
-      bId.style.backgroundColor = ayteRGB[0][0][i];
+      bId.style.backgroundColor = ayteRGB.ayte[i];
     }
   }
 

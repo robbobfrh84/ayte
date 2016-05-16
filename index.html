@@ -229,7 +229,7 @@
       }
     }
 
-    function touchStart(bId, x){ bId.style.backgroundColor = brush;
+    function touchStart(bId, x){ 
       if (!live) { bId.style.backgroundColor = brush; }
       if (live && !waitForMsg) { ayteRGB.ayte[x] = brush; publishRGB(ayteRGB); }
     }

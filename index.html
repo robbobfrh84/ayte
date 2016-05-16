@@ -200,7 +200,8 @@
       blk.setAttribute('onmousedown', 'mouseState(true, blk'+i+','+i+')');
       blk.setAttribute('onmousemove', 'draw(blk'+i+','+i+')');
       //blk.setAttribute('onmouseup', 'mouseState(false)');
-      blk.setAttribute('ontouchstart','draw(blk'+i+','+i+')');
+      //blk.setAttribute('ontouchstart','draw(blk'+i+','+i+')');
+      blk.setAttribute('ontouchstart','touchStart(blk'+i+')');
       ayteFrame.appendChild(blk);
     }
     var mouseDown = false;

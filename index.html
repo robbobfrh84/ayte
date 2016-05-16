@@ -225,14 +225,14 @@
     function touchMove(e){
       var x = document.elementFromPoint(e.touches[0].pageX, e.touches[0].pageY);
       if( x.id[0]+x.id[1]+x.id[2] === 'blk') {
-        bId.style.backgroundColor = brush;
-        if (live) { ayteRGB[0][0][x] = brush; publishRGB(ayteRGB[0][0]);}
+        x.style.backgroundColor = brush;
+        //if (live) { ayteRGB[0][0][x] = brush; publishRGB(ayteRGB[0][0]);}
       }
     }
 
     function touchStart(bId){
       bId.style.backgroundColor = brush;
-      if (live) { ayteRGB[0][0][x] = brush; publishRGB(ayteRGB[0][0]);}
+      //if (live) { ayteRGB[0][0][x] = brush; publishRGB(ayteRGB[0][0]);}
     }
 
     ayteFrame.addEventListener('touchmove', function (event) {
@@ -259,7 +259,7 @@
         document.getElementById('blk'+i).style.backgroundColor = ash;
       }
     }
-    var live = false; waitForMsg = false;
+    var live = false;
     function liveStatus(){
       if (!live) { live = true;
         liveBtn.style.color = fbc;
@@ -298,8 +298,8 @@
     channel: settings.channel,
     callback: function(m) {
       console.log('Saw new live Ayte-by8 was published');
-      //ayteRGB = m;
-      //updateAyte();
+      ayteRGB = m;
+      updateAyte();
     },
     error: function(err) {console.log(err);}
   });

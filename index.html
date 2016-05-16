@@ -199,9 +199,7 @@
       blk.className = 'ayte'; blk.id = 'blk'+i;
       blk.setAttribute('onmousedown', 'mouseState(true, blk'+i+','+i+')');
       blk.setAttribute('onmousemove', 'draw(blk'+i+','+i+')');
-      //blk.setAttribute('onmouseup', 'mouseState(false)');
-      //blk.setAttribute('ontouchstart','draw(blk'+i+','+i+')');
-      blk.setAttribute('ontouchstart','touchStart(blk'+i+')');
+      blk.setAttribute('ontouchstart','touchStart(blk'+i+','+i+')');
       ayteFrame.appendChild(blk);
     }
     var mouseDown = false;
@@ -221,26 +219,23 @@
         mouseDown = true;
         if(bId){
           draw(bId, x)
-          // bId.style.backgroundColor = brush;
         }
-      } else {
-        mouseDown = false;
-      }
+      } else { mouseDown = false; }
     }
 
     ayteFrame.addEventListener('touchmove', touchMove);
     function touchMove(e){
       var x = document.elementFromPoint(e.touches[0].pageX, e.touches[0].pageY);
       if( x.id[0]+x.id[1]+x.id[2] === 'blk') {
-        touchStart(x)
-        //x.style.backgroundColor = brush;
-        //if (live) { ayteRGB[0][0][x] = brush; publishRGB(ayteRGB[0][0]);}
+        var i = 3;
+        var n = '';
+        while(x.id[i]){n+=x.id[i]; i++; }
+        touchStart(x, n)
       }
     }
 
-    function touchStart(bId){
-      bId.style.backgroundColor = brush;
-      //if (live) { ayteRGB[0][0][x] = brush; publishRGB(ayteRGB[0][0]);}
+    function touchStart(bId, x){ bId.style.backgroundColor = brush;
+      if (live) { ayteRGB.ayte[x] = brush; publishRGB(ayteRGB); }
     }
 
     ayteFrame.addEventListener('touchmove', function (event) {

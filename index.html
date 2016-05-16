@@ -231,7 +231,9 @@
     function touchMove(e){
       var x = document.elementFromPoint(e.touches[0].pageX, e.touches[0].pageY);
       if( x.id[0]+x.id[1]+x.id[2] === 'blk') {
-        var i = 3; var n = ''; while(x.id[i]){n+=x.id[i]; i++; }
+        var i = 3;
+        var n = '';
+        while(x.id[i]){n+=x.id[i]; i++; }
         draw(x, parseInt(n))
         //x.style.backgroundColor = brush;
         //if (live) { ayteRGB[0][0][x] = brush; publishRGB(ayteRGB[0][0]);}
@@ -342,6 +344,8 @@
     //DONE!!    7:12                  //-checks every 200ms....
 
     //fix mouseDown bool by removing it from individual blocks and ading it to ayteframe.
+    //clean up combine draw calls
+
     //-creat *if(we're live?) function that auto updates pixel changes to change live-8...
       //...Create JSON object and publish channel "Ayte-by8".
     //-create NEW ARDUINO arrey(of our 15 colors) in a 64 byte arrey.....

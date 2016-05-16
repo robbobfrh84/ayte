@@ -232,7 +232,7 @@
     function touchMove(e){
       var x = document.elementFromPoint(e.touches[0].pageX, e.touches[0].pageY);
       if( x.id[0]+x.id[1]+x.id[2] === 'blk') {
-        var i = 3; var n = ''; while(bId.id[i]){x+=bId.id[i]; i++; }
+        var i = 3; var n = ''; while(bId.id[i]){n+=bId.id[i]; i++; }
         draw(x, parseInt(n))
         //x.style.backgroundColor = brush;
         //if (live) { ayteRGB[0][0][x] = brush; publishRGB(ayteRGB[0][0]);}

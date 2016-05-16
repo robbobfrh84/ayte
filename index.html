@@ -219,11 +219,12 @@
       if( x.id[0]+x.id[1]+x.id[2] === 'blk') {
         bId.style.backgroundColor = brush;
         if (live) { ayteRGB[0][0][x] = brush; publishRGB(ayteRGB[0][0]);}
+      }
     }
 
     function touchStart(bId){
       bId.style.backgroundColor = brush;
-      if (live) { ayteRGB[0][0][x] = brush; publishRGB(ayteRGB[0][0]);
+      if (live) { ayteRGB[0][0][x] = brush; publishRGB(ayteRGB[0][0]);}
     }
 
     ayteFrame.addEventListener('touchmove', function (event) {

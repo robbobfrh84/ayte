@@ -208,20 +208,22 @@
     document.body.setAttribute('onmouseup', 'mouseState(false)');
 
     function draw(bId, x){
-      //if(mouseDown){
+      if(mouseDown){
         if (!live) { bId.style.backgroundColor = brush; }
         if (live && !waitForMsg) { ayteRGB.ayte[x] = brush; publishRGB(ayteRGB); }
-      //}
+      }
     }
 
     function mouseState(state, bId, x){ // draw and mouseState should be together!!!
       if (state){ mouseDown = true;
-        if(bId){ draw(bId, x) }
+        if(bId){
+          draw(bId, x)
+        }
       } else { mouseDown = false; }
     }
 
     ayteFrame.addEventListener('touchmove', touchMove);
-    function touchMove(e){
+    function touchMove(e){ mouseDown = true;
       var x = document.elementFromPoint(e.touches[0].pageX, e.touches[0].pageY);
       if( x.id[0]+x.id[1]+x.id[2] === 'blk') {
         var i = 3; var n = ''; while(x.id[i]){n+=x.id[i]; i++; }

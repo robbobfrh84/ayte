@@ -208,10 +208,10 @@
     document.body.setAttribute('onmouseup', 'mouseState(false)');
 
     function draw(bId, x){
-      if(mouseDown){
+      //if(mouseDown){
         if (!live) { bId.style.backgroundColor = brush; }
         if (live && !waitForMsg) { ayteRGB.ayte[x] = brush; publishRGB(ayteRGB); }
-      }
+      //}
     }
 
     function mouseState(state, bId, x){ // draw and mouseState should be together!!!
@@ -229,7 +229,7 @@
       }
     }
 
-    function touchStart(bId, x){ 
+    function touchStart(bId, x){
       if (!live) { bId.style.backgroundColor = brush; }
       if (live && !waitForMsg) { ayteRGB.ayte[x] = brush; publishRGB(ayteRGB); }
     }

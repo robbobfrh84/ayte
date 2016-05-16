@@ -216,11 +216,14 @@
     ayteFrame.addEventListener('touchmove', touchMove);
     function touchMove(e){
       var x = document.elementFromPoint(e.touches[0].pageX, e.touches[0].pageY);
-      if( x.id[0]+x.id[1]+x.id[2] === 'blk') {x.style.backgroundColor = brush;}
+      if( x.id[0]+x.id[1]+x.id[2] === 'blk') {
+        bId.style.backgroundColor = brush;
+        if (live) { ayteRGB[0][0][x] = brush; publishRGB(ayteRGB[0][0]);}
     }
 
     function touchStart(bId){
       bId.style.backgroundColor = brush;
+      if (live) { ayteRGB[0][0][x] = brush; publishRGB(ayteRGB[0][0]);
     }
 
     ayteFrame.addEventListener('touchmove', function (event) {
@@ -309,7 +312,7 @@
   }
 
 
-    //DONE!!   12:30                 //-BEFORE WE WRITE OUR CODE HERE...
+    //DONE!!   12:30                  //-BEFORE WE WRITE OUR CODE HERE...
     //DONE!!      "                   //...Test mkr1000 with old 8x8 code and dirty pubnub publish. JUST MAKE IT WORK!
     //DONE!!      "                   //...We'll clean it up when we re-write the code. just need to see if there's problems with LEDS.
     //DONE!!    2:37                  // run! - - -
@@ -317,8 +320,7 @@
     //DONE!!    4:20                  //-update live click(change to Live! in red)
     //DONE!!    4:20                  //fix mouseDown bool by removing it from individual blocks and ading it to ayteframe.
     //DONE!!    6:50                  //-create funtion to update to live 8! & check history for last Ayte-by8
-
-      //-checks every 200ms....
+    //DONE!!    7:12                  //-checks every 200ms....
 
     //fix mouseDown bool by removing it from individual blocks and ading it to ayteframe.
     //-creat *if(we're live?) function that auto updates pixel changes to change live-8...

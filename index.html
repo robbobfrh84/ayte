@@ -203,23 +203,20 @@
       ayteFrame.appendChild(blk);
     }
     var mouseDown = false;
-    //var waitForMsg = false;
+    var waitForMsg = false;
     document.body.setAttribute('onmousedown', 'mouseState(true)');
     document.body.setAttribute('onmouseup', 'mouseState(false)');
 
     function draw(bId, x){
       if(mouseDown){
-        bId.style.backgroundColor = brush;
-        if (live) { ayteRGB.ayte[x] = brush; publishRGB(ayteRGB); }
+        if (!live) { bId.style.backgroundColor = brush; }
+        if (live && !waitForMsg) { ayteRGB.ayte[x] = brush; publishRGB(ayteRGB); }
       }
     }
 
     function mouseState(state, bId, x){ // draw and mouseState should be together!!!
-      if (state){
-        mouseDown = true;
-        if(bId){
-          draw(bId, x)
-        }
+      if (state){ mouseDown = true;
+        if(bId){ draw(bId, x) }
       } else { mouseDown = false; }
     }
 
@@ -227,15 +224,14 @@
     function touchMove(e){
       var x = document.elementFromPoint(e.touches[0].pageX, e.touches[0].pageY);
       if( x.id[0]+x.id[1]+x.id[2] === 'blk') {
-        var i = 3;
-        var n = '';
-        while(x.id[i]){n+=x.id[i]; i++; }
+        var i = 3; var n = ''; while(x.id[i]){n+=x.id[i]; i++; }
         touchStart(x, n)
       }
     }
 
     function touchStart(bId, x){ bId.style.backgroundColor = brush;
-      if (live) { ayteRGB.ayte[x] = brush; publishRGB(ayteRGB); }
+      if (!live) { bId.style.backgroundColor = brush; }
+      if (live && !waitForMsg) { ayteRGB.ayte[x] = brush; publishRGB(ayteRGB); }
     }
 
     ayteFrame.addEventListener('touchmove', function (event) {
@@ -309,7 +305,7 @@
   });
 
   function publishRGB(data) {
-    //waitForMsg = true;
+    waitForMsg = true;
     pubnub.publish({
       channel: settings.channel,
       message: data

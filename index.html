@@ -158,36 +158,49 @@
   <script src="http://cdn.pubnub.com/pubnub-3.7.15.min.js"></script>
   <script>
 
-    var userName = 'robbobfrh84'
+    var user = 'robbobfrh84'; //MAY NEED TO BE ALL LOWER-CASED OR WILL MESS UP ARD PARSE
     var ayteRGB = {
-                  user : userName,
-                  ayte : [[],[],[],[],[],[],[],[]
-                          ,[],[],[],[],[],[],[],[]
-                          ,[],[],[],[],[],[],[],[]
-                          ,[],[],[],[],[],[],[],[]
-                          ,[],[],[],[],[],[],[],[]
-                          ,[],[],[],[],[],[],[],[]
-                          ,[],[],[],[],[],[],[],[]
-                          ,[],[],[],[],[],[],[],[]]
-                  };
+      user : user,
+      ayte : [['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()']
+              ,['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()']
+              ,['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()']
+              ,['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()']
+              ,['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()']
+              ,['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()']
+              ,['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()']
+              ,['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()']]
+      };
 
-    var ayteByte = "0000000000000000000000000000000000000000000000000000000000000000";
+    var ayteByte = {
+      user: user,
+      ayte: [['A'],['A'],['A'],['A'],['A'],['A'],['A'],['A']
+            ,['A'],['A'],['A'],['A'],['A'],['A'],['A'],['A']
+            ,['A'],['A'],['A'],['A'],['A'],['A'],['A'],['A']
+            ,['A'],['A'],['A'],['A'],['A'],['A'],['A'],['A']
+            ,['A'],['A'],['A'],['A'],['A'],['A'],['A'],['A']
+            ,['A'],['A'],['A'],['A'],['A'],['A'],['A'],['A']
+            ,['A'],['A'],['A'],['A'],['A'],['A'],['A'],['A']
+            ,['A'],['A'],['A'],['A'],['A'],['A'],['A'],['A']]
+      };
 
-    var ash = 'rgb(68, 68, 68)';//darkgrey
-    var egg = 'rgb(240,234,214)';//eggshell
-    var cfb = 'rgb(102, 155, 235)';//cornflowerblue
-    var gdr = 'rgb(214, 163, 48)';//goldenrod
-    var grn = 'rgb(0, 128, 0)';//green
-    var fbc = 'rgb(169, 53, 47)';//firebrick
-    var slb = 'rgb(106, 90, 205)';//lightgrey
-    var ogr = 'rgb(255, 69, 0)';//orangered
-    var gry = 'rgb(180, 180, 180)';//grey
-    var org = 'rgb(235, 120, 0)';//orange
-    var ind = 'rgb(96, 58, 134)';//indigo
-    var pru = 'rgb(160, 82, 45)';//sienna
-    var pnk = 'rgb(245, 182, 193)';//pink
-    var sgn = 'rgb(32, 178, 170)';//lightseagreen
-    var ygr = 'rgb(154, 205, 50)';//lightseagreen
+    var ash = ['rgb(68, 68, 68)', 'A'];//darkgrey
+    var egg = ['rgb(240,234,214)', 'B'];//eggshell
+    var cfb = ['rgb(102, 155, 235)','C'];//cornflowerblue
+    var gdr = ['rgb(214, 163, 48)','D'];//goldenrod
+    var grn = ['rgb(0, 128, 0)','E'];//green
+
+    var gry = ['rgb(180, 180, 180)','F'];//grey
+    var fbc = ['rgb(169, 53, 47)','G'];//firebrick
+    var slb = ['rgb(106, 90, 205)','H'];//lightgrey
+    var ogr = ['rgb(255, 69, 0)','I'];//orangered
+    var org = ['rgb(235, 120, 0)','J'];//orange
+
+    var sgn = ['rgb(32, 178, 170)','K'];//lightseagreen
+    var pru = ['rgb(160, 82, 45)','L'];//sienna
+    var pnk = ['rgb(245, 182, 193)','M'];//pink
+    var ind = ['rgb(96, 58, 134)','N'];//indigo
+    var ygr = ['rgb(154, 205, 50)','O'];//lightseagreen
+
     var brush = cfb;
     var swatch = [ash,egg,cfb,gdr,grn
                  ,gry,fbc,slb,ogr,org
@@ -209,12 +222,15 @@
 
     function draw(bId, x){
       if(mouseDown){
-        if (!live) { bId.style.backgroundColor = brush; }
-        if (live && !waitForMsg) { ayteRGB.ayte[x] = brush; publishRGB(ayteRGB); }
+        if (!live) { bId.style.backgroundColor = brush[0]; }
+        if (live && !waitForMsg) {
+          ayteRGB.ayte[x] = brush[0]; publishRGB(ayteRGB);
+          ayteByte.ayte[x] = brush[1]; publishayteByte(ayteByte);
+        }
       }
     }
 
-    function mouseState(state, bId, x){ // draw and mouseState should be together!!!
+    function mouseState(state, bId, x){
       if (state){ mouseDown = true;
         if(bId){
           draw(bId, x)
@@ -232,8 +248,11 @@
     }
 
     function touchStart(bId, x){
-      if (!live) { bId.style.backgroundColor = brush; }
-      if (live && !waitForMsg) { ayteRGB.ayte[x] = brush; publishRGB(ayteRGB); }
+      if (!live) { bId.style.backgroundColor = brush[0]; }
+      if (live && !waitForMsg) {
+        ayteRGB.ayte[x] = brush[0]; publishRGB(ayteRGB);
+        ayteByte.ayte[x] = brush[1]; publishayteByte(ayteByte);
+      }
     }
 
     ayteFrame.addEventListener('touchmove', function (event) {
@@ -244,7 +263,7 @@
       if (i % 5 === 0){ swatchContainer.innerHTML += '<br>';}
       var swt = document.createElement('div');
       swt.className = 'swatch'; swt.id = 'swt'+i;
-      swt.style.backgroundColor = swatch[i];
+      swt.style.backgroundColor = swatch[i][0];
       swt.setAttribute('onmousedown', 'brushSwap('+i+')');
       swt.setAttribute('ontouchstart','brushSwap('+i+')');
       swatchContainer.appendChild(swt);
@@ -252,20 +271,22 @@
 
     function brushSwap(newCol){
       brush = swatch[newCol];
-      paletteFrame.style.backgroundColor = brush;
+      console.log(brush);
+      paletteFrame.style.backgroundColor = brush[0];
     }
 
     function fill(col){
       for (var i = 0; i < 64; i++){
-        document.getElementById('blk'+i).style.backgroundColor = ash;
+        document.getElementById('blk'+i).style.backgroundColor = col[0];
       }
     }
     var live = false;
     function liveStatus(){
       if (!live) { live = true;
-        liveBtn.style.color = fbc;
+        liveBtn.style.color = fbc[0];
         liveBtn.innerHTML = 'Live!';
-        historyRGB(1);
+        historyRGB(1, '1a');
+        historyRGB(1, '1b');
       } else { live = false;
         liveBtn.style.color = '#111';
         liveBtn.innerHTML = 'Off Air';
@@ -276,19 +297,24 @@
 //---------------------PUBNUB MESSAGE CENTER-----------------------------------
 //-----------------------------------------------------------------------------
   var settings = {
-    channel: '1a',
     publish_key: 'pub-c-926e03e9-2cbb-4a3d-b17a-2ee47ca078a5',
     subscribe_key: 'sub-c-b3fbc6fa-0bf5-11e6-a8fd-02ee2ddab7fe'
   };
   var pubnub = PUBNUB(settings);
 
-  function historyRGB(amount) {
+  function historyRGB(amount, chl) {
     pubnub.history({
-      channel: settings.channel,
+      channel: chl,
       callback: function(m) {
-        ayteRGB = m[0][0];
-        console.log('Last Ayte-by8 published', ayteRGB);
-        updateAyte();
+        if (chl === '1a'){
+          ayteRGB = m[0][0];
+          console.log('Last ayteRGB published', ayteRGB);
+          updateAyte();
+        }
+        if (chl === '1b'){
+          ayteByte = m[0][0];
+          console.log('Last ayteByte published', ayteByte);
+        }
       },
       count : amount,
       reverse : false
@@ -296,10 +322,10 @@
   }
 
   pubnub.subscribe({
-    channel: settings.channel,
+    channel: '1a',
     callback: function(m) {
       ayteRGB = m;
-      console.log('Saw new live Ayte-by8 was published', ayteRGB);
+      console.log('Saw new live Ayte-by8 was published');
       updateAyte();
       waitForMsg = false;
     },
@@ -309,38 +335,30 @@
   function publishRGB(data) {
     waitForMsg = true;
     pubnub.publish({
-      channel: settings.channel,
+      channel: '1a',
       message: data
     });
     console.log("Published new live Ayte-by8");
   }
-
-  //publishRGB(ayteRGB);
+  //publishRGB(ayteRGB); publishayteByte(ayteByte);
   function updateAyte() {
     for (var i = 0; i < 64; i++){
       var bId = document.getElementById('blk'+i);
       bId.style.backgroundColor = ayteRGB.ayte[i];
     }
   }
+  function publishayteByte(data) {
+    waitForMsg = true;
+    pubnub.publish({
+      channel: '1b',
+      message: data
+    });
+    console.log("Published new live Ayte-by8", data);
+  }
 
-
-    //DONE!!   12:30                  //-BEFORE WE WRITE OUR CODE HERE...
-    //DONE!!      "                   //...Test mkr1000 with old 8x8 code and dirty pubnub publish. JUST MAKE IT WORK!
-    //DONE!!      "                   //...We'll clean it up when we re-write the code. just need to see if there's problems with LEDS.
-    //DONE!!    2:37                  // run! - - -
-    //DONE!!    3:33                  //-create empty index array
-    //DONE!!    4:20                  //-update live click(change to Live! in red)
-    //DONE!!    4:20                  //fix mouseDown bool by removing it from individual blocks and ading it to ayteframe.
-    //DONE!!    6:50                  //-create funtion to update to live 8! & check history for last Ayte-by8
-    //DONE!!    7:12                  //-checks every 200ms....
-
-    //fix mouseDown bool by removing it from individual blocks and ading it to ayteframe.
-    //clean up combine draw calls
-
-    //-creat *if(we're live?) function that auto updates pixel changes to change live-8...
-      //...Create JSON object and publish channel "Ayte-by8".
-    //-create NEW ARDUINO arrey(of our 15 colors) in a 64 byte arrey.....
-      //....update and publish live arrey("")
+    //-fix update to blank. need to call history to get state of ayteByte...
+    //Convert to arduino to subscribe ...
+    //publishRGB and publishByte should be one.
     //-create save button. calls function that publishes to channel "Gallery" With ALERT...
       //...Alert pops up entry text to name ayte.
       //...publish with time stamp? Google pubnub for info...It'll all be saved! don't need to generate ids.

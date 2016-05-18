@@ -352,6 +352,7 @@
   }
 
   function publishayteByte(data) {
+    waitForMsg = true;
     pubnub.publish({
       channel: '1b',
       message: data
@@ -360,6 +361,7 @@
   }
 
   function updateAyte() {
+    waitForMsg = true;
     for (var i = 0; i < 64; i++){
       var bId = document.getElementById('blk'+i);
       bId.style.backgroundColor = ayteRGB.ayte[i];

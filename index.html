@@ -220,15 +220,6 @@
     document.body.setAttribute('onmousedown', 'mouseState(true)');
     document.body.setAttribute('onmouseup', 'mouseState(false)');
 
-    function draw(bId, x){
-      if(mouseDown){
-        if (!live) { bId.style.backgroundColor = brush[0]; }
-        if (live && !waitForMsg) {
-          ayteRGB.ayte[x] = brush[0]; publishRGB(ayteRGB);
-          ayteByte.ayte[x] = brush[1]; publishayteByte(ayteByte);
-        }
-      }
-    }
 
     function mouseState(state, bId, x){
       if (state){ mouseDown = true;
@@ -238,20 +229,32 @@
       } else { mouseDown = false; }
     }
 
+    function draw(bId, x){
+      if(mouseDown){
+        if (!live) { bId.style.backgroundColor = brush[0]; }
+        if (live && !waitForMsg) {
+          ayteRGB.ayte[x] = brush[0];
+          ayteByte.ayte[x] = brush[1];
+          publish([['1b',ayteByte],['1a',ayteRGB]]);
+        }
+      }
+    }
+    //HOLD OF ON DELETEING UNTIL A BIT OF TESTING....
+    // function touchStart(bId, x){
+    //   if (!live) { bId.style.backgroundColor = brush[0]; }
+    //   if (live && !waitForMsg) {
+    //     ayteRGB.ayte[x] = brush[0];
+    //     ayteByte.ayte[x] = brush[1];
+    //     publish([['1b',ayteByte],['1a',ayteRGB]]);
+    //   }
+    // }
+
     ayteFrame.addEventListener('touchmove', touchMove);
     function touchMove(e){ mouseDown = true;
       var x = document.elementFromPoint(e.touches[0].pageX, e.touches[0].pageY);
       if( x.id[0]+x.id[1]+x.id[2] === 'blk') {
         var i = 3; var n = ''; while(x.id[i]){n+=x.id[i]; i++; }
-        touchStart(x, n)
-      }
-    }
-
-    function touchStart(bId, x){
-      if (!live) { bId.style.backgroundColor = brush[0]; }
-      if (live && !waitForMsg) {
-        ayteRGB.ayte[x] = brush[0]; publishRGB(ayteRGB);
-        ayteByte.ayte[x] = brush[1]; publishayteByte(ayteByte);
+        mouseState = true; draw(x, n);
       }
     }
 
@@ -280,13 +283,13 @@
         document.getElementById('blk'+i).style.backgroundColor = col[0];
       }
     }
-    var live = false;
+
+    var live = false; var ayteChecked = false;
     function liveStatus(){
       if (!live) { live = true;
         liveBtn.style.color = fbc[0];
         liveBtn.innerHTML = 'Live!';
-        historyRGB(1, '1a');
-        historyRGB(1, '1b');
+        history(1, ['1b','1a']);
       } else { live = false;
         liveBtn.style.color = '#111';
         liveBtn.innerHTML = 'Off Air';
@@ -301,31 +304,30 @@
     subscribe_key: 'sub-c-b3fbc6fa-0bf5-11e6-a8fd-02ee2ddab7fe'
   };
   var pubnub = PUBNUB(settings);
-
-  function historyRGB(amount, chl) {
-    pubnub.history({
-      channel: chl,
-      callback: function(m) {
-        if (chl === '1a'){
-          ayteRGB = m[0][0];
-          console.log('Last ayteRGB published', ayteRGB);
-          updateAyte();
-        }
-        if (chl === '1b'){
-          ayteByte = m[0][0];
-          console.log('Last ayteByte published', ayteByte);
-        }
-      },
-      count : amount,
-      reverse : false
-    });
+  function history(amount, chl) {
+    for (var i = 0; i < chl.length; i++){
+      pubnub.history({
+        channel : chl[i],
+        callback: function(m) {
+          if(!ayteChecked){ ayteChecked = true;
+            ayteByte = m[0][0];
+            console.log('Last published ___ayte___', ayteByte);
+          } else { ayteRGB = m[0][0];
+            console.log('Last published ***RGB***', ayteRGB);
+            updateAyte();
+          }
+        },
+        count : amount,
+        reverse : false
+      });
+    }
   }
 
   pubnub.subscribe({
     channel: '1a',
     callback: function(m) {
       ayteRGB = m;
-      console.log('Saw new live Ayte-by8 was published');
+      console.log('Saw new *RGB*');
       updateAyte();
       waitForMsg = false;
     },
@@ -336,28 +338,21 @@
     channel: '1b',
     callback: function(m) {
       ayteByte = m;
-      console.log('Saw new live ayteByte was published');
+      console.log('Saw new _ayte_');
     },
     error: function(err) {console.log(err);}
   });
 
-//publishRGB(ayteRGB); publishayteByte(ayteByte);
-  function publishRGB(data) {
+  //publish([['1a',ayteRGB],['1b',ayteByte]]);
+  function publish(data) {
     waitForMsg = true;
-    pubnub.publish({
-      channel: '1a',
-      message: data
-    });
-    console.log("Published new live Ayte-by8");
-  }
-
-  function publishayteByte(data) {
-    waitForMsg = true;
-    pubnub.publish({
-      channel: '1b',
-      message: data
-    });
-    console.log("Published new live Ayte-by8", data);
+    for (var i = 0; i < data.length; i++){
+      pubnub.publish({
+        channel: data[i][0],
+        message: data[i][1]
+      });
+      console.log("channel: ",data[i][0],"data: ",data[i][1]);
+    }
   }
 
   function updateAyte() {

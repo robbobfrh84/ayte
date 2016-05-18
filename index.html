@@ -348,7 +348,7 @@
     }
   }
   function publishayteByte(data) {
-    waitForMsg = true;
+    //waitForMsg = true;
     pubnub.publish({
       channel: '1b',
       message: data
@@ -356,9 +356,18 @@
     console.log("Published new live Ayte-by8", data);
   }
 
-    //-fix update to blank. need to call history to get state of ayteByte...
-    //Convert to arduino to subscribe ...
+    //Clean-up smoothout code from seamless aytes display n browsers...
+    //set 5 min. sleep
+    //check every 15 sec for new...
+
+    //on startup check for new... 30 sec. then roll randomDanceHalfBlk...
+    // 5min. per animayte, then sleep.
+    // add other two animations.
+
+
+
     //publishRGB and publishByte should be one.
+
     //-create save button. calls function that publishes to channel "Gallery" With ALERT...
       //...Alert pops up entry text to name ayte.
       //...publish with time stamp? Google pubnub for info...It'll all be saved! don't need to generate ids.

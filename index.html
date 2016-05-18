@@ -212,7 +212,7 @@
       blk.className = 'ayte'; blk.id = 'blk'+i;
       blk.setAttribute('onmousedown', 'mouseState(true, blk'+i+','+i+')');
       blk.setAttribute('onmousemove', 'draw(blk'+i+','+i+')');
-      blk.setAttribute('ontouchstart','touchStart(blk'+i+','+i+')');
+      blk.setAttribute('ontouchstart','draw(blk'+i+','+i+')');
       ayteFrame.appendChild(blk);
     }
     var mouseDown = false;

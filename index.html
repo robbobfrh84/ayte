@@ -332,6 +332,16 @@
     error: function(err) {console.log(err);}
   });
 
+  pubnub.subscribe({
+    channel: '1b',
+    callback: function(m) {
+      ayteByte = m;
+      console.log('Saw new live ayteByte was published');
+    },
+    error: function(err) {console.log(err);}
+  });
+
+//publishRGB(ayteRGB); publishayteByte(ayteByte);
   function publishRGB(data) {
     waitForMsg = true;
     pubnub.publish({
@@ -340,20 +350,20 @@
     });
     console.log("Published new live Ayte-by8");
   }
-  //publishRGB(ayteRGB); publishayteByte(ayteByte);
-  function updateAyte() {
-    for (var i = 0; i < 64; i++){
-      var bId = document.getElementById('blk'+i);
-      bId.style.backgroundColor = ayteRGB.ayte[i];
-    }
-  }
+
   function publishayteByte(data) {
-    //waitForMsg = true;
     pubnub.publish({
       channel: '1b',
       message: data
     });
     console.log("Published new live Ayte-by8", data);
+  }
+
+  function updateAyte() {
+    for (var i = 0; i < 64; i++){
+      var bId = document.getElementById('blk'+i);
+      bId.style.backgroundColor = ayteRGB.ayte[i];
+    }
   }
 
     //Clean-up smoothout code from seamless aytes display n browsers...
@@ -365,8 +375,9 @@
     // add other two animations.
 
 
-
-    //publishRGB and publishByte should be one.
+//DEBUGGIN SYNC-----
+    //subscripe function when reading changes from phone or other browser doesn't updateAyte.
+      //...the ayteByte array. so the ARD program is fine, but flashes to past arrey recordings that are hidden from the updates of other browsers
 
     //-create save button. calls function that publishes to channel "Gallery" With ALERT...
       //...Alert pops up entry text to name ayte.

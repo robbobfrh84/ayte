@@ -45,23 +45,21 @@ void setup(){
   }
   printWifiStatus(); 
   
-  
-  httpRequest("history"); 
-  delay(500); 
-  //httpRequest("0");Serial.print("StarUp After request, timeStamp: "); Serial.print(timeStamp);
-  
+  httpRequestHistory(); //TURN BACK INTO ONE!!!
+  //delay(500); 
+  parseAyte();
+  //delay(500); 
   //httpRequest(timeStamp);
+  //delay(500); 
   lastConnection = millis();
 }
 
 //----------VOID LOOP----------VOID LOOP----------VOID LOOP----------VOID LOOP----------VOID LOOP----------//
 void loop (){
-  
-
 
   if (!checking) {
     digitalWrite(6, led6State); led6State = true ? !led6State : false;
-    httpRequest("0"); //Serial.print("!checking"); Serial.print(timeStamp);
+    httpRequest("0"); Serial.print("!checking"); Serial.print(timeStamp);
     if (timeStamp == ""){ Serial.println("____no TimeStamp___");
       delay(50); 
       httpRequest("0");
@@ -69,15 +67,17 @@ void loop (){
     }
     httpRequest(timeStamp); //Serial.print("OutCheck?");
   }
+  parseAyte();
 
-  if (millis() - lastConnection > 15000) {
-    httpRequest("history"); 
-    delay(50);
-    //httpRequest("0");Serial.print("5 Sec History update, timeStamp: "); Serial.println(timeStamp);
-  
-    lastConnection = millis();
-  }
-  
+//  if (millis() - lastConnection > 15000) {
+//    httpRequest("history"); 
+//    delay(50);
+//    //httpRequest("0");Serial.print("5 Sec History update, timeStamp: "); Serial.println(timeStamp);
+//    lastConnection = millis();
+//  }
+
+}
+void parseAyte(){  
   char c = 0;
   if (client.available()) {
     c = client.read();
@@ -105,11 +105,7 @@ void httpRequest(String timeState) { // this method makes a HTTP connection to t
   checking = true;
   client.stop(); 
   if (client.connect(server, 80)) {
-    if(timeState == "history") {
-      client.println("GET /history/sub-c-b3fbc6fa-0bf5-11e6-a8fd-02ee2ddab7fe/1b/0/1 HTTP/1.1");
-    } else {
-      client.println("GET /subscribe/sub-c-b3fbc6fa-0bf5-11e6-a8fd-02ee2ddab7fe/1b/0/" + timeState + " HTTP/1.1");
-    }  
+    client.println("GET /subscribe/sub-c-b3fbc6fa-0bf5-11e6-a8fd-02ee2ddab7fe/1b/0/" + timeState + " HTTP/1.1");
     client.println("Host: pubsub.pubnub.com");
     client.println("User-Agent: ArduinoWiFi/1.1");
     client.println("Connection: close");
@@ -118,7 +114,7 @@ void httpRequest(String timeState) { // this method makes a HTTP connection to t
   else {
     Serial.println("connection failed");
   }
-  //Serial.println("-T-"): //Serial.println(timeState);
+  
   if(timeState == "0"){
     char c = 0;
     timeStamp = "";
@@ -131,13 +127,28 @@ void httpRequest(String timeState) { // this method makes a HTTP connection to t
         for (int i = 0; i < 17; i++){
           c = client.read();
           timeStamp += c;
-          if (c == '}'){ break;}
+          if (c == ']'){ break;}
         }
       }  
     }
   checking = false;      
   }
 }
+
+void httpRequestHistory() { // this method makes a HTTP connection to the server:
+  checking = true;
+  client.stop(); 
+  if (client.connect(server, 80)) {
+    client.println("GET /history/sub-c-b3fbc6fa-0bf5-11e6-a8fd-02ee2ddab7fe/1b/0/1 HTTP/1.1"); 
+    client.println("Host: pubsub.pubnub.com");
+    client.println("User-Agent: ArduinoWiFi/1.1");
+    client.println("Connection: close");
+    client.println();
+  }
+  else {
+    Serial.println("connection failed");
+  }
+}  
 
 void printWifiStatus() { Serial.print("SSID: ");Serial.println(WiFi.SSID());IPAddress ip = WiFi.localIP();
 Serial.print("IP Address: "); Serial.println(ip);long rssi = WiFi.RSSI();
@@ -158,3 +169,9 @@ void randomPixelDanceHalfBlack(){
 void bluePixelWondersThroughHell(){
   Serial.println("Playing RandomPixelDanceHalfBlack");
 }
+
+//---------------------------------------------------------------------------------------------------------//
+//----------          NOTES                                                                 ----------//
+//---------------------------------------------------------------------------------------------------------//
+
+//--create function parseTimeStamp()

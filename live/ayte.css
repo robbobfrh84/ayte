@@ -40,14 +40,6 @@ body {
   -webkit-text-size-adjust: 68%;
 }
 
-#gal1 {
-  font-size: 0;
-  margin: auto;
-  text-align: center;
-  padding-top: 15px;
-  -webkit-text-size-adjust: 68%;
-}
-
 .ayte { display: inline-block; background-color: #444;
   box-shadow: inset 0px 0px 5px 2px rgba(0,0,0,0.2);
   font-size: 6px;
@@ -123,6 +115,14 @@ body {
 
 .fiftyPM {
   -webkit-text-size-adjust: 50%;
+}
+
+#gal1 {
+  font-size: 0;
+  margin: auto;
+  text-align: center;
+  padding-top: 15px;
+  -webkit-text-size-adjust: 68%;
 }
 
 @media screen and (min-width: 768px) {

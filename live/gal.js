@@ -17,7 +17,7 @@ function swapToGal(){
     gal1.style.display = 'none';
   }
 }
-//buildGal(); //REMOVE WILL JUST ADD IT BACK TO NORMAL SWITCH WHEN GAL CLICK
+buildGal(); //REMOVE WILL JUST ADD IT BACK TO NORMAL SWITCH WHEN GAL CLICK
 function buildGal(){
   for (var i = 0; i < 64; i++){
     if (i % 8 === 0){ ayteFrame.innerHTML += '<br>';}

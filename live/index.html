@@ -32,12 +32,31 @@
       </div>
     </div>
   </nav>
-  <div id='gal1Shell' class='frame1' >
-    <svg id='gal1' width=500 height=500 viewbox='0 0 1000 1000 '>
-      <rect x="150" y="55" width="50" height="40" fill="cornflowerblue" stroke="orange"
-        stroke-width="5" />
+  <!-- <div id='gal1Shell' class='frame1' > -->
+    <svg id='gal1' width=500 height=500 viewbox='0 0 500 500 '>
+      <defs>
+        <!-- <filter id="f1" x="0" y="0" width="200%" height="200%">
+          <feOffset result="offOut" in="SourceAlpha" dx="5" dy="5" />
+          <feBlend in="SourceGraphic" in2="offOut" mode="normal"/>
+        </filter> -->
+        <!-- <filter id="f1" height="130%" width="130%">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="1"/>
+          <feOffset dx="1" dy="1" result="offsetblur"/>
+          <feComponentTransfer>
+            <feFuncA type="linear" slope="0.3"/>
+          </feComponentTransfer>
+          <feMerge>
+            <feMergeNode/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter> -->
+      </defs>
+      <!-- <rect x="100" y="50" width="20" height="20" fill="cornflowerblue"
+        filter="url(#f1)"/>
+        <rect x="124" y="50" width="20" height="20" fill="cornflowerblue"
+          filter="url(#f1)"/> -->
     </svg>
-  </div>
+  <!-- </div> -->
   <div id='ayteFrame' class='frame1'></div>
   <div id='paletteFrame' >
     <div id='swatchContainer'></div>
@@ -48,7 +67,6 @@
 
 
   <script src="http://cdn.pubnub.com/pubnub-3.7.15.min.js"></script>
-  <!-- <script src="//cdn.pubnub.com/pubnub-3.7.14.js"></script> -->
   <script src="http://cdn.rawgit.com/scalabl3/pubnub-flex-history/v1.05/pubnub-flex-history-min.js"></script>
   <script src='ayte.js'></script>
   <script src='gal.js'></script>

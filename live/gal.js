@@ -21,7 +21,7 @@ buildGal(); //REMOVE WILL JUST ADD IT BACK TO NORMAL SWITCH WHEN GAL CLICK
 function buildGal(){
   for (var i = 0; i < 64; i++){
     if (i % 8 === 0){ ayteFrame.innerHTML += '<br>';}
-      createRect('gal1',10*i+2,10*i+2,10,10,'red',2,'blue',1,'aytep'+i);
+      createRect('gal1',10*i+2,10*i+2,10,10,'green',2,'blue',1,'aytep'+i);
   }
 }
 

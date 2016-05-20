@@ -122,7 +122,7 @@ body {
   margin: auto;
   text-align: center;
   padding-top: 15px;
-  -webkit-text-size-adjust: 68%;
+  /*-webkit-text-size-adjust: 68%;*/
 }
 
 @media screen and (min-width: 768px) {

@@ -10,7 +10,6 @@ function swapToGal(){
     paletteFrame.style.display = 'none';
     liveBtn.style.display = 'none';
     gal1.style.display = 'block';
-    buildGal();
   } else { stateGal = false;
     ayteFrame.style.display = 'block';
     paletteFrame.style.display = 'block';
@@ -19,23 +18,35 @@ function swapToGal(){
   }
 }
 
-var w = 5;
-var gap = 0.75;
-var rnd = 1;
-//var filter = 'url(#f1)';
-//buildGal(); //REMOVE WILL JUST ADD IT BACK TO NORMAL SWITCH WHEN GAL CLICK
+var w = 8; //var w=15; var gap=1.5; var rnd=3; LOOKS GOOD FOR MEDIUM THUMB
+var gap = -0.75;
+var rnd = 0; //remove!!!
+var filter = 'url(#f1)';
 function buildGal(){
-  var col = 1; var row = -8;
-  for (var i = 0; i < 64; i++){
+  var col = -1; var row = -8;
+  for (var i = 0; i < allGalHistory.count; i++){
     if (i % 8 === 0){ row+=8; col++}
-      createRect('gal1',(w+gap)*(i-row),(w+gap)*col,w,w,rnd,rnd,'red',0,'none','aytep'+i);
+      //need to build a container so that we can have click effects....
+      buildThumbnail(i, (i-row)*((w+gap)*10), ((w+gap)*10)*col);
   }
 }
 
-function createRect(container,x,y,width,height,rx,ry,fill,bordWidth,bordColor,/*filter,*/recID){
+function buildThumbnail(ayte, cA, rA){
+  var col = 0; var row = -8;
+  for (var i = 0; i < 64; i++){
+    if (i % 8 === 0){ row+=8; col++}
+      var c = allGalHistory.messages[ayte].message.ayte[i];
+      if (c === ""){ c = '#ddd'; }
+
+    else{createRect('gal1',cA+((w+gap)*(i-row)),rA+((w+gap)*col),w,w,rnd,rnd
+      ,c,0,'none',filter,'aytep'+i);}
+  }
+}
+
+function createRect(container,x,y,width,height,rx,ry,fill,bordWidth,bordColor,filter,recID){
   var newEl = createEl(container,'rect',[['id',recID],['stroke-width',bordWidth+'px']
   ,['stroke',bordColor],['x',x+'px'],['y', y+'px'],['width',width+'px'],['height',height+'px']
-  // ,['filter', filter]
+  ,['filter', filter]
   ,['rx',rx],['ry',ry],['fill',fill]]); return newEl;}
 
 //  filter="url(#f1)"
@@ -58,6 +69,7 @@ var flex_history_callback = function(result) {
   if (!result.error) {
     console.log(result.operation + " completed", result);
     allGalHistory = result;
+    buildGal();
   }
   else {
     console.warn(result.operation + " failed", result);

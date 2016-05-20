@@ -40,7 +40,7 @@ body {
   -webkit-text-size-adjust: 68%;
 }
 
-.ayte { display: inline-block; background-color: #444;
+.ayte { display: inline-block; background-color: #ddd;
   box-shadow: inset 0px 0px 5px 2px rgba(0,0,0,0.2);
   font-size: 6px;
   width: 8em;

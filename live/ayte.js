@@ -27,10 +27,12 @@ var pnk = ['rgb(245, 182, 193)','M'];//pink
 var ind = ['rgb(96, 58, 134)','N'];//indigo
 var ygr = ['rgb(154, 205, 50)','O'];//lightseagreen
 
+var clr = ['rgb(221, 221, 221)','P'];//lightseagreen
+
 var brush = cfb;
 var swatch = [ash,egg,cfb,gdr,grn
              ,gry,fbc,slb,ogr,org
-             ,sgn,pru,pnk,ind,ygr];
+             ,sgn,pru,pnk,ind,ygr,clr];
 
 for (var i = 0; i < 64; i++){
   if (i % 8 === 0){ ayteFrame.innerHTML += '<br>';}
@@ -90,7 +92,7 @@ for (var i = 0; i < 15; i++){
   var swt = document.createElement('div');
   swt.className = 'swatch'; swt.id = 'swt'+i;
   swt.style.backgroundColor = swatch[i][0];
-  swt.setAttribute('onmousedown', 'brushSwap('+i+')');
+  swt.setAttribute('onmouseup', 'brushSwap('+i+')');
   swt.setAttribute('ontouchstart','brushSwap('+i+')');
   swatchContainer.appendChild(swt);
 }

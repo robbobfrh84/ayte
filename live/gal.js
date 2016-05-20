@@ -27,6 +27,7 @@ function buildGal(){
   for (var i = 0; i < allGalHistory.count; i++){
     if (i % 8 === 0){ row+=8; col++}
       //need to build a container so that we can have click effects....
+      
       buildThumbnail(i, (i-row)*((w+gap)*10), ((w+gap)*10)*col);
   }
 }
@@ -35,11 +36,11 @@ function buildThumbnail(ayte, cA, rA){
   var col = 0; var row = -8;
   for (var i = 0; i < 64; i++){
     if (i % 8 === 0){ row+=8; col++}
-      var c = allGalHistory.messages[ayte].message.ayte[i];
-      if (c === ""){ c = '#ddd'; }
-
-    else{createRect('gal1',cA+((w+gap)*(i-row)),rA+((w+gap)*col),w,w,rnd,rnd
-      ,c,0,'none',filter,'aytep'+i);}
+    var c = allGalHistory.messages[ayte].message.ayte[i];
+    if (c !== "" && c !== 'rgb(221, 221, 221)'){
+      createRect('gal1',cA+((w+gap)*(i-row)),rA+((w+gap)*col),w,w,rnd,rnd
+      ,c,0,'none',filter,'aytep'+i);
+    }
   }
 }
 

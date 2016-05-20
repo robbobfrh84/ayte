@@ -26,8 +26,8 @@ function buildGal(){
 }
 
 function createRect(container,x,y,width,height,fill,bordWidth,bordColor,opacity, recID){
-  var newEl = createEl(container,'rect',[['id',recID],['stroke-width',bordWidth+'%']
-  ,['stroke',bordColor],['x',x+'%'],['y', y+'%'],['width',width+'%'],['height',height+'%']
+  var newEl = createEl(container,'rect',[['id',recID],['stroke-width',bordWidth]
+  ,['stroke',bordColor],['x',x],['y', y],['width',width],['height',height]
   ,['opacity', opacity],['fill',fill]]); return newEl;}
 
 function createEl(container,type,att){

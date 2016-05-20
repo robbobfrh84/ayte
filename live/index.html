@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>ayte</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+  <link rel="ayte icon" href="sword.png"/>
+  <link rel="stylesheet" href="ayte.css"/>
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only active" id="hamburger">Toggle navigation</span>
+          <span class="icon-bar" id='linez' style='background-color: firebrick;'></span>
+          <span class="icon-bar" id='linez'style='background-color: darkgoldenrod;'></span>
+          <span class="icon-bar" id='linez'style='background-color: green;'></span>
+        </button>
+        <a class="navbar-brand" href="#" id='title'>Ayte-by8</a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#" id="font-color" >{LOG IN} / {Sign UP}</a></li>
+          <li><a href="#" id="font-color" onclick='swapToGal()'>Gallery</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <svg id='gal1'>
+    <rect x="150" y="55" width="50" height="40" fill="cornflowerblue" stroke="orange"
+      stroke-width="5" />
+  </svg>
+  <div id='ayteFrame' ></div>
+  <div id='paletteFrame' >
+    <div id='swatchContainer'></div>
+    <div id='fill' onclick="fill(brush)" class='button1'>Fill</div>
+    <div id='saveBtn' class='button1' onclick='saveAyte()'>Save</div>
+  </div><br>
+  <div id='liveBtn' class='button1' onclick='liveStatus()'>Off Air</div>
+
+
+  <script src="http://cdn.pubnub.com/pubnub-3.7.15.min.js"></script>
+  <!-- <script src="//cdn.pubnub.com/pubnub-3.7.14.js"></script> -->
+  <script src="http://cdn.rawgit.com/scalabl3/pubnub-flex-history/v1.05/pubnub-flex-history-min.js"></script>
+  <script src='ayte.js'></script>
+  <script src='gal.js'></script>
+</body>
+</html>

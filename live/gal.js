@@ -1,6 +1,7 @@
 var svgElement = 'http://www.w3.org/2000/svg';
 var allGalHistory;
 var stateGal = false;
+var skip = [0,3,21];
 
 function swapToGal(){
   if (!stateGal){ stateGal = true;
@@ -23,12 +24,12 @@ var gap = -0.75;
 var rnd = 0; //remove!!!
 var filter = 'url(#f1)';
 function buildGal(){
-  var col = -1; var row = -8;
+  var col = -1; var row = -8; var c = 0;
   for (var i = 0; i < allGalHistory.count; i++){
     if (i % 8 === 0){ row+=8; col++}
       //need to build a container so that we can have click effects....
-      
-      buildThumbnail(i, (i-row)*((w+gap)*10), ((w+gap)*10)*col);
+    //while (isInArray(i+c,skip)){ c++; }
+    buildThumbnail(c+i, (c+i-row)*((w+gap)*10), ((w+gap)*10)*col);
   }
 }
 
@@ -38,8 +39,8 @@ function buildThumbnail(ayte, cA, rA){
     if (i % 8 === 0){ row+=8; col++}
     var c = allGalHistory.messages[ayte].message.ayte[i];
     if (c !== "" && c !== 'rgb(221, 221, 221)'){
-      createRect('gal1',cA+((w+gap)*(i-row)),rA+((w+gap)*col),w,w,rnd,rnd
-      ,c,0,'none',filter,'aytep'+i);
+        createRect('gal1',cA+((w+gap)*(i-row)),rA+((w+gap)*col),w,w,rnd,rnd
+        ,c,0,'none',filter,'aytep'+i);
     }
   }
 }
@@ -50,14 +51,14 @@ function createRect(container,x,y,width,height,rx,ry,fill,bordWidth,bordColor,fi
   ,['filter', filter]
   ,['rx',rx],['ry',ry],['fill',fill]]); return newEl;}
 
-//  filter="url(#f1)"
-
 function createEl(container,type,att){
   var newObj = document.createElementNS(svgElement, type);
   for (var i=0; i<att.length; i++){ newObj.setAttributeNS(null, att[i][0],att[i][1]); }
   document.getElementById(container).appendChild(newObj); return newObj; }
 
-
+function isInArray(value, array) {
+  return array.indexOf(value) > -1;
+}
 
 // -------------------  pubnub's flex callback -------------------------------//
 var historyGal = PUBNUB.init({

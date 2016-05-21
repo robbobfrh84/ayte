@@ -56,9 +56,17 @@ function mouseState(state, bId, x){
   } else { mouseDown = false; }
 }
 
+//----------------------------------------------------------------------------//
+//----------          PAINT ACTION!!!          -------------------------------//
+//----------------------------------------------------------------------------//
+var ayteByteHistory = [];
 function draw(bId, x){
   if(mouseDown){
-    if (!live) { bId.style.backgroundColor = brush[0]; }
+    if (!live) {
+      bId.style.backgroundColor = brush[0];
+      ayteByteHistory[x] = brush[1];
+      console.log(ayteByteHistory);
+    }
     if (live && !waitForMsg) {
       ayteRGB.ayte[x] = brush[0];
       ayteByte.ayte[x] = brush[1];
@@ -216,7 +224,8 @@ function saveAyte() {
     user : loggedUser,
     arin : ayteReferenceIdNum,
     posted : date,
-    ayte : ayteGal
+    ayte : ayteGal,
+    ayteByte : ayteByteHistory
   };
   publishGal(savedAyte);
 }

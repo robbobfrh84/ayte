@@ -66,7 +66,7 @@ void loop (){
   }
   parseAyte();
 
-  if (millis() - lastConnection > 10000) {
+  if (millis() - lastConnection > 1000) {
     httpRequest("history"); 
     delay(50);
     parseAyte();

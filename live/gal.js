@@ -1,5 +1,5 @@
 var svgElement = 'http://www.w3.org/2000/svg';
-var allGalHistory;
+var allGalHistory = {};
 var stateGal = false;
 var skip = [0,3,21];
 
@@ -24,12 +24,12 @@ var gap = -0.75;
 var rnd = 0; //remove!!!
 var filter = 'url(#f1)';
 function buildGal(){
-  var col = -1; var row = -8; var c = 0;
-  for (var i = 0; i < allGalHistory.count; i++){
+  var col = -1; var row = -8;
+  for (var i = 0; i < allGalHistory[0].length; i++){
     if (i % 8 === 0){ row+=8; col++}
-      //need to build a container so that we can have click effects....
-    //while (isInArray(i+c,skip)){ c++; }
-    buildThumbnail(c+i, (c+i-row)*((w+gap)*10), ((w+gap)*10)*col);
+    //need to build a container so that we can have click effects....
+
+    buildThumbnail(i, (i-row)*((w+gap)*10), ((w+gap)*10)*col);
   }
 }
 
@@ -37,7 +37,7 @@ function buildThumbnail(ayte, cA, rA){
   var col = 0; var row = -8;
   for (var i = 0; i < 64; i++){
     if (i % 8 === 0){ row+=8; col++}
-    var c = allGalHistory.messages[ayte].message.ayte[i];
+    var c = allGalHistory[ayte][i];
     if (c !== "" && c !== 'rgb(221, 221, 221)'){
         createRect('gal1',cA+((w+gap)*(i-row)),rA+((w+gap)*col),w,w,rnd,rnd
         ,c,0,'none',filter,'aytep'+i);
@@ -70,7 +70,13 @@ historyGal.flex_history = pubnub_flex_history;
 var flex_history_callback = function(result) {
   if (!result.error) {
     console.log(result.operation + " completed", result);
-    allGalHistory = result;
+    var c = 0;
+    for (var i = 0; i < result.count; i++){
+      if (isInArray(i,skip)){ c++; }
+      //need to give id as i so that it's easy to inspect in console to add to skip arrey
+      else { allGalHistory[i-c] = result.messages[i].message.ayte}
+    }
+    console.log("allGalHistory: "+allGalHistory);
     buildGal();
   }
   else {

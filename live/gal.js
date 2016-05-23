@@ -1,7 +1,7 @@
 var svgElement = 'http://www.w3.org/2000/svg';
 var allGalHistory = {};
 var stateGal = false;
-var skip = [0,3,21];
+var skip = [0,1,21,27,28,29,32];
 
 function swapToGal(){
   if (!stateGal){ stateGal = true;
@@ -11,11 +11,14 @@ function swapToGal(){
     paletteFrame.style.display = 'none';
     liveBtn.style.display = 'none';
     gal1.style.display = 'block';
+    galBtn.innerHTML = '<-Back'
   } else { stateGal = false;
     ayteFrame.style.display = 'block';
     paletteFrame.style.display = 'block';
     liveBtn.style.display = 'inLine-block';
     gal1.style.display = 'none';
+    galBtn.innerHTML = '{Gallery}'
+
   }
 }
 

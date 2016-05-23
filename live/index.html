@@ -26,8 +26,9 @@
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#" id="font-color" >{LOG IN} / {Sign UP}</a></li>
-          <li><a href="#" id="font-color" onclick='swapToGal()'>Gallery</a></li>
+          <!-- <li><a href="#1" id="font-color" >{LOG IN} / {Sign UP}</a></li> -->
+          <li><a href="#" id="liveBtn" onclick='liveStatus()'>Off Air</a></li>
+          <li><a href="#" id="galBtn" onclick='swapToGal()'>{Gallery}</a></li>
         </ul>
       </div>
     </div>
@@ -62,24 +63,13 @@
     <div id='swatchContainer'></div>
     <div id='fill' onmousedown="fill(brush)" class='button1'>Fill</div>
     <div id='saveBtn' class='button1' onclick='saveAyte()'>Save</div>
-  </div><br>
-  <div style="margin-bottom: 30px;"id='liveBtn' class='button1' onclick='liveStatus()'>Off Air</div>
-  <br>
+  </div>
 
-
-  <a download="your_Ayte.svg" id="downloadlink" style="padding-bottom: 30px;">Download--- </a>
-  <!-- <a style="padding-bottom: 50px;" href="marioMe.svg" download="marioMe.svg">Download Your Ayte-by8 </a> -->
-  <a href="marioMe.svg"> *view*</a>
-  <textarea id="textbox">Type something here</textarea>
-  <button id="create">Create file</button>
-
-
-
+  <!-- <a download="your_Ayte.svg" id="downloadlink" style="padding-bottom: 30px;"> -Download- &nbsp;</a> -->
 
   <script src="http://cdn.pubnub.com/pubnub-3.7.15.min.js"></script>
   <script src="http://cdn.rawgit.com/scalabl3/pubnub-flex-history/v1.05/pubnub-flex-history-min.js"></script>
   <script src='ayte.js'></script>
-  <script src='marioMe.svg'></script>
   <script src='gal.js'></script>
 </body>
 </html>

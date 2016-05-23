@@ -2,7 +2,7 @@ body {
   text-align: center;
   font-family: courier;
   -webkit-text-size-adjust: 100%;
-  background-color: #ddd
+  background-color: #ddd;
 }
 
 .navbar-brand{
@@ -10,22 +10,22 @@ body {
 }
 
 .navbar-default{
-  font-size: 18px;
+  font-size: 16px;
   background-color: cornflowerblue;
   border-color: cornflowerblue;
   border-radius: 0;
   margin: 0;
 }
 
-#font-color, #title{
+#title, #galBtn, #liveBtn{
   color: #333;
 }
 
-#font-color{
+/*#font-color{
   font-size: 20px;
   margin-top: 10px;
   height: 50px;
-}
+}*/
 
 .navbar-default .navbar-toggle {
   background-color: #ccc;
@@ -88,11 +88,15 @@ body {
 .button1 {   display: inline-block;
   font-size: 26px;
   color: #111;
-  background-color: rgba(15,15,15,0.1);
+  background-color: rgba(15,15,15,0.2);
   width: 5em;
   height: 1.5em;
   margin: 0.3em;
   border-radius: 0.2em;
+  transition: background-color .25s ease-in-out;
+}
+
+.button1:hover { background-color: rgba(15,15,15,0.4);
   transition: background-color .25s ease-in-out;
 }
 
@@ -101,15 +105,11 @@ body {
   background-color: rgba(0,0,0,0.1);
   text-shadow: -1px -1px 0 rgba(255, 255, 255, 0.3), 1px -1px 0 rgba(255, 255, 255, 0.3),
     -1px 1px 0 rgba(255, 255, 255, 0.3), 1px 1px 0 rgba(255, 255, 255, 0.3);
-  transition: backgroundColor .25s ease-in-out;
+  transition: background-color .25s ease-in-out;
 }
 
 #fill:hover {
   background-color: rgba(0,0,0,0);
-  transition: backgroundColor .25s ease-in-out;
-}
-
-.button1:hover { background-color: rgba(15,15,15,0.3);
   transition: background-color .25s ease-in-out;
 }
 

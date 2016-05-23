@@ -109,8 +109,6 @@ for (var i = 0; i < 15; i++){
 function brushSwap(newCol){
   brush = swatch[newCol];
   paletteFrame.style.backgroundColor = brush[0];
-  var x = document.getElementById('fill');
-  x.style.backgroundColor = brush[0];
 }
 
 function fill(col){
@@ -133,16 +131,16 @@ function liveStatus(){
   if (!live) { live = true;
     liveBtn.style.color = fbc[0];
     liveBtn.innerHTML = 'Live!';
-    title.innerHTML = 'Ayte-by8 * Live!'
+    // title.innerHTML = 'Ayte-by8 * Live!'
     title.style.color = fbc[0];
     history(1, ['1b','1a']);
   } else { live = false;
     liveBtn.style.color = '#111';
     liveBtn.innerHTML = 'Off Air';
-    title.innerHTML = 'Ayte-by8';
+    // title.innerHTML = 'Ayte-by8';
     title.style.color = '#333';
 
-    fill(ash);
+    fill(clr);
   }
 }
 
@@ -238,27 +236,11 @@ function publishGal(data) {
   console.log('Saved Ayte to Gallery1: ',savedAyte);
 }
 
-
-
-(function () {
-var textFile = null,
-  makeTextFile = function (text) {
-    var data = new Blob([text], {type: 'text/plain'});
-    // If we are replacing a previously generated file we need to
-    // manually revoke the object URL to avoid memory leaks.
-    if (textFile !== null) {
-      window.URL.revokeObjectURL(textFile);
-    }
-    textFile = window.URL.createObjectURL(data);
-    return textFile;
-  };
-
-  var create = document.getElementById('create'),
-    textbox = document.getElementById('textbox');
-
-  create.addEventListener('click', function () {
-    var link = document.getElementById('downloadlink');
-    link.href = makeTextFile(textbox.value);
-    link.style.display = 'block';
-  }, false);
-})();
+//--------------- Generate SVG file & download ---------------------------------
+// var svgString = '<svg xmlns="http://www.w3.org/2000/svg" width="528" height="528" viewBox="0 0 528 528" ><defs><filter id="f1" height="130%" width="130%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/> <feOffset dx="5" dy="5" result="offsetblur"/><feComponentTransfer><feFuncA type="linear" slope="0.5"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g filter="url(#f1)" ><path fill-rule="evenodd" fill="green" d="M64 0v64h-64v-64h64z"/><path fill-rule="evenodd" fill="green" d="M64 448v64h-64v-64h64z"/><path fill-rule="evenodd" fill="blue" d="M512 448v64h-64v-64h64z"/><path fill-rule="evenodd" fill="green" d="M512 0v64h-64v-64h64z"/><path fill-rule="evenodd" fill="blue" d="M256 0v64h-64v-64h64z"/><path fill-rule="evenodd" fill="blue" d="M128 64v64h-64v-64h64z"/><path fill-rule="evenodd" fill="blue" d="M128 128v64h-64v-64h64z"/><path fill-rule="evenodd" fill="blue" d="M512 256v64h-64v-64h64z"/><path fill-rule="evenodd" fill="red" d="M512 192v64h-64v-64h64z"/><path fill-rule="evenodd" fill="green" d="M128 448v64h-64v-64h64z"/><path fill-rule="evenodd" fill="cornflowerblue" d="M256 256v64h-64v-64h64z"/><path fill-rule="evenodd" fill="cornflowerblue" d="M256 320v64h-64v-64h64z"/><path fill-rule="evenodd" fill="cornflowerblue" d="M320 256v64h-64v-64h64z"/><path fill-rule="evenodd" fill="cornflowerblue" d="M320 320v64h-64v-64h64z"/></g></svg>';
+// makeSVGTextFile = function (text) {
+//   var data = new Blob([text], {type: 'text/plain'});
+//   svgString = window.URL.createObjectURL(data);
+//   return svgString;
+// };
+// downloadlink.href = makeSVGTextFile(svgString);

@@ -130,16 +130,18 @@ var live = false; var ayteChecked = false;
 function liveStatus(){
   if (!live) { live = true;
     if(stateGal){swapToGal();}
-    liveBtn.style.color = fbc[0];
-    liveBtn.innerHTML = 'Live!';
-    title.innerHTML = 'Ayte-by8 * Live!'
-    title.style.color = fbc[0];
+    // liveBtn.style.color = fbc[0];
+    liveBtn.innerHTML = 'Go Off Air';
+    // title.innerHTML = 'Ayte-by8 * Live!'
+    titleLive.style.display = 'block';
+    // title.style.color = fbc[0];
     history(1, ['1b','1a']);
   } else { live = false;
     liveBtn.style.color = '#111';
-    liveBtn.innerHTML = 'Off Air';
-    title.innerHTML = 'Ayte-by8';
-    title.style.color = '#333';
+    liveBtn.innerHTML = '*Pixel Chat*';
+    titleLive.style.display = 'none';
+    // title.innerHTML = 'Ayte-by8';
+    // title.style.color = '#333';
     fill(clr);
   }
 }

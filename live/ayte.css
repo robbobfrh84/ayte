@@ -26,7 +26,17 @@ body {
 #titleLive{
   font-size: 16px;
   margin-left: -18px;
-  /*display: none;*/
+  color: firebrick;
+  display: none;
+}
+
+#liveBtn{
+  background-color: rgba(255,255,255,0.1);
+}
+
+#galBtn{
+  /*background-color: rgba(255,255,255,0.2);*/
+  margin-right: 15px;
 }
 
 /*#font-color{

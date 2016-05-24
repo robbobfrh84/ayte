@@ -27,6 +27,13 @@ body {
   height: 50px;
 }*/
 
+.navbar-fixed-top{
+  position: absolute;
+  background-color: cornflowerblue;
+  border-radius: 5px;
+  margin: -1px;
+}
+
 .navbar-default .navbar-toggle {
   background-color: #ccc;
   border: none;

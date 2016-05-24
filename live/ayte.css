@@ -7,7 +7,7 @@ body {
 
 .navbar-brand{
   font-size: 30px;
-  margin-top: 0px;
+  margin-top: 0;
   /*-webkit-text-size-adjust: 75%;*/
 }
 
@@ -18,8 +18,13 @@ body {
   border-radius: 0;
 }
 
-#title, #galBtn, #liveBtn{
+#title, #galBtn, #liveBtn, #titleLive{
   color: #333;
+}
+
+#titleLive{
+  font-size: 20px;
+  /*display: none;*/
 }
 
 /*#font-color{

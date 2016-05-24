@@ -7,8 +7,8 @@ body {
 
 .navbar-brand{
   font-size: 30px;
-  margin-top: 0;
-  -webkit-text-size-adjust: 75%;
+  margin-top: 0px;
+  -webkit-text-size-adjust: 50%;
 }
 
 .navbar-default{

@@ -16,6 +16,7 @@ body {
   background-color: cornflowerblue;
   border-color: cornflowerblue;
   border-radius: 0;
+  /*-webkit-text-size-adjust: 75%;*/
 }
 
 #title, #galBtn, #liveBtn, #titleLive{

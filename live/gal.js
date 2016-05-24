@@ -6,16 +6,16 @@ var skip = [0,1,21,27,28,29,32];
 function swapToGal(){
   if (!stateGal){ stateGal = true;
     console.log('swapped to gallery Page');
-    historyGal.flex_history(getAll, flex_history_callback);
     ayteFrame.style.display = 'none';
     paletteFrame.style.display = 'none';
-    liveBtn.style.display = 'none';
+    // liveBtn.style.display = 'none';
     gal1.style.display = 'block';
     galBtn.innerHTML = '<-Back'
+    historyGal.flex_history(getAll, flex_history_callback);
   } else { stateGal = false;
     ayteFrame.style.display = 'block';
     paletteFrame.style.display = 'block';
-    liveBtn.style.display = 'inLine-block';
+    // liveBtn.style.display = 'inLine-block';
     gal1.style.display = 'none';
     galBtn.innerHTML = '{Gallery}'
 

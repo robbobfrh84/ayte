@@ -8,7 +8,7 @@ body {
 .navbar-brand{
   font-size: 30px;
   margin-top: 0px;
-  -webkit-text-size-adjust: 68%;
+  -webkit-text-size-adjust: 75%;
 }
 
 .navbar-default{
@@ -46,7 +46,7 @@ body {
   text-align: center;
   /*margin: 0;*/
   margin-top: -10px;
-  -webkit-text-size-adjust: 75%;
+  -webkit-text-size-adjust: 72%;
 }
 
 .ayte { display: inline-block; background-color: #ddd;

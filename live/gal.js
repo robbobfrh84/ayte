@@ -5,6 +5,7 @@ var skip = [0,1,21,27,28,29,32];
 
 function swapToGal(){
   if (!stateGal){ stateGal = true;
+    if (live) {liveStatus();} 
     console.log('swapped to gallery Page');
     ayteFrame.style.display = 'none';
     paletteFrame.style.display = 'none';

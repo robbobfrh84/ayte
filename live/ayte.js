@@ -129,17 +129,17 @@ function fill(col){
 var live = false; var ayteChecked = false;
 function liveStatus(){
   if (!live) { live = true;
+    if(stateGal){swapToGal();}
     liveBtn.style.color = fbc[0];
     liveBtn.innerHTML = 'Live!';
-    // title.innerHTML = 'Ayte-by8 * Live!'
+    title.innerHTML = 'Ayte-by8 * Live!'
     title.style.color = fbc[0];
     history(1, ['1b','1a']);
   } else { live = false;
     liveBtn.style.color = '#111';
     liveBtn.innerHTML = 'Off Air';
-    // title.innerHTML = 'Ayte-by8';
+    title.innerHTML = 'Ayte-by8';
     title.style.color = '#333';
-
     fill(clr);
   }
 }

@@ -230,7 +230,7 @@ function publishGal(data) {
     channel: 'gallery1',
     message: data
   });
-  console.log('Saved Ayte to Gallery1: ',savedAyte);
+  //console.log('Saved Ayte to Gallery1: ',savedAyte);
   //swapToGal();
 }
 

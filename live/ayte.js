@@ -76,9 +76,9 @@ function draw(bId, x){
 }
 
 function updateAyte() {
-  for (var i = 0; i < 64; i++){
-    var bId = document.getElementById('blk'+i);
-    bId.style.backgroundColor = ayteRGB.ayte[i];
+    for (var i = 0; i < 64; i++){
+      var bId = document.getElementById('blk'+i);
+      bId.style.backgroundColor = ayteRGB.ayte[i];
   }
 }
 
@@ -170,7 +170,7 @@ pubnub.subscribe({
   callback: function(m) {
     ayteRGB = m;
     console.log('Saw new *RGB*');
-    updateAyte();
+    if(live){updateAyte();}
     waitForMsg = false;
   },
   error: function(err) {console.log(err);}
@@ -222,6 +222,7 @@ function saveAyte() {
     ayteByte : ayteByteHistory
   };
   publishGal(savedAyte);
+
 }
 
 function publishGal(data) {
@@ -230,6 +231,7 @@ function publishGal(data) {
     message: data
   });
   console.log('Saved Ayte to Gallery1: ',savedAyte);
+  //swapToGal();
 }
 
 //--------------- Generate SVG file & download ---------------------------------

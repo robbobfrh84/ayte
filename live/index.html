@@ -36,13 +36,9 @@
       </div>
     </div>
   </nav>
-  <!-- <div id='gal1Shell' class='frame1' > -->
-    <svg id='gal1' width=568 height=568 viewbox='0 0 568 568 '>
+
+    <!-- <svg id='gal1' width=568 height=568 viewbox='0 0 568 568 '>
       <defs>
-        <!-- <filter id="f1" x="0" y="0" width="200%" height="200%">
-          <feOffset result="offOut" in="SourceAlpha" dx="5" dy="5" />
-          <feBlend in="SourceGraphic" in2="offOut" mode="normal"/>
-        </filter> -->
         <filter id="f1" height="130%" width="130%">
           <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
           <feOffset dx="2" dy="2" result="offsetblur"/>
@@ -55,18 +51,18 @@
           </feMerge>
         </filter>
       </defs>
-      <!-- <rect x="100" y="50" width="20" height="20" fill="cornflowerblue"
-        filter="url(#f1)"/>
-        <rect x="124" y="50" width="20" height="20" fill="cornflowerblue"
-          filter="url(#f1)"/> -->
-    </svg>
-  <!-- </div> -->
+    </svg> -->
+
   <div id='ayteFrame' class='frame1'></div>
+
   <div id='paletteFrame' onmousedown='brushSwap(15);'>
     <div id='swatchContainer'></div>
     <div id='fill' onmousedown="fill(brush)" class='button1'>Fill</div>
     <div id='saveBtn' class='button1' onclick='saveAyte()'>Share</div>
   </div>
+
+  <div id='gal1Frame' class='frame1'>{Gallery: public, room: 1}</div>
+
 
   <!-- <a download="your_Ayte.ino" id="downloadlink" style="padding-bottom: 30px;"> -Download- &nbsp;</a> -->
 

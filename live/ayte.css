@@ -143,17 +143,19 @@ body {
   -webkit-text-size-adjust: 50%;
 }
 
-#gal1 {
+/*#gal1 {
   font-size: 0;
   margin: auto;
   text-align: center;
   padding-top: 15px;
   display: none;
+}*/
+
+#gal1Frame{
+  display: none;
+  font-size: 20px;
 }
 
-#gal1Shell {
-
-}
 
 @media screen and (min-width: 768px) {
   #font-color{

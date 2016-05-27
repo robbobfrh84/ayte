@@ -129,19 +129,13 @@ function fill(col){
 var live = false; var ayteChecked = false;
 function liveStatus(){
   if (!live) { live = true;
-    if(stateGal){swapToGal();}
-    // liveBtn.style.color = fbc[0];
+    if(stateGal){ swapToGal();}
     liveBtn.innerHTML = 'Go Off Air';
-    // title.innerHTML = 'Ayte-by8 * Live!'
     titleLive.style.display = 'block';
-    // title.style.color = fbc[0];
     history(1, ['1b','1a']);
   } else { live = false;
-    liveBtn.style.color = '#111';
     liveBtn.innerHTML = '*Pixel Chat*';
     titleLive.style.display = 'none';
-    // title.innerHTML = 'Ayte-by8';
-    // title.style.color = '#333';
     fill(clr);
   }
 }
@@ -240,6 +234,7 @@ function publishGal(data) {
 
 //--------------- Generate SVG file & download ---------------------------------
 // var svgString = '<svg xmlns="http://www.w3.org/2000/svg" width="528" height="528" viewBox="0 0 528 528" ><defs><filter id="f1" height="130%" width="130%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/> <feOffset dx="5" dy="5" result="offsetblur"/><feComponentTransfer><feFuncA type="linear" slope="0.5"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g filter="url(#f1)" ><path fill-rule="evenodd" fill="green" d="M64 0v64h-64v-64h64z"/><path fill-rule="evenodd" fill="green" d="M64 448v64h-64v-64h64z"/><path fill-rule="evenodd" fill="blue" d="M512 448v64h-64v-64h64z"/><path fill-rule="evenodd" fill="green" d="M512 0v64h-64v-64h64z"/><path fill-rule="evenodd" fill="blue" d="M256 0v64h-64v-64h64z"/><path fill-rule="evenodd" fill="blue" d="M128 64v64h-64v-64h64z"/><path fill-rule="evenodd" fill="blue" d="M128 128v64h-64v-64h64z"/><path fill-rule="evenodd" fill="blue" d="M512 256v64h-64v-64h64z"/><path fill-rule="evenodd" fill="red" d="M512 192v64h-64v-64h64z"/><path fill-rule="evenodd" fill="green" d="M128 448v64h-64v-64h64z"/><path fill-rule="evenodd" fill="cornflowerblue" d="M256 256v64h-64v-64h64z"/><path fill-rule="evenodd" fill="cornflowerblue" d="M256 320v64h-64v-64h64z"/><path fill-rule="evenodd" fill="cornflowerblue" d="M320 256v64h-64v-64h64z"/><path fill-rule="evenodd" fill="cornflowerblue" d="M320 320v64h-64v-64h64z"/></g></svg>';
+//
 // makeSVGTextFile = function (text) {
 //   var data = new Blob([text], {type: 'text/plain'});
 //   svgString = window.URL.createObjectURL(data);

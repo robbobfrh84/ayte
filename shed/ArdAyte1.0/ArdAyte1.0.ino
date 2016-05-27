@@ -6,6 +6,8 @@
 #define NUMPIXELS      64
 #include <SPI.h>
 #include <WiFi101.h>
+//#include <ArduinoJson.h>
+//#define JSON_BUFF_DIMENSION 2500
 Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 WiFiClient client;
 
@@ -41,9 +43,10 @@ void setup(){
   if (WiFi.status() == WL_NO_SHIELD) { Serial.println("WiFi shield not present"); while (true);}
   while ( status != WL_CONNECTED) {
     Serial.print("Attempting connect to SSID..."); Serial.println(ssid); status = WiFi.begin(ssid, pass);
-    delay(1000);
+    delay(10000);
   }
   printWifiStatus(); 
+  
   httpRequest("history"); //TURN BACK INTO ONE!!!
   delay(50);
   parseAyte();

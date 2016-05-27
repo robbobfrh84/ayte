@@ -1,12 +1,14 @@
 var svgElement = 'http://www.w3.org/2000/svg';
 var allGalHistory = {};
 var stateGal = false;
+var gCnt = 0;
 var skip = [0,1,21,27,28,29,32];
 
 function swapToGal(){
   if (!stateGal){ stateGal = true;
     if (live) {liveStatus();}
     console.log('swapped to gallery Page');
+    galName.style.display = 'block';
     gal1Frame.style.display = 'block';
     ayteFrame.style.display = 'none';
     paletteFrame.style.display = 'none';
@@ -14,6 +16,7 @@ function swapToGal(){
     galBtn.innerHTML = '<-Back'
     historyGal.flex_history(getAll, flex_history_callback);
   } else { stateGal = false;
+    galName.style.display = 'none';
     gal1Frame.style.display = 'none';
     ayteFrame.style.display = 'block';
     paletteFrame.style.display = 'block';
@@ -28,21 +31,17 @@ var gap = -0.75;
 var rnd = 0; //remove!!!
 var filter = 'url(#f1)';
 
-function buildGal(){}
-//   for (var i = 0; i < allGalHistory[0].length; i++){
-//
-//
-//
-//     if (i % 8 === 0){ ayteFrame.innerHTML += '<br>';}
-//
-//     var blk = document.createElement('div');
-//     blk.className = 'ayte'; blk.id = 'blk'+i;
-//     blk.setAttribute('onmousedown', 'mouseState(true, blk'+i+','+i+')');
-//     blk.setAttribute('onmousemove', 'draw(blk'+i+','+i+')');
-//     blk.setAttribute('ontouchstart','draw(blk'+i+','+i+')');
-//     ayteFrame.appendChild(blk);
-//   }
-// }
+function buildGal(){
+  for (var i = 0; i < gCnt; i++){
+
+    if (i % 8 === 0){ gal1Frame.innerHTML += '<br>';}
+
+    var blk = document.createElement('div');
+    blk.className = 'ayteby8'; blk.id = 'ayg'+i;
+
+    gal1Frame.appendChild(blk);
+  }
+}
 
 
 // function buildGal(){
@@ -88,7 +87,7 @@ var historyGal = PUBNUB.init({
   subscribe_key: 'sub-c-f0907bae-1ab6-11e6-9f24-02ee2ddab7fe'
 });
 historyGal.flex_history = pubnub_flex_history;
-// Example of a generic callback from pubNub ...
+
 var flex_history_callback = function(result) {
   if (!result.error) {
     console.log(result.operation + " completed", result);
@@ -96,7 +95,8 @@ var flex_history_callback = function(result) {
     for (var i = 0; i < result.count; i++){
       if (isInArray(i,skip)){ c++; }
       //need to give id as i so that it's easy to inspect in console to add to skip arrey
-      else { allGalHistory[i-c] = result.messages[i].message.ayte}
+      else { gCnt++;
+        allGalHistory[i-c] = result.messages[i].message.ayte[i]}
     }
     console.log("allGalHistory: "+allGalHistory);
     buildGal();

@@ -27,10 +27,9 @@ function swapToGal(){
 }
 
 var svgStart = '<svg xmlns="http://www.w3.org/2000/svg" width="10em" height="10em" viewBox="0 0 528 528" >';
-
 var shaddow = '<defs><filter id="f1" height="130%" width="130%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/> <feOffset dx="5" dy="5" result="offsetblur"/><feComponentTransfer><feFuncA type="linear" slope="0.5"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>';
 var newgroup = '<g filter="url(#f1)" >';
-//nooh
+
 function buildGal(){
   for (var i = 0; i < gCnt; i++){
     if (i % 8 === 0 && !mobile){ gal1Frame.innerHTML += '<br>';}
@@ -101,6 +100,12 @@ function isInArray(value, array) {
   return array.indexOf(value) > -1;
 }
 
+function clearAllChildren(parentID){
+  while (parentID.hasChildNodes()){
+    parentID.removeChild(parentID.firstChild);
+  }
+}
+
 // -------------------  pubnub's flex callback -------------------------------//
 var historyGal = PUBNUB.init({
   publish_key: 'pub-c-a3bac365-84b3-4a6b-a8a1-67d0e2aaad3d',
@@ -110,15 +115,15 @@ historyGal.flex_history = pubnub_flex_history;
 
 var flex_history_callback = function(result) {
   if (!result.error) {
-    console.log(result.operation + " completed", result);
-    var c = 0;
+    var c = 0; gCnt = 0;
     for (var i = 0; i < result.count; i++){
       if (isInArray(i,skip)){ c++; }
       //need to give id as i so that it's easy to inspect in console to add to skip arrey
       else { gCnt++;
         allGalHistory[i-c] = result.messages[i].message.ayte}
     }
-    console.log("allGalHistory: "+allGalHistory);
+    console.log("allGalHistory: ",allGalHistory);
+    clearAllChildren(gal1Frame);
     buildGal();
   }
   else {

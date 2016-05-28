@@ -1,4 +1,4 @@
-var mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)
+var mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
 var user = 'earth'; //MAY NEED TO BE ALL LOWER-CASED OR WILL MESS UP ARD PARSE
 var ayteRGB = {
   user : user,
@@ -36,10 +36,7 @@ var swatch = [ash,egg,cfb,gdr,grn
              ,sgn,pru,pnk,ind,ygr,clr];
 
 for (var i = 0; i < 64; i++){
-  if (mobile){  if (i % 8 === 0){ ayteFrame.innerHTML += '<br>';}
-}
   if (i % 8 === 0){ ayteFrame.innerHTML += '<br>';}
-
   var blk = document.createElement('div');
   blk.className = 'ayte'; blk.id = 'blk'+i;
   blk.setAttribute('onmousedown', 'mouseState(true, blk'+i+','+i+')');

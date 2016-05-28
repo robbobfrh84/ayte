@@ -1,5 +1,4 @@
 var mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)
-
 var user = 'earth'; //MAY NEED TO BE ALL LOWER-CASED OR WILL MESS UP ARD PARSE
 var ayteRGB = {
   user : user,

@@ -26,7 +26,6 @@ function swapToGal(){
   }
 }
 
-// var svgStart = '<svg xmlns="http://www.w3.org/2000/svg" width="7em" height="7em" viewBox="0 0 512 512" >';
 var svgStart = '<svg xmlns="http://www.w3.org/2000/svg" width="10em" height="10em" viewBox="0 0 512 512" >';
 
 var shaddow = '<defs><filter id="f1" height="130%" width="130%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/> <feOffset dx="5" dy="5" result="offsetblur"/><feComponentTransfer><feFuncA type="linear" slope="0.5"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>';
@@ -34,7 +33,8 @@ var newgroup = '<g filter="url(#f1)" >';
 //nooh
 function buildGal(){
   for (var i = 0; i < gCnt; i++){
-    if (i % 8 === 0){ gal1Frame.innerHTML += '<br>';}
+    if (i % 8 === 0 && !mobile){ gal1Frame.innerHTML += '<br>';}
+    if (i % 8 === 0 && mobile){ gal1Frame.innerHTML += '<br>';}
     var blk = document.createElement('div');
     blk.className = 'ayteby8';
     blk.id = 'ayg'+i;//BUILD NEW ARRAY AT HISTORY FLEX TO GET ACTUAL POSITION IN API, easy to find what ayte to remove with hover.

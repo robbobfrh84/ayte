@@ -26,24 +26,40 @@ function swapToGal(){
   }
 }
 
-var w = 8; //var w=15; var gap=1.5; var rnd=3; LOOKS GOOD FOR MEDIUM THUMB
-var gap = -0.75;
-var rnd = 0; //remove!!!
-var filter = 'url(#f1)';
+var svgStart = '<svg xmlns="http://www.w3.org/2000/svg" width="7em" height="7em" viewBox="0 0 512 512" ><defs><filter id="f1" height="130%" width="130%">';
+var shaddow = '<feGaussianBlur in="SourceAlpha" stdDeviation="5"/> <feOffset dx="5" dy="5" result="offsetblur"/><feComponentTransfer><feFuncA type="linear" slope="0.5"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>';
+var newgroup = '<g filter="url(#f1)" >';
 
 function buildGal(){
   for (var i = 0; i < gCnt; i++){
-
     if (i % 8 === 0){ gal1Frame.innerHTML += '<br>';}
-
     var blk = document.createElement('div');
-    blk.className = 'ayteby8'; blk.id = 'ayg'+i;
+    blk.className = 'ayteby8';
+    blk.id = 'ayg'+i;//BUILD NEW ARRAY AT HISTORY FLEX TO GET ACTUAL POSITION IN API, easy to find what ayte to remove with hover.
     gal1Frame.appendChild(blk);
-    blk.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="7em" height="7em" viewBox="0 0 512 512" ><defs><filter id="f1" height="130%" width="130%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/> <feOffset dx="5" dy="5" result="offsetblur"/><feComponentTransfer><feFuncA type="linear" slope="0.5"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g filter="url(#f1)" ><path fill-rule="evenodd" fill="green" d="M64 0v64h-64v-64h64z"/><path fill-rule="evenodd" fill="green" d="M64 448v64h-64v-64h64z"/><path fill-rule="evenodd" fill="blue" d="M512 448v64h-64v-64h64z"/><path fill-rule="evenodd" fill="green" d="M512 0v64h-64v-64h64z"/><path fill-rule="evenodd" fill="blue" d="M256 0v64h-64v-64h64z"/><path fill-rule="evenodd" fill="blue" d="M128 64v64h-64v-64h64z"/><path fill-rule="evenodd" fill="blue" d="M128 128v64h-64v-64h64z"/><path fill-rule="evenodd" fill="blue" d="M512 256v64h-64v-64h64z"/><path fill-rule="evenodd" fill="red" d="M512 192v64h-64v-64h64z"/><path fill-rule="evenodd" fill="green" d="M128 448v64h-64v-64h64z"/><path fill-rule="evenodd" fill="cornflowerblue" d="M256 256v64h-64v-64h64z"/><path fill-rule="evenodd" fill="cornflowerblue" d="M256 320v64h-64v-64h64z"/><path fill-rule="evenodd" fill="cornflowerblue" d="M320 256v64h-64v-64h64z"/><path fill-rule="evenodd" fill="cornflowerblue" d="M320 320v64h-64v-64h64z"/></g></svg>';
+
+    newpath = createAyte(allGalHistory[i]);
+
+    blk.innerHTML = svgStart+shaddow+newgroup+newpath+'</g></svg>';
+
   }
 }
 
+function createAyte(ayte){
+  var newpath =''; var c = 0; var r = -1;
+  for (var i = 0; i < 64; i++){
+    if (i % 8 === 0){ c=0; r++;}
+    newpath += '<path fill-rule="evenodd" fill="'+ayte[i]+'" d="M'+64*c+' '+64*r+'v64h-64v-64h64z"/>';
+    c++;
+  }
+  //var newpath = '<path fill-rule="evenodd" fill="green" d="M64 0v64h-64v-64h64z"/><path fill-rule="evenodd" fill="green" d="M64 448v64h-64v-64h64z"/><path fill-rule="evenodd" fill="blue" d="M512 448v64h-64v-64h64z"/><path fill-rule="evenodd" fill="green" d="M512 0v64h-64v-64h64z"/><path fill-rule="evenodd" fill="blue" d="M256 0v64h-64v-64h64z"/><path fill-rule="evenodd" fill="blue" d="M128 64v64h-64v-64h64z"/><path fill-rule="evenodd" fill="blue" d="M128 128v64h-64v-64h64z"/><path fill-rule="evenodd" fill="blue" d="M512 256v64h-64v-64h64z"/><path fill-rule="evenodd" fill="red" d="M512 192v64h-64v-64h64z"/><path fill-rule="evenodd" fill="green" d="M128 448v64h-64v-64h64z"/><path fill-rule="evenodd" fill="cornflowerblue" d="M256 256v64h-64v-64h64z"/><path fill-rule="evenodd" fill="cornflowerblue" d="M256 320v64h-64v-64h64z"/><path fill-rule="evenodd" fill="cornflowerblue" d="M320 256v64h-64v-64h64z"/><path fill-rule="evenodd" fill="cornflowerblue" d="M320 320v64h-64v-64h64z"/>';
+  return newpath;
+}
 
+//var w = 8; //var w=15; var gap=1.5; var rnd=3; LOOKS GOOD FOR MEDIUM THUMB
+//var gap = -0.75;
+//var rnd = 0; //remove!!!
+//var filter = 'url(#f1)';
 // function buildGal(){
 //   var col = -1; var row = -8;
 //   for (var i = 0; i < allGalHistory[0].length; i++){
@@ -96,7 +112,7 @@ var flex_history_callback = function(result) {
       if (isInArray(i,skip)){ c++; }
       //need to give id as i so that it's easy to inspect in console to add to skip arrey
       else { gCnt++;
-        allGalHistory[i-c] = result.messages[i].message.ayte[i]}
+        allGalHistory[i-c] = result.messages[i].message.ayte}
     }
     console.log("allGalHistory: "+allGalHistory);
     buildGal();

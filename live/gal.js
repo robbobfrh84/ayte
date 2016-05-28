@@ -34,7 +34,7 @@ var newgroup = '<g filter="url(#f1)" >';
 function buildGal(){
   for (var i = 0; i < gCnt; i++){
     if (i % 8 === 0 && !mobile){ gal1Frame.innerHTML += '<br>';}
-    if (i % 8 === 0 && mobile){ gal1Frame.innerHTML += '<br>';}
+    if (i % 6 === 0 && mobile){ gal1Frame.innerHTML += '<br>';}
     var blk = document.createElement('div');
     blk.className = 'ayteby8';
     blk.id = 'ayg'+i;//BUILD NEW ARRAY AT HISTORY FLEX TO GET ACTUAL POSITION IN API, easy to find what ayte to remove with hover.

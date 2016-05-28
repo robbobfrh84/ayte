@@ -26,8 +26,8 @@ function swapToGal(){
   }
 }
 
-var svgStart = '<svg xmlns="http://www.w3.org/2000/svg" width="7em" height="7em" viewBox="0 0 512 512" ><defs><filter id="f1" height="130%" width="130%">';
-var shaddow = '<feGaussianBlur in="SourceAlpha" stdDeviation="5"/> <feOffset dx="5" dy="5" result="offsetblur"/><feComponentTransfer><feFuncA type="linear" slope="0.5"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>';
+var svgStart = '<svg xmlns="http://www.w3.org/2000/svg" width="7em" height="7em" viewBox="0 0 512 512" >';
+var shaddow = '<defs><filter id="f1" height="130%" width="130%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/> <feOffset dx="5" dy="5" result="offsetblur"/><feComponentTransfer><feFuncA type="linear" slope="0.5"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>';
 var newgroup = '<g filter="url(#f1)" >';
 
 function buildGal(){
@@ -39,7 +39,6 @@ function buildGal(){
     gal1Frame.appendChild(blk);
 
     newpath = createAyte(allGalHistory[i]);
-
     blk.innerHTML = svgStart+shaddow+newgroup+newpath+'</g></svg>';
 
   }
@@ -48,8 +47,10 @@ function buildGal(){
 function createAyte(ayte){
   var newpath =''; var c = 0; var r = -1;
   for (var i = 0; i < 64; i++){
-    if (i % 8 === 0){ c=0; r++;}
-    newpath += '<path fill-rule="evenodd" fill="'+ayte[i]+'" d="M'+64*c+' '+64*r+'v64h-64v-64h64z"/>';
+    if (i % 8 === 0){ c=1; r++;}
+    var sx = (64*c)+2;
+    var sy = (64*r)-2;
+    if(ayte[i]!==""){newpath += '<path fill-rule="evenodd" fill="'+ayte[i]+'" d="M'+sx+' '+sy+'v68h-68v-68h68z"/>';}
     c++;
   }
   //var newpath = '<path fill-rule="evenodd" fill="green" d="M64 0v64h-64v-64h64z"/><path fill-rule="evenodd" fill="green" d="M64 448v64h-64v-64h64z"/><path fill-rule="evenodd" fill="blue" d="M512 448v64h-64v-64h64z"/><path fill-rule="evenodd" fill="green" d="M512 0v64h-64v-64h64z"/><path fill-rule="evenodd" fill="blue" d="M256 0v64h-64v-64h64z"/><path fill-rule="evenodd" fill="blue" d="M128 64v64h-64v-64h64z"/><path fill-rule="evenodd" fill="blue" d="M128 128v64h-64v-64h64z"/><path fill-rule="evenodd" fill="blue" d="M512 256v64h-64v-64h64z"/><path fill-rule="evenodd" fill="red" d="M512 192v64h-64v-64h64z"/><path fill-rule="evenodd" fill="green" d="M128 448v64h-64v-64h64z"/><path fill-rule="evenodd" fill="cornflowerblue" d="M256 256v64h-64v-64h64z"/><path fill-rule="evenodd" fill="cornflowerblue" d="M256 320v64h-64v-64h64z"/><path fill-rule="evenodd" fill="cornflowerblue" d="M320 256v64h-64v-64h64z"/><path fill-rule="evenodd" fill="cornflowerblue" d="M320 320v64h-64v-64h64z"/>';

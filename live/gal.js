@@ -52,10 +52,9 @@ function createAyte(ayte){
     var sx = (64*c)+2;
     var sy = (64*r)-2;
     var p = 68;
-    if(ayte[i]!==""){newpath += '<path fill-rule="evenodd" fill="'+ayte[i]+'" d="M'+sx+' '+sy+'v'+p+'h-'+p+'v-'+p+'h'+p+'z"/>';}
+    if(ayte[i]!=="" && ayte[i] !=='rgb(221, 221, 221)' ){newpath += '<path fill-rule="evenodd" fill="'+ayte[i]+'" d="M'+sx+' '+sy+'v'+p+'h-'+p+'v-'+p+'h'+p+'z"/>';}
     c++;
   }
-  //var newpath = '<path fill-rule="evenodd" fill="green" d="M64 0v64h-64v-64h64z"/><path fill-rule="evenodd" fill="green" d="M64 448v64h-64v-64h64z"/><path fill-rule="evenodd" fill="blue" d="M512 448v64h-64v-64h64z"/><path fill-rule="evenodd" fill="green" d="M512 0v64h-64v-64h64z"/><path fill-rule="evenodd" fill="blue" d="M256 0v64h-64v-64h64z"/><path fill-rule="evenodd" fill="blue" d="M128 64v64h-64v-64h64z"/><path fill-rule="evenodd" fill="blue" d="M128 128v64h-64v-64h64z"/><path fill-rule="evenodd" fill="blue" d="M512 256v64h-64v-64h64z"/><path fill-rule="evenodd" fill="red" d="M512 192v64h-64v-64h64z"/><path fill-rule="evenodd" fill="green" d="M128 448v64h-64v-64h64z"/><path fill-rule="evenodd" fill="cornflowerblue" d="M256 256v64h-64v-64h64z"/><path fill-rule="evenodd" fill="cornflowerblue" d="M256 320v64h-64v-64h64z"/><path fill-rule="evenodd" fill="cornflowerblue" d="M320 256v64h-64v-64h64z"/><path fill-rule="evenodd" fill="cornflowerblue" d="M320 320v64h-64v-64h64z"/>';
   return newpath;
 }
 

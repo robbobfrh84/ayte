@@ -206,6 +206,7 @@ var pubnubGal = PUBNUB(settingsGal);
 
 var loggedUser = 'robbobfrh84'
 var savedAyte;
+
 function saveAyte() {
   var ayteGal = [];
   for (var i = 0; i < 64; i++){
@@ -223,7 +224,6 @@ function saveAyte() {
     ayteByte : ayteByteHistory
   };
   publishGal(savedAyte);
-
 }
 
 function publishGal(data) {
@@ -232,7 +232,8 @@ function publishGal(data) {
     message: data
   });
   console.log('Saved Ayte to Gallery1: ',savedAyte);
-  //swapToGal();
+  swapToGal();
+  setTimeout(function() { historyGal.flex_history(getAll, flex_history_callback); }, 1500);
 }
 
 //--------------- Generate SVG file & download ---------------------------------

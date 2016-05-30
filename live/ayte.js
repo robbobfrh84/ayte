@@ -126,20 +126,27 @@ function fill(col){
 //-----------------------------------------------------------------------------
 //---------------------PUBNUB MESSAGE CENTER-----------------------------------
 //-----------------------------------------------------------------------------
-
 var live = false; var ayteChecked = false;
 function liveStatus(){
-  if (!live) { live = true;
+  if (!live) { fill(clr); live = true;
     if(stateGal){ swapToGal();}
     liveBtn.innerHTML = 'Go Off Air';
     titleLive.style.display = 'block';
+    fillBtn.innerHTML = '*Live!';
+    fillBtn.style.color = 'firebrick';
+    fillBtn.setAttribute('onmousedown', 'false');
     history(1, ['1b','1a']);
   } else { live = false;
     liveBtn.innerHTML = '*Pixel Chat*';
     titleLive.style.display = 'none';
+    fillBtn.innerHTML = 'fill';
+    fillBtn.style.color = 'Black';
+    fillBtn.setAttribute('onmousedown', 'fill(brush)');
     fill(clr);
   }
 }
+
+
 
 var settings = {
   publish_key: 'pub-c-926e03e9-2cbb-4a3d-b17a-2ee47ca078a5',

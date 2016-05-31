@@ -9,15 +9,19 @@
 Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 WiFiClient client;
 
-static char ssid[] = "2WIRE648";  
-static char pass[] = "3519464889";  
+static char ssid[] = "HOME-4914-2.4";  
+static char pass[] = "answer8987apron";  
+//static char ssid[] = "2WIRE648";  
+//static char pass[] = "3519464889";  
 int keyIndex = 0;           
 int status = WL_IDLE_STATUS;
 const char server[] = "pubsub.pubnub.com";    // name address for openweathermap (using DNS)
 String timeStamp = "0";
+String oldtimeStamp = "0";
+
 
 String text;
-long int lastConnection;
+long int missedUpdateCheck;
 long int action;
 
 int endResponse = 0;
@@ -41,13 +45,13 @@ void setup(){
   if (WiFi.status() == WL_NO_SHIELD) { Serial.println("WiFi shield not present"); while (true);}
   while ( status != WL_CONNECTED) {
     Serial.print("Attempting connect to SSID..."); Serial.println(ssid); status = WiFi.begin(ssid, pass);
-    delay(1000);
+    delay(10000);
   }
   printWifiStatus(); 
   httpRequest("history"); //TURN BACK INTO ONE!!!
   delay(50);
   parseAyte();
-  lastConnection = millis();
+  missedUpdateCheck = millis();
   action = millis();
 }
 
@@ -56,39 +60,50 @@ void loop (){
 
   if (!checking) {
     digitalWrite(6, led6State); led6State = true ? !led6State : false;
-    httpRequest("0"); Serial.print("!checking: "); Serial.print(timeStamp);
+    oldtimeStamp = timeStamp;
+    httpRequest("0"); 
+    Serial.print("!checking Time Stamp: "); Serial.print(timeStamp);
     if (timeStamp == ""){ Serial.println("____no TimeStamp___");
       delay(50); 
       httpRequest("0");
       delay(50); 
     }
-    httpRequest(timeStamp); //Serial.print("OutCheck?");
+    httpRequest(timeStamp); 
   }
   parseAyte();
 
-  if (millis() - lastConnection > 1000) {
+  if (millis() - missedUpdateCheck > 1000) {
     httpRequest("history"); 
     delay(50);
     parseAyte();
-    lastConnection = millis();
-    Serial.println("***");
+    missedUpdateCheck = millis();
+    Serial.println("End of Missed Update Check");
   }
 
-//  if (millis() - action > 15000) {
-//    rainbowWormHole();
-//    httpRequest("history"); 
-//    delay(50);
-//    parseAyte();
-//    delay(500);
-//  }
-  
+  if (millis() - action > 10000) {
+    Serial.println("10 Seconds of no action"); 
+    
+    //it's constantly building a new one, need to destinguish real action...
+    //oldTimstamp will only work for live, but the missed update check ignors timestamp.
 
+    
+    for (int i = 0; i < 64; i++){
+      pixels.setPixelColor(i, pixels.Color(0,0,0)); 
+    }
+    pixels.show();
+    delay(5000);
+    action = millis();
+
+  }
+  
 }
+
 void parseAyte(){  
   char c = 0;
   if (client.available()) {
     c = client.read();
-    if (endResponse == 0 && startJson == true) { Serial.println(text); 
+    if (endResponse == 0 && startJson == true) { 
+      //Serial.println(text); 
       pixels.show();
       cnt = 0;
       text = "";  
@@ -127,7 +142,7 @@ void httpRequest(String timeState) { // this method makes a HTTP connection to t
     char c = 0;
     timeStamp = "";
     delay(50); 
-    Serial.println("-0-");
+    Serial.println("Getting new TimeStamp");
     for (int j = 0; j < 1000; j++){
       c = client.read();
       if (c == '['){
@@ -139,7 +154,7 @@ void httpRequest(String timeState) { // this method makes a HTTP connection to t
         }
       }  
     }
-    lastConnection = millis();
+    missedUpdateCheck = millis();
     checking = false;      
   }
 }
@@ -152,8 +167,8 @@ Serial.print("signal strength (RSSI):");Serial.print(rssi); Serial.println(" dBm
 //----------          ANIMATIONS                                                                 ----------//
 //---------------------------------------------------------------------------------------------------------//
 
-void rainbowWormHole(){
-  //Serial.println("Playing Rainbow Worm-hole");
+void randomPixelDanceHalfCourt(){
+  //Serial.println("Playing: Random Pixel Dance Half Court");
   for (int i = 0; i < 3; i++){
     int x = random(0,63); 
     int r = random(0,90); 
@@ -165,12 +180,12 @@ void rainbowWormHole(){
   delay(200);
 }
 
-void randomPixelDanceHalfBlack(){
-  Serial.println("Playing RandomPixelDanceHalfBlack");
+void rainbowWormHole(){
+  Serial.println("Playing: Rainbow Wormhole");
 }
 
 void bluePixelWondersThroughHell(){
-  Serial.println("Playing RandomPixelDanceHalfBlack");
+  Serial.println("Playing: Blue Soul Wonders Through Hell");
 }
 
 //---------------------------------------------------------------------------------------------------------//

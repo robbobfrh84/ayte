@@ -91,6 +91,7 @@ void loop (){
 
     httpRequest("gal"); 
     recentAction = true;
+    //solid(0,0,0);
     
     long int galDelay = millis();
     while(millis() - galDelay < 500){ //50 didn't work...check with cnt count.

@@ -66,7 +66,6 @@ function draw(bId, x){
     if (!live) {
       bId.style.backgroundColor = brush[0];
       ayteByteHistory[x] = brush[1];
-      console.log(ayteByteHistory);
     }
     if (live && !waitForMsg) {
       ayteRGB.ayte[x] = brush[0];
@@ -113,7 +112,10 @@ function brushSwap(newCol){
 }
 
 function fill(col){
-  for (var i = 0; i < 64; i++){ document.getElementById('blk'+i).style.backgroundColor = col[0];}
+  for (var i = 0; i < 64; i++){
+    document.getElementById('blk'+i).style.backgroundColor = col[0];
+    ayteByteHistory[i] = brush[1];
+  }
   if (live && !waitForMsg) {
     for (var i = 0; i < 64; i++){
         ayteRGB.ayte[i] = brush[0];
@@ -219,9 +221,7 @@ function saveAyte() {
     var bId = document.getElementById('blk'+i);
     var rgb = bId.style.backgroundColor;
     ayteGal[i] = rgb;
-
     if(ayteByteHistory[i]){ ardGal[i] = ayteByteHistory[i] } else { ardGal[i] = 'P';}
-
   }
   var date = new Date();
   var ayteReferenceIdNum = 'ayte'+date.getTime();

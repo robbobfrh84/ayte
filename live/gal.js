@@ -81,7 +81,7 @@ var flex_history_callback = function(result) {
         allGalHistory[i-c] = result.messages[i].message.ayte
       }
     }
-    console.log("allGalHistory: ",allGalHistory);
+    //console.log("allGalHistory: ",allGalHistory);
     clearAllChildren(gal1Frame);
     buildGal();
   }

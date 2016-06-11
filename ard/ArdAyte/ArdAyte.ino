@@ -91,7 +91,6 @@ void loop (){
 
     httpRequest("gal"); 
     recentAction = true;
-    //solid(0,0,0);
     
     long int galDelay = millis();
     while(millis() - galDelay < 500){ //50 didn't work...check with cnt count.
@@ -103,13 +102,10 @@ void loop (){
     
     //if(!blank){ rainbowWipe(25); blank = true; }
     //randomPixelDanceHalfCourt(0); 
-    
     //delay1 = 500;
     action = millis();
   }
-  
-    //When you share while live, ard's ayte will not save to pubnub correctly. it's live ayte is there, but not published to pubnub, it'll just publish the last paint-non-live.... whatever that was.... 
-    
+      
     //cnt... might be a dead variable?
     //parse history function modification add string
     //can the timestamp delay 1000 charactors be lessssssss. like 100...

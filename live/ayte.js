@@ -221,7 +221,12 @@ function saveAyte() {
     var bId = document.getElementById('blk'+i);
     var rgb = bId.style.backgroundColor;
     ayteGal[i] = rgb;
-    if(ayteByteHistory[i]){ ardGal[i] = ayteByteHistory[i] } else { ardGal[i] = 'P';}
+    if(!live){
+      if(ayteByteHistory[i]){ ardGal[i] = ayteByteHistory[i]; } else { ardGal[i] = 'P';}
+    }
+    if(live) {
+      if(ayteByte.ayte[i][0]){ ardGal[i] = ayteByte.ayte[i][0]; } else { ardGal[i] = 'P';}
+    }
   }
   var date = new Date();
   var ayteReferenceIdNum = 'ayte'+date.getTime();

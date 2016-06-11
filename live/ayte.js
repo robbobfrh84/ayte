@@ -214,19 +214,23 @@ var savedAyte;
 
 function saveAyte() {
   var ayteGal = [];
+  var ardGal = [];
   for (var i = 0; i < 64; i++){
     var bId = document.getElementById('blk'+i);
     var rgb = bId.style.backgroundColor;
     ayteGal[i] = rgb;
+
+    if(ayteByteHistory[i]){ ardGal[i] = ayteByteHistory[i] } else { ardGal[i] = 'P';}
+
   }
   var date = new Date();
   var ayteReferenceIdNum = 'ayte'+date.getTime();
   savedAyte = {
+    display : ardGal,
     user : loggedUser,
     arin : ayteReferenceIdNum,
     posted : date,
-    ayte : ayteGal,
-    ayteByte : ayteByteHistory
+    ayte : ayteGal
   };
   publishGal(savedAyte);
 }

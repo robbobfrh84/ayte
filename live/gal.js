@@ -2,7 +2,9 @@ var svgElement = 'http://www.w3.org/2000/svg';
 var allGalHistory = {};
 var stateGal = false;
 var gCnt = 0;
-var skip = [0,1,13,18,19,21,23,24,26,27,28,29,30,31,32,33,35,36,37,38,39,40,41,42,43,44,45,52,53,54,55,56,57];
+var skip = [0,1,13,18,19,21,23,24,26,27,28,29,30,31,32,33,35,36,37,38,39,40,41,42,43,44,45,52,53
+            ,54,55,56,57];
+//var skip = [];
 
 function swapToGal(){
   if (!stateGal){ stateGal = true;

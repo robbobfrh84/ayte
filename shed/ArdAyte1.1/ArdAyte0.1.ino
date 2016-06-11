@@ -71,7 +71,7 @@ void loop (){
       action = millis();
     }  
     digitalWrite(6, led6State); led6State = true ? !led6State : false;
-    httpRequest("0"); 
+    httpRequest("0"); //Serial.print("!checking Time Stamp: "); Serial.println(timeStamp);
     if (timeStamp == ""){ Serial.println("____no TimeStamp___");
       httpRequest("0"); //delay(50); 
     }
@@ -80,7 +80,7 @@ void loop (){
   }
   parseAyte("live");  
   
-  if (millis() - missedUpdateCheck > 2500) { 
+  if (millis() - missedUpdateCheck > 2500) { //Serial.println("Missed Update Check");
     httpRequest("history"); 
     parseAyte("live");
     missedUpdateCheck = millis();
@@ -97,7 +97,7 @@ void loop (){
       parseAyte("gal");
     }
     delay(5000); //NOT needed just needed to see how long we need to delay the parse loop.
-    Serial.print("galAyte:       "); Serial.println(galAyte); 
+    Serial.print("galAyte:        "); Serial.println(galAyte); 
     galAyte = "";
     
     //if(!blank){ rainbowWipe(25); blank = true; }
@@ -108,6 +108,7 @@ void loop (){
   }
   
     //When you share while live, ard's ayte will not save to pubnub correctly. it's live ayte is there, but not published to pubnub, it'll just publish the last paint-non-live.... whatever that was.... 
+    //client.flush();... consider...
     
     //cnt... might be a dead variable?
     //parse history function modification add string
@@ -121,7 +122,16 @@ void loop (){
 void parseAyte(String ayte){ char c = 0; 
   if (client.available()) {
     c = client.read();
-    if (c == '{') { startJson = true; }
+    if (endResponse == 0 && startJson == true ) { 
+      if (recentAction){ pixels.show(); recentAction = false; blank = false; }
+      cnt = 0;
+      //Serial.println(text);
+      text = "";  
+      startJson = false;  
+      checking = false;
+    }
+    if (c == '{') { startJson = true; endResponse++;}
+    if (c == '}') { endResponse--; }
     if (startJson == true) {
       text += c;  
       int x = c-65; //65-to-90 is the upperCase Alphabit ASCII
@@ -133,7 +143,10 @@ void parseAyte(String ayte){ char c = 0;
         if (cnt >= 64){
           client.flush();
           if (recentAction){ pixels.show(); recentAction = false; blank = false; }
-          text = ""; startJson = false; checking = false; cnt=0;
+          text = "";  
+          startJson = false;  
+          checking = false;
+          cnt=0; //redundant...
         }
       }   
     }
@@ -145,10 +158,11 @@ void httpRequest(String timeState) { // this method makes a HTTP connection to t
   client.stop(); 
   if (client.connect(server, 80)) {
     if(timeState == "gal"){ Serial.println("gallery request");
-      client.println("GET /history/sub-c-f0907bae-1ab6-11e6-9f24-02ee2ddab7fe/gallery1/0/1 HTTP/1.1"); }
-    else if (timeState == "history"){ Serial.println("Live History request");
-      client.println("GET /history/sub-c-b3fbc6fa-0bf5-11e6-a8fd-02ee2ddab7fe/1b/0/1 HTTP/1.1"); }
-    else { //this could be "0" or a timestamp.... as timeState
+      client.println("GET /history/sub-c-f0907bae-1ab6-11e6-9f24-02ee2ddab7fe/gallery1/0/1 HTTP/1.1");
+    }
+    else if (timeState == "history"){ 
+      client.println("GET /history/sub-c-b3fbc6fa-0bf5-11e6-a8fd-02ee2ddab7fe/1b/0/1 HTTP/1.1");
+    } else { //this could be "0" or a timestamp.... as timeState
       client.println("GET /subscribe/sub-c-b3fbc6fa-0bf5-11e6-a8fd-02ee2ddab7fe/1b/0/" + timeState + " HTTP/1.1"); }
     client.println("Host: pubsub.pubnub.com");
     client.println("User-Agent: ArduinoWiFi/1.1");

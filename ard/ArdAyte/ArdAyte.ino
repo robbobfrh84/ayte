@@ -15,16 +15,15 @@ int keyIndex = 0;
 int status = WL_IDLE_STATUS;
 const char server[] = "pubsub.pubnub.com";    // name address for openweathermap (using DNS)
 
-
-String oldAyte;
+String oldAyte = "initial";
 String displayedAyte;
-String oldGal;
+String oldGal = "initial";
 String galAyte;
 String text;
 String timeStamp = "0";
 long int missedUpdateCheck;
 long int action;
-long int delay1 = 10000;
+long int delayA = 10000;
 int endResponse = 0;
 int cnt = 0;
 boolean led6State = true;
@@ -32,6 +31,7 @@ boolean checking = false;
 boolean startJson = false;
 boolean recentAction = true;
 boolean blank = true;
+boolean galCheck = true;
 
 //web rgb *0.4, rounded down...
 const char r[]={  15,200, 20, 85,  0,   40, 70, 40,130, 100,  10, 40,100, 25, 95,  0 };
@@ -45,7 +45,7 @@ void setup(){
   #endif
   pinMode(6, OUTPUT);
   pixels.begin();
-  if (WiFi.status() == WL_NO_SHIELD) { Serial.println("WiFi shield not present"); while (true);}
+
   while ( status != WL_CONNECTED) {
     Serial.print("Attempting connect to SSID..."); Serial.println(ssid); status = WiFi.begin(ssid, pass);
     delay(10000);
@@ -56,20 +56,21 @@ void setup(){
   parseAyte("live");
   missedUpdateCheck = millis();
   action = millis();
+
 }
 
 //----------VOID LOOP----------VOID LOOP----------VOID LOOP----------VOID LOOP----------VOID LOOP----------//
 void loop (){
 
   if (!checking) {
-    if (oldAyte != displayedAyte){ 
+    if (oldAyte != displayedAyte){ Serial.println("---!!!   NEW LIVE AYTE   !!!---"); 
       Serial.print("oldAyte:       "); Serial.println(oldAyte); 
       Serial.print("displayedAyte: "); Serial.println(displayedAyte);
       recentAction = true;
       missedUpdateCheck = millis();
-      delay1 = 10000;
+      delayA = 10000;
       action = millis();
-    }  
+    } 
     digitalWrite(6, led6State); led6State = true ? !led6State : false;
     httpRequest("0"); 
     if (timeStamp == ""){ Serial.println("____no TimeStamp___");
@@ -78,42 +79,40 @@ void loop (){
     httpRequest(timeStamp); //delay(50);
     oldAyte = displayedAyte; displayedAyte = ""; 
   }
-  parseAyte("live");  
-  
-  if (millis() - missedUpdateCheck > 2500) { 
-    httpRequest("history"); 
-    parseAyte("live");
-    missedUpdateCheck = millis();
-  }
 
-  if (millis() - action > delay1) {
-    Serial.println("10 Seconds of no action"); 
-
+  parseAyte("live"); 
+   
+  if (millis() - action > 5000 && galCheck) { Serial.println("Most Recent Gallery Post"); 
     httpRequest("gal"); 
     recentAction = true;
-    
     long int galDelay = millis();
     while(millis() - galDelay < 500){ //50 didn't work...check with cnt count.
       parseAyte("gal");
     }
-    delay(5000); //NOT needed just needed to see how long we need to delay the parse loop.
+    if (oldGal != galAyte){ pixels.show(); }
     Serial.print("galAyte:       "); Serial.println(galAyte); 
-    galAyte = "";
-    
-    //if(!blank){ rainbowWipe(25); blank = true; }
-    //randomPixelDanceHalfCourt(0); 
-    //delay1 = 500;
-    action = millis();
+    Serial.print("oldGal:       "); Serial.println(oldGal); 
+    oldGal = galAyte; galAyte = "";
+    galCheck = false;
   }
-      
-    //cnt... might be a dead variable?
-    //parse history function modification add string
-    //can the timestamp delay 1000 charactors be lessssssss. like 100...
-    // looks like when you fill in the create and save it doesn't fill for ard's ayte
-    // also you can save your ayte in live mode? double check that...
-    // delay's to remove and test...1(inside new timestamp grab)...2()...3()...
+
+  if (millis() - action > delayA) { Serial.println("10 Seconds of no action"); 
+    action = millis();
+    galCheck = true;
+  }
+
+  if (millis() - missedUpdateCheck > 2500) { Serial.println("Live History Check"); 
+    httpRequest("history"); 
+    parseAyte("live");
+    missedUpdateCheck = millis();
+  }
   
 }
+// ------------------------------------------------------------------------------------------------------------
+// 
+// delay's to remove and test...1(inside new timestamp grab)...2()...3()...
+//
+//
 
 void parseAyte(String ayte){ char c = 0; 
   if (client.available()) {
@@ -129,7 +128,10 @@ void parseAyte(String ayte){ char c = 0;
         cnt+=1;
         if (cnt >= 64){
           client.flush();
-          if (recentAction){ pixels.show(); recentAction = false; blank = false; }
+          if (recentAction){ 
+            if (ayte != "gal") { pixels.show(); }
+            recentAction = false; blank = false; 
+          }
           text = ""; startJson = false; checking = false; cnt=0;
         }
       }   
@@ -141,11 +143,11 @@ void httpRequest(String timeState) { // this method makes a HTTP connection to t
   checking = true;
   client.stop(); 
   if (client.connect(server, 80)) {
-    if(timeState == "gal"){ Serial.println("gallery request");
+    if(timeState == "gal"){ //Serial.println("gallery request");
       client.println("GET /history/sub-c-f0907bae-1ab6-11e6-9f24-02ee2ddab7fe/gallery1/0/1 HTTP/1.1"); }
-    else if (timeState == "history"){ Serial.println("Live History request");
+    else if (timeState == "history"){ //Serial.println("Live History request");
       client.println("GET /history/sub-c-b3fbc6fa-0bf5-11e6-a8fd-02ee2ddab7fe/1b/0/1 HTTP/1.1"); }
-    else { //this could be "0" or a timestamp.... as timeState
+    else { //Serial.println("else 0 or timeStamp request"); 
       client.println("GET /subscribe/sub-c-b3fbc6fa-0bf5-11e6-a8fd-02ee2ddab7fe/1b/0/" + timeState + " HTTP/1.1"); }
     client.println("Host: pubsub.pubnub.com");
     client.println("User-Agent: ArduinoWiFi/1.1");
@@ -262,13 +264,6 @@ void randomPixelDanceHalfCourt(int d){ //Serial.println("Playing: Random Pixel D
 //boolean valIn(int arr[], int x, int rng){
 //  for (int i = 0; i < rng; i++){if (arr[i] == x){return true;}}return false;}
 
-
 void bluePixelWondersThroughHell(){
   Serial.println("Playing: Blue Soul Wonders Through Hell");
 }
-
-//---------------------------------------------------------------------------------------------------------//
-//----------          NOTES                                                                 ----------//
-//---------------------------------------------------------------------------------------------------------//
-
-//--create function parseTimeStamp()

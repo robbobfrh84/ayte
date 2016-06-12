@@ -114,7 +114,7 @@ function brushSwap(newCol){
 function fill(col){
   for (var i = 0; i < 64; i++){
     document.getElementById('blk'+i).style.backgroundColor = col[0];
-    ayteByteHistory[i] = brush[1];
+    ayteByteHistory[i] = col[1];
   }
   if (live && !waitForMsg) {
     for (var i = 0; i < 64; i++){

@@ -23,15 +23,20 @@ String text;
 String timeStamp = "0";
 long int missedUpdateCheck;
 long int action;
-long int delayA = 10000;
+long int danceTime;
+long int galUpdate;
+long int galUpdateInterval = 5000;
 int endResponse = 0;
 int cnt = 0;
+int stage = 0;
+boolean pixelChat = true;
 boolean led6State = true;
 boolean checking = false;
 boolean startJson = false;
 boolean recentAction = true;
 boolean blank = true;
 boolean galCheck = true;
+boolean showOld = false;
 
 //web rgb *0.4, rounded down...
 const char r[]={  15,200, 20, 85,  0,   40, 70, 40,130, 100,  10, 40,100, 25, 95,  0 };
@@ -52,24 +57,30 @@ void setup(){
   }
   printWifiStatus(); 
   httpRequest("history"); //TURN BACK INTO ONE!!!
+  rainbowWormHole(5000);
+  rainbowWipe(20);
   delay(50);
   parseAyte("live");
   missedUpdateCheck = millis();
   action = millis();
-
-}
+  galUpdate = millis();
+}  
+  
 
 //----------VOID LOOP----------VOID LOOP----------VOID LOOP----------VOID LOOP----------VOID LOOP----------//
 void loop (){
 
-  if (!checking) {
+  if (!checking && pixelChat) {
     if (oldAyte != displayedAyte){ Serial.println("---!!!   NEW LIVE AYTE   !!!---"); 
       Serial.print("oldAyte:       "); Serial.println(oldAyte); 
       Serial.print("displayedAyte: "); Serial.println(displayedAyte);
       recentAction = true;
       missedUpdateCheck = millis();
-      delayA = 10000;
+      galUpdate = millis();
       action = millis();
+      stage = 0;
+      //galUpdateInterval = 1000;
+
     } 
     digitalWrite(6, led6State); led6State = true ? !led6State : false;
     httpRequest("0"); 
@@ -77,41 +88,65 @@ void loop (){
       httpRequest("0"); //delay(50); 
     }
     httpRequest(timeStamp); //delay(50);
-    oldAyte = displayedAyte; displayedAyte = ""; 
+    oldAyte = displayedAyte; 
+    displayedAyte = ""; 
   }
 
-  parseAyte("live"); 
+  if (pixelChat) { parseAyte("live"); }
+  
+  if (millis() - danceTime > 200 && stage == 1){ 
+    randomPixelDanceHalfCourt(200); danceTime = millis();
+  }
    
-  if (millis() - action > 5000 && galCheck) { Serial.println("Most Recent Gallery Post"); 
-    httpRequest("gal"); 
-    recentAction = true;
-    long int galDelay = millis();
-    while(millis() - galDelay < 500){ //50 didn't work...check with cnt count.
-      parseAyte("gal");
-    }
-    if (oldGal != galAyte){ pixels.show(); }
-    Serial.print("galAyte:       "); Serial.println(galAyte); 
-    Serial.print("oldGal:       "); Serial.println(oldGal); 
-    oldGal = galAyte; galAyte = "";
-    galCheck = false;
+  if (millis() - galUpdate > galUpdateInterval && galCheck) { Serial.println("Most Recent Gallery Post"); 
+    GalCheck();
+    //galUpdateInterval = 1000;
+    galUpdate = millis();
+  }
+  
+  if (millis() - action > 10000 && stage == 0) { Serial.println("10 Seconds of no action"); 
+    rainbowWipe(20);
+    //galCheck = false;
+    stage = 1;
+    galUpdate = millis();
   }
 
-  if (millis() - action > delayA) { Serial.println("10 Seconds of no action"); 
+  if (millis() - action > 25000){ Serial.println("25 Sec reset");
+    rainbowWipe(20);
+    stage = 0;
+    danceTime = millis();
     action = millis();
-    galCheck = true;
+    recentAction = true;
+    showOld = true;
+    galUpdate = millis();
+    missedUpdateCheck = millis();
   }
 
   if (millis() - missedUpdateCheck > 2500) { Serial.println("Live History Check"); 
-    httpRequest("history"); 
-    parseAyte("live");
+    httpRequest("history"); delay(50);
     missedUpdateCheck = millis();
   }
   
 }
+
+void GalCheck(){
+  httpRequest("gal"); 
+  recentAction = true;
+  //if ((oldGal != galAyte) || showOld){ rainbowWipe(20); }
+  long int galDelay = millis();
+  while(millis() - galDelay < 500){ //50 didn't work...check with cnt count.
+    parseAyte("gal");
+  }
+  if ((oldGal != galAyte) || showOld){  pixels.show(); }
+  Serial.print("galAyte:       "); Serial.println(galAyte); 
+  Serial.print("oldGal:       "); Serial.println(oldGal); 
+  oldGal = galAyte; galAyte = ""; showOld = false;
+}
+
 // ------------------------------------------------------------------------------------------------------------
 // 
 // delay's to remove and test...1(inside new timestamp grab)...2()...3()...
-//
+// IDEA the strange thing with displayAyte getting removed... maybe ALSO have a BOOL to check that the 64 char were reached...?
 //
 
 void parseAyte(String ayte){ char c = 0; 
@@ -218,51 +253,65 @@ void randomPixelDanceHalfCourt(int d){ //Serial.println("Playing: Random Pixel D
   delay(d);
 }
 
-//void rainbowWormHole(){
-//  Serial.println("Playing: Rainbow Wormhole");
-//  
-//  void loop() { 
-//    r+=4*rd; g+=3*gd; b+=2*bd; rg+=1*rgd;
-//    
-//    if(r>=80){rd=rd*-1;}
-//    if(g>=80){gd=gd*-1;}
-//    if(b>=80){bd=bd*-1;}
-//    if(rg>=80){rgd=rgd*-1;}
-//  
-//    if(r<=0){rd=rd*-1;}
-//    if(g<=0){gd=gd*-1; g=0;}
-//    if(b<=0){bd=bd*-1;}
-//    if(rg<=0){rgd=rgd*-1;}
-//    
-//    
-//    for (int i = 0; i < 64; i++){
-//      if (valIn(level1, i, sizeof(level1)/sizeof(int))){ 
-//        pixels.setPixelColor(i, pixels.Color(r,0,0));
-//      }
-//    }
-//    for (int i = 0; i < 64; i++){
-//      if (valIn(level2, i, sizeof(level2)/sizeof(int))){ 
-//        pixels.setPixelColor(i, pixels.Color(0,g,0));
-//      }
-//    }
-//    for (int i = 0; i < 64; i++){
-//      if (valIn(level3, i, sizeof(level3)/sizeof(int))){ 
-//        pixels.setPixelColor(i, pixels.Color(0,0,b));
-//      }
-//    }
-//    for (int i = 0; i < 64; i++){
-//      if (valIn(level4, i, sizeof(level4)/sizeof(int))){ 
-//        pixels.setPixelColor(i, pixels.Color(rg,rg,0));
-//      }
-//    }
-//    pixels.show();
-//    delay(30);
-//  }
-//  
-//}
-//
-//boolean valIn(int arr[], int x, int rng){
-//  for (int i = 0; i < rng; i++){if (arr[i] == x){return true;}}return false;}
+void rainbowWormHole(int aTime){
+  Serial.println("Playing: Rainbow Wormhole");
+  int level1[] = {27,28,35,36};
+  int level2[] = {18,19,20,21,26,29,34,37,42,43,44,45};
+  int level3[] = {9,10,11,12,13,14,17,22,25,30,33,38,41,46,49,50,51,52,53,54};
+  int level4[] = {0,1,2,3,4,5,6,7,8,15,16,23,24,31,32,39,40,47,48,55,56,57,58,59,60,61,62,63};
+  int r = 0;
+  int g = 20;
+  int b = 40;
+  int rg = 60;
+  int rd = 1;
+  int gd = 1;
+  int bd = 1;
+  int rgd = 1;
+  
+  long int playFor = millis();
+  while(millis() - playFor < aTime){ 
+ 
+    r+=4*rd; g+=3*gd; b+=2*bd; rg+=1*rgd;
+    
+    if(r>=80){rd=rd*-1;}
+    if(g>=80){gd=gd*-1;}
+    if(b>=80){bd=bd*-1;}
+    if(rg>=80){rgd=rgd*-1;}
+  
+    if(r<=0){rd=rd*-1;}
+    if(g<=0){gd=gd*-1; g=0;}
+    if(b<=0){bd=bd*-1;}
+    if(rg<=0){rgd=rgd*-1;}
+    
+    
+    for (int i = 0; i < 64; i++){
+      if (valIn(level1, i, sizeof(level1)/sizeof(int))){ 
+        pixels.setPixelColor(i, pixels.Color(r,0,0));
+      }
+    }
+    for (int i = 0; i < 64; i++){
+      if (valIn(level2, i, sizeof(level2)/sizeof(int))){ 
+        pixels.setPixelColor(i, pixels.Color(0,g,0));
+      }
+    }
+    for (int i = 0; i < 64; i++){
+      if (valIn(level3, i, sizeof(level3)/sizeof(int))){ 
+        pixels.setPixelColor(i, pixels.Color(0,0,b));
+      }
+    }
+    for (int i = 0; i < 64; i++){
+      if (valIn(level4, i, sizeof(level4)/sizeof(int))){ 
+        pixels.setPixelColor(i, pixels.Color(rg,rg,0));
+      }
+    }
+    pixels.show();
+    delay(30);
+  }
+  
+}
+
+boolean valIn(int arr[], int x, int rng){
+  for (int i = 0; i < rng; i++){if (arr[i] == x){return true;}}return false;}
 
 void bluePixelWondersThroughHell(){
   Serial.println("Playing: Blue Soul Wonders Through Hell");

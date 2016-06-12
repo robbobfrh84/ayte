@@ -16,25 +16,27 @@ int status = WL_IDLE_STATUS;
 const char server[] = "pubsub.pubnub.com";    // name address for openweathermap (using DNS)
 
 String oldAyte = "initial";
-String displayedAyte = "unsigned";
+String displayedAyte;
 String oldGal = "initial";
 String galAyte;
 String text;
 String timeStamp = "0";
 long int missedUpdateCheck;
-
 long int action;
-
+long int danceTime;
+long int galUpdate;
+long int galUpdateInterval = 5000;
 int endResponse = 0;
 int cnt = 0;
 int stage = 0;
+boolean pixelChat = true;
 boolean led6State = true;
 boolean checking = false;
 boolean startJson = false;
 boolean recentAction = true;
 boolean blank = true;
-boolean refresh = false;
-
+boolean galCheck = true;
+boolean showOld = false;
 
 //web rgb *0.4, rounded down...
 const char r[]={  15,200, 20, 85,  0,   40, 70, 40,130, 100,  10, 40,100, 25, 95,  0 };
@@ -48,73 +50,118 @@ void setup(){
   #endif
   pinMode(6, OUTPUT);
   pixels.begin();
+
   while ( status != WL_CONNECTED) {
     Serial.print("Attempting connect to SSID..."); Serial.println(ssid); status = WiFi.begin(ssid, pass);
     delay(10000);
   }
-  
-//-------------INTRO--------------INTRO-------------INTRO-------------INTRO-------------INTRO-------------//
   printWifiStatus(); 
   httpRequest("history"); //TURN BACK INTO ONE!!!
   rainbowWormHole(5000);
   rainbowWipe(20);
+  delay(50);
+  parseAyte("live");
   missedUpdateCheck = millis();
   action = millis();
+  galUpdate = millis();
 }  
   
-//----------VOID LOOP----------VOID LOOP----------VOID LOOP----------VOID LOOP----------VOID LOOP----------//
-//----------VOID LOOP----------VOID LOOP----------VOID LOOP----------VOID LOOP----------VOID LOOP----------//
+
 //----------VOID LOOP----------VOID LOOP----------VOID LOOP----------VOID LOOP----------VOID LOOP----------//
 void loop (){
-  
-  livePixelChat(5, 30); // check for five sec... if action will bump up to second argument...
-  if(!blank){ rainbowWipe(20); blank = true; }
-  
-  lastGalCheck(10); //argument for seconds delay only if true...
-  if(!blank){ rainbowWipe(20); blank = true; }
+  livePixelChat(5);
 
-  //if (millis() - noAction > 200 && stage == 1){ 
-  if (stage == 0){ Serial.println("Intro Animation1");
-     long int galDelay = millis();
-     while(millis() - galDelay < 10000){ 
-       randomPixelDanceHalfCourt(200); 
-     }
-     rainbowWipe(20);
-     stage = 1;
+//  if (!checking && pixelChat) {
+//    if (oldAyte != displayedAyte){ Serial.println("---!!!   NEW LIVE AYTE   !!!---"); 
+//      Serial.print("oldAyte:       "); Serial.println(oldAyte); 
+//      Serial.print("displayedAyte: "); Serial.println(displayedAyte);
+//      recentAction = true;
+//      missedUpdateCheck = millis();
+//      galUpdate = millis();
+//      action = millis();
+//      stage = 0;
+//      //galUpdateInterval = 1000;
+//
+//    } 
+//    digitalWrite(6, led6State); led6State = true ? !led6State : false;
+//    httpRequest("0"); 
+//    if (timeStamp == ""){ Serial.println("____no TimeStamp___");
+//      httpRequest("0"); //delay(50); 
+//    }
+//    httpRequest(timeStamp); //delay(50);
+//    oldAyte = displayedAyte; 
+//    displayedAyte = ""; 
+//  }
+//
+//  if (pixelChat) { parseAyte("live"); }
+  
+  if (millis() - danceTime > 200 && stage == 1){ 
+    randomPixelDanceHalfCourt(200); danceTime = millis();
+  }
+   
+  if (millis() - galUpdate > galUpdateInterval && galCheck) { Serial.println("Most Recent Gallery Post"); 
+    GalCheck();
+    //galUpdateInterval = 1000;
+    galUpdate = millis();
+  }
+  
+  if (millis() - action > 10000 && stage == 0) { Serial.println("10 Seconds of no action"); 
+    rainbowWipe(20);
+    //galCheck = false;
+    stage = 1;
+    galUpdate = millis();
   }
 
+  if (millis() - action > 25000){ Serial.println("25 Sec reset");
+    rainbowWipe(20);
+    stage = 0;
+    danceTime = millis();
+    action = millis();
+    recentAction = true;
+    showOld = true;
+    galUpdate = millis();
+    missedUpdateCheck = millis();
+  }
+
+//  if (millis() - missedUpdateCheck > 2500) { Serial.println("Live History Check"); 
+//    httpRequest("history"); delay(50);
+//    missedUpdateCheck = millis();
+//  }
+  
 }
 
-//---------------------------------------------------------------------------------------------------------//
-//----------         New Images and Live Update Handling                                         ----------//
-//---------------------------------------------------------------------------------------------------------//
-
-void livePixelChat(int seconds, int timeBump){ Serial.print("Seconds of ayte stream: "); Serial.println(seconds); 
-  displayedAyte == "" ? displayedAyte = oldAyte : displayedAyte;
-  displayedAyte == "unsigned" ? displayedAyte = "": displayedAyte;
+void livePixelChat(int seconds){ Serial.print("Seconds of ayte stream: "); Serial.println(seconds); 
   long int playFor = millis();
   while(millis() - playFor < seconds*1000){ 
-    if (!checking) {
-      if (oldAyte != displayedAyte){ Serial.println("---!!!  NEW LIVE AYTE   !!!---"); 
+    if (!checking && pixelChat) {
+      if (oldAyte != displayedAyte){ Serial.println("---!!!   NEW LIVE AYTE   !!!---"); 
         Serial.print("oldAyte:       "); Serial.println(oldAyte); 
         Serial.print("displayedAyte: "); Serial.println(displayedAyte);
-        if(oldAyte != "initial"){seconds = timeBump; Serial.print("Seconds of ayte stream: "); Serial.println(seconds); }
-        recentAction = true; blank = false; playFor = millis();
-        stage = 0;
+        recentAction = true;
+        playFor = millis();
+
+        
+        //missedUpdateCheck = millis();
+        //galUpdate = millis();
+        //action = millis();
+        //playFor = millis();
+        //stage = 0;
+        //galUpdateInterval = 1000;
+  
       } 
       digitalWrite(6, led6State); led6State = true ? !led6State : false;
-      httpRequest("0"); delay(50); 
+      httpRequest("0"); 
       if (timeStamp == ""){ Serial.println("____no TimeStamp___");
-        httpRequest("0"); delay(50); 
+        httpRequest("0"); //delay(50); 
       }
-      httpRequest(timeStamp); delay(50);
+      httpRequest(timeStamp); //delay(50);
       oldAyte = displayedAyte; 
       displayedAyte = ""; 
     }
-
-    parseAyte("live");
   
-    if (millis() - missedUpdateCheck > 1000) { //Serial.println("Live History Check"); 
+    if (pixelChat) { parseAyte("live"); }
+
+    if (millis() - missedUpdateCheck > 1000) { Serial.println("Live History Check"); 
       httpRequest("history"); delay(50);
       missedUpdateCheck = millis();
     }
@@ -122,35 +169,25 @@ void livePixelChat(int seconds, int timeBump){ Serial.print("Seconds of ayte str
   
 }
 
-void lastGalCheck(int seconds){ Serial.println("New Gallery Post Check");
+void GalCheck(){
   httpRequest("gal"); 
   recentAction = true;
+  //if ((oldGal != galAyte) || showOld){ rainbowWipe(20); }
   long int galDelay = millis();
   while(millis() - galDelay < 500){ //50 didn't work...check with cnt count.
     parseAyte("gal");
   }
-  if (oldGal != galAyte || refresh ){ Serial.println("{{{!!! New Gallery Post !!!}}}");
-    Serial.print("galAyte:       "); Serial.println(galAyte); 
-    Serial.print("oldGal:        "); Serial.println(oldGal);
-    if (stage == 1){ 
-      rainbowWormHole(3000); rainbowWipe(20);
-      stage = 0; refresh = true; 
-      oldGal = galAyte; galAyte = ""; 
-      lastGalCheck(30);
-      refresh = false; return;
-    } else { 
-      pixels.show(); 
-      blank = false; 
-      stage = 0;
-      delay(seconds*1000);
-    }  
-  }
-  oldGal = galAyte; galAyte = ""; 
+  if ((oldGal != galAyte) || showOld){  pixels.show(); }
+  Serial.print("galAyte:       "); Serial.println(galAyte); 
+  Serial.print("oldGal:       "); Serial.println(oldGal); 
+  oldGal = galAyte; galAyte = ""; showOld = false;
 }
 
-//---------------------------------------------------------------------------------------------------------//
-//----------          PubNub Reqeusts Parsing & Wifi Messages                                    ----------//
-//---------------------------------------------------------------------------------------------------------//
+// ------------------------------------------------------------------------------------------------------------
+// 
+// delay's to remove and test...1(inside new timestamp grab)...2()...3()...
+// IDEA the strange thing with displayAyte getting removed... maybe ALSO have a BOOL to check that the 64 char were reached...?
+// So... we could say different & 64!
 
 void parseAyte(String ayte){ char c = 0; 
   if (client.available()) {
@@ -168,9 +205,9 @@ void parseAyte(String ayte){ char c = 0;
           client.flush();
           if (recentAction){ 
             if (ayte != "gal") { pixels.show(); }
-            recentAction = false; 
+            recentAction = false; blank = false; 
           }
-          text = ""; startJson = false; checking = false; cnt=0; 
+          text = ""; startJson = false; checking = false; cnt=0;
         }
       }   
     }
@@ -219,10 +256,6 @@ void printWifiStatus() { Serial.print("SSID: ");Serial.println(WiFi.SSID());IPAd
 Serial.print("IP Address: "); Serial.println(ip);long rssi = WiFi.RSSI();
 Serial.print("signal strength (RSSI):");Serial.print(rssi); Serial.println(" dBm");}
 
-//---------------------------------------------------------------------------------------------------------//
-//----------          ANIMATIONS                                                                 ----------//
-//---------------------------------------------------------------------------------------------------------//
-
 void solid(int r, int g, int b){
   for (int i = 0; i < 64; i++){
     pixels.setPixelColor(i, pixels.Color(r,g,b)); 
@@ -230,7 +263,10 @@ void solid(int r, int g, int b){
   pixels.show();
 }
 
-void rainbowWipe(int d){ Serial.println("Playing RainbowWipe...");
+//---------------------------------------------------------------------------------------------------------//
+//----------          ANIMATIONS                                                                 ----------//
+//---------------------------------------------------------------------------------------------------------//
+void rainbowWipe(int d){
   for (int i = 0; i < 77; i++){
       pixels.setPixelColor(i, pixels.Color(100,100,100)); 
       pixels.setPixelColor(i-1, pixels.Color(64,0,0)); pixels.setPixelColor(i-2, pixels.Color(45,15,0)); 
@@ -313,6 +349,7 @@ void rainbowWormHole(int aTime){
   }
   
 }
+
 boolean valIn(int arr[], int x, int rng){
   for (int i = 0; i < rng; i++){if (arr[i] == x){return true;}}return false;}
 

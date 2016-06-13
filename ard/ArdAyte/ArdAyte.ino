@@ -84,22 +84,24 @@ void loop (){
      stage = 1;
   }
 
-  if (millis() - noAction > 1*60*1000 && stage == 1){ Serial.println("No Action for 1 min++b .");
-     solid(0,0,0);
-     long int galDelay = millis();
-     while(millis() - galDelay < 1*60*1000){ 
-       randomPixelDanceHalfCourt(200); 
-     }
-  }
+  //need to put a galAyte = "" inside lastgalCheck()...
 
-  if (millis() - noAction > 5*60*1000){ Serial.println("No Action for 5 min++.");
-     solid(0,0,0);
-     long int galDelay = millis();
-     while(millis() - galDelay < 1*60*1000){ 
-       ; 
-     }
-     stage = 2;
-  }
+//  if (millis() - noAction > 1*60*1000 && stage == 1){ Serial.println("No Action for 1 min++b .");
+//     solid(0,0,0);
+//     long int galDelay = millis();
+//     while(millis() - galDelay < 1*60*1000){ 
+//       randomPixelDanceHalfCourt(200); 
+//     }
+//  }
+//
+//  if (millis() - noAction > 5*60*1000){ Serial.println("No Action for 5 min++.");
+//     solid(0,0,0);
+//     long int galDelay = millis();
+//     while(millis() - galDelay < 1*60*1000){ 
+//       ; 
+//     }
+//     stage = 2;
+//  }
 
 }
 

@@ -23,7 +23,7 @@ String text;
 String timeStamp = "0";
 long int missedUpdateCheck;
 
-long int action;
+long int noAction;
 
 int endResponse = 0;
 int cnt = 0;
@@ -59,7 +59,7 @@ void setup(){
   rainbowWormHole(5000);
   rainbowWipe(20);
   missedUpdateCheck = millis();
-  action = millis();
+  noAction = millis();
 }  
   
 //----------VOID LOOP----------VOID LOOP----------VOID LOOP----------VOID LOOP----------VOID LOOP----------//
@@ -73,14 +73,32 @@ void loop (){
   lastGalCheck(10); //argument for seconds delay only if true...
   if(!blank){ rainbowWipe(20); blank = true; }
 
-  //if (millis() - noAction > 200 && stage == 1){ 
+  
   if (stage == 0){ Serial.println("Intro Animation1");
      long int galDelay = millis();
      while(millis() - galDelay < 10000){ 
        randomPixelDanceHalfCourt(200); 
      }
      rainbowWipe(20);
+     noAction = millis();
      stage = 1;
+  }
+
+  if (millis() - noAction > 1*60*1000 && stage == 1){ Serial.println("No Action for 1 min++b .");
+     solid(0,0,0);
+     long int galDelay = millis();
+     while(millis() - galDelay < 1*60*1000){ 
+       randomPixelDanceHalfCourt(200); 
+     }
+  }
+
+  if (millis() - noAction > 5*60*1000){ Serial.println("No Action for 5 min++.");
+     solid(0,0,0);
+     long int galDelay = millis();
+     while(millis() - galDelay < 1*60*1000){ 
+       ; 
+     }
+     stage = 2;
   }
 
 }
@@ -99,7 +117,8 @@ void livePixelChat(int seconds, int timeBump){ Serial.print("Seconds of ayte str
         Serial.print("oldAyte:       "); Serial.println(oldAyte); 
         Serial.print("displayedAyte: "); Serial.println(displayedAyte);
         if(oldAyte != "initial"){seconds = timeBump; Serial.print("Seconds of ayte stream: "); Serial.println(seconds); }
-        recentAction = true; blank = false; playFor = millis();
+        recentAction = true; blank = false; 
+        playFor = millis(); 
         stage = 0;
       } 
       digitalWrite(6, led6State); led6State = true ? !led6State : false;

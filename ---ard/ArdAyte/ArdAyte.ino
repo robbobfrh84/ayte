@@ -166,7 +166,7 @@ void lastGalCheck(int seconds){ Serial.println("New Gallery Post Check");
       delay(seconds*1000);
     }  
   }
-  oldGal = galAyte; galAyte = ""; 
+  oldGal = galAyte; galAyte = ""; pixelDance 
 }
 
 //---------------------------------------------------------------------------------------------------------//
@@ -174,7 +174,7 @@ void lastGalCheck(int seconds){ Serial.println("New Gallery Post Check");
 //---------------------------------------------------------------------------------------------------------//
 
 void parseAyte(String ayte){ char c = 0; 
-  if (client.available()) {
+  if (client.available()) { 
     c = client.read();
     if (c == '{') { startJson = true; }
     if (startJson == true) {

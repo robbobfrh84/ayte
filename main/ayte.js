@@ -242,7 +242,7 @@ function saveAyte() {
 
 function publishGal(data) {
   pubnubGal.publish({
-    channel: 'gallery1',
+    channel: 'mainGal1',
     message: data
   });
   console.log('Saved Ayte to Gallery1: ',savedAyte);

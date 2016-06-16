@@ -76,7 +76,7 @@ void loop (){
   
   if (stage == 0){ Serial.println("Intro Animation1");
      long int galDelay = millis();
-     while(millis() - galDelay < 10000){ 
+     while(millis() - galDelay < 60000){ 
        randomPixelDanceHalfCourt(200); 
      }
      rainbowWipe(20);
@@ -86,22 +86,22 @@ void loop (){
 
   //need to put a galAyte = "" inside lastgalCheck()...
 
-//  if (millis() - noAction > 1*60*1000 && stage == 1){ Serial.println("No Action for 1 min++b .");
-//     solid(0,0,0);
-//     long int galDelay = millis();
-//     while(millis() - galDelay < 1*60*1000){ 
-//       randomPixelDanceHalfCourt(200); 
-//     }
-//  }
-//
-//  if (millis() - noAction > 5*60*1000){ Serial.println("No Action for 5 min++.");
-//     solid(0,0,0);
-//     long int galDelay = millis();
-//     while(millis() - galDelay < 1*60*1000){ 
-//       ; 
-//     }
-//     stage = 2;
-//  }
+  if (millis() - noAction > 1*60*1000 && stage == 1){ Serial.println("No Action for 1 min++b .");
+     solid(0,0,0);
+     long int galDelay = millis();
+     while(millis() - galDelay < 1*60*1000){ 
+       randomPixelDanceHalfCourt(200); 
+     }
+  }
+
+  if (millis() - noAction > 15*60*1000){ Serial.println("No Action for 5 min++.");
+     solid(0,0,0);
+     long int galDelay = millis();
+     while(millis() - galDelay < 1*60*1000){ 
+       ; 
+     }
+     stage = 2;
+  }
 
 }
 
@@ -166,7 +166,7 @@ void lastGalCheck(int seconds){ Serial.println("New Gallery Post Check");
       delay(seconds*1000);
     }  
   }
-  oldGal = galAyte; galAyte = ""; pixelDance 
+  oldGal = galAyte; galAyte = ""; 
 }
 
 //---------------------------------------------------------------------------------------------------------//
@@ -203,7 +203,7 @@ void httpRequest(String timeState) { // this method makes a HTTP connection to t
   client.stop(); 
   if (client.connect(server, 80)) {
     if(timeState == "gal"){ //Serial.println("gallery request");
-      client.println("GET /history/sub-c-f0907bae-1ab6-11e6-9f24-02ee2ddab7fe/gallery1/0/1 HTTP/1.1"); }
+      client.println("GET /history/sub-c-f0907bae-1ab6-11e6-9f24-02ee2ddab7fe/mainGal1/0/1 HTTP/1.1"); }
     else if (timeState == "history"){ //Serial.println("Live History request");
       client.println("GET /history/sub-c-b3fbc6fa-0bf5-11e6-a8fd-02ee2ddab7fe/1b/0/1 HTTP/1.1"); }
     else { //Serial.println("else 0 or timeStamp request"); 

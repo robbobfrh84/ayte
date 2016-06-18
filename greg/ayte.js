@@ -70,7 +70,7 @@ function draw(bId, x){
     if (live && !waitForMsg) {
       ayteRGB.ayte[x] = brush[0];
       ayteByte.ayte[x] = brush[1];
-      publish([['1b',ayteByte],['1a',ayteRGB]]);
+      publish([['greg1b',ayteByte],['greg1a',ayteRGB]]);
     }
   }
 }
@@ -121,7 +121,7 @@ function fill(col){
         ayteRGB.ayte[i] = brush[0];
         ayteByte.ayte[i] = brush[1];
     }
-    publish([['1b',ayteByte],['1a',ayteRGB]]);
+    publish([['greg1b',ayteByte],['greg1a',ayteRGB]]);
   }
 }
 
@@ -137,7 +137,7 @@ function liveStatus(){
     fillBtn.innerHTML = '*Live!';
     fillBtn.style.color = 'firebrick';
     fillBtn.setAttribute('onmousedown', 'false');
-    history(1, ['1b','1a']);
+    history(1, ['greg1b','greg1a']);
   } else { live = false;
     liveBtn.innerHTML = '*Pixel Chat*';
     titleLive.style.display = 'none';
@@ -174,7 +174,7 @@ function history(amount, chl) {
 }
 
 pubnub.subscribe({
-  channel: '1a',
+  channel: 'greg1a',
   callback: function(m) {
     ayteRGB = m;
     console.log('Saw new *RGB*');
@@ -185,7 +185,7 @@ pubnub.subscribe({
 });
 
 pubnub.subscribe({
-  channel: '1b',
+  channel: 'greg1b',
   callback: function(m) {
     ayteByte = m;
     console.log('Saw new _ayte_');
@@ -193,7 +193,7 @@ pubnub.subscribe({
   error: function(err) {console.log(err);}
 });
 
-//publish([['1a',ayteRGB],['1b',ayteByte]]);
+//publish([['greg1a',ayteRGB],['greg1b',ayteByte]]);
 function publish(data) {
   waitForMsg = true;
   for (var i = 0; i < data.length; i++){
@@ -242,7 +242,7 @@ function saveAyte() {
 
 function publishGal(data) {
   pubnubGal.publish({
-    channel: 'gallery1',
+    channel: 'gregGal1',
     message: data
   });
   console.log('Saved Ayte to Gallery1: ',savedAyte);

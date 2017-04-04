@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>ayte</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+  <link rel="ayte icon" href="gfx/ayteFlower.png"/>
+  <style>
+
+    body {
+      text-align: center;
+      font-family: courier;
+      -webkit-text-size-adjust: 100%;
+      background-color: #ddd
+    }
+
+    .navbar-brand{
+      font-size: 30px;
+    }
+
+    .navbar-default{
+      font-size: 18px;
+      background-color: cornflowerblue;
+      border-color: cornflowerblue;
+      border-radius: 0;
+      margin: 0;
+    }
+
+    #font-color, #title{
+      color: #333;
+    }
+
+    #font-color{
+      font-size: 20px;
+      margin-top: 10px;
+      height: 50px;
+    }
+
+    .navbar-default .navbar-toggle {
+      background-color: #ccc;
+      border: none;
+      box-shadow: inset 0px 0px 5px 2px rgba(0,0,0,0.2);
+    }
+
+    #ayteFrame {
+      font-size: 0;
+      text-align: center;
+      padding-top: 15px;
+      -webkit-text-size-adjust: 68%;
+    }
+
+    .ayte { display: inline-block; background-color: #444;
+      box-shadow: inset 0px 0px 5px 2px rgba(0,0,0,0.2);
+      font-size: 6px;
+      width: 8em;
+      height: 8em;
+      margin: 0.4em;
+      border-radius: 1.5em;
+    }
+
+    #paletteFrame {
+      width: 33em;
+      height: 8.625em;
+      text-align: center;
+      margin: auto;
+      margin-top: 15px;
+      border-radius: 1.5em;
+      padding: 0.5em;
+      padding-left: 1.4em;
+      background-color: cornflowerblue;
+      box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.5);
+      -webkit-text-size-adjust: 66%;
+    }
+
+    #swatchContainer{
+      font-size: 0;
+      float: left;
+    }
+
+    .swatch {
+      display: inline-block;
+      box-shadow: inset 0px 3px 2px 0px rgba(0,0,0,0.3);
+      font-size: 4.5px;
+      width: 12em;
+      height: 8em;
+    }
+
+    #swt6,#swt7,#swt8{box-shadow: inset 0px 0px 2px 0px rgba(0,0,0,0.3);}
+    #swt11,#swt12,#swt13{box-shadow: inset 0px -3px 2px 0px rgba(0,0,0,0.3);}
+    #swt5 {box-shadow: inset 3px 0px 2px 0px rgba(0,0,0,0.3);}
+    #swt9 {box-shadow: inset -3px 0px 2px 0px rgba(0,0,0,0.3);}
+    #swt0 { border-top-left-radius: 2em; box-shadow: inset 3px 3px 2px 0px rgba(0,0,0,0.3);}
+    #swt4 { border-top-right-radius: 2em; box-shadow: inset -3px 3px 2px 0px rgba(0,0,0,0.3);}
+    #swt10 { border-bottom-left-radius: 2em; box-shadow: inset 3px -3px 2px 0px rgba(0,0,0,0.3);}
+    #swt14 { border-bottom-right-radius: 2em; box-shadow: inset -3px -3px 2px 0px rgba(0,0,0,0.3);}
+
+    .button1 {   display: inline-block;
+      font-size: 26px;
+      color: #111;
+      background-color: rgba(15,15,15,0.1);
+      width: 5em;
+      height: 1.5em;
+      margin: 0.3em;
+      border-radius: 0.2em;
+      transition: background-color .25s ease-in-out;
+    }
+
+    .button1:hover { background-color: rgba(15,15,15,0.3);
+      transition: color .25s ease-in-out;
+    }
+
+    .fiftyPM {
+      -webkit-text-size-adjust: 50%;
+    }
+
+    @media screen and (min-width: 768px) {
+      #font-color{
+        font-size: 15px;
+        margin: 0;
+        height: 50px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only active" id="hamburger">Toggle navigation</span>
+          <span class="icon-bar" id='linez' style='background-color: firebrick;'></span>
+          <span class="icon-bar" id='linez'style='background-color: darkgoldenrod;'></span>
+          <span class="icon-bar" id='linez'style='background-color: green;'></span>
+        </button>
+        <a class="navbar-brand" href="#" id='title'>Ayte-by8</a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#" id="font-color" >{LOG IN} / {Sign UP}</a></li>
+          <li><a href="#" id="font-color" >Gallery</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div id='ayteFrame' ></div>
+    <div id='paletteFrame' >
+      <div id='swatchContainer'></div>
+      <div id='liveBtn' class='button1' onmousedown='liveStatus()'>Off Air</div>
+      <div id='saveBtn' class='button1'>Save</div>
+    </div><br>
+    <div id='allash' onclick="fill(ash)" class='button1'
+      style='background-color: rgba(0,0,0,0.2); width: 8em;'>Clear All</div>
+  <script src="http://cdn.pubnub.com/pubnub-3.7.15.min.js"></script>
+  <script>
+
+    var user = 'robbobfrh84'; //MAY NEED TO BE ALL LOWER-CASED OR WILL MESS UP ARD PARSE
+    var ayteRGB = {
+      user : user,
+      ayte : [['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()']
+              ,['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()']
+              ,['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()']
+              ,['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()']
+              ,['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()']
+              ,['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()']
+              ,['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()']
+              ,['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()'],['rgb()']]
+      };
+
+    var ayteByte = {
+      user: user,
+      ayte: [['A'],['A'],['A'],['A'],['A'],['A'],['A'],['A']
+            ,['A'],['A'],['A'],['A'],['A'],['A'],['A'],['A']
+            ,['A'],['A'],['A'],['A'],['A'],['A'],['A'],['A']
+            ,['A'],['A'],['A'],['A'],['A'],['A'],['A'],['A']
+            ,['A'],['A'],['A'],['A'],['A'],['A'],['A'],['A']
+            ,['A'],['A'],['A'],['A'],['A'],['A'],['A'],['A']
+            ,['A'],['A'],['A'],['A'],['A'],['A'],['A'],['A']
+            ,['A'],['A'],['A'],['A'],['A'],['A'],['A'],['A']]
+      };
+
+    var ash = ['rgb(68, 68, 68)', 'A'];//darkgrey
+    var egg = ['rgb(240,234,214)', 'B'];//eggshell
+    var cfb = ['rgb(102, 155, 235)','C'];//cornflowerblue
+    var gdr = ['rgb(214, 163, 48)','D'];//goldenrod
+    var grn = ['rgb(0, 128, 0)','E'];//green
+
+    var gry = ['rgb(180, 180, 180)','F'];//grey
+    var fbc = ['rgb(169, 53, 47)','G'];//firebrick
+    var slb = ['rgb(106, 90, 205)','H'];//lightgrey
+    var ogr = ['rgb(255, 69, 0)','I'];//orangered
+    var org = ['rgb(235, 120, 0)','J'];//orange
+
+    var sgn = ['rgb(32, 178, 170)','K'];//lightseagreen
+    var pru = ['rgb(160, 82, 45)','L'];//sienna
+    var pnk = ['rgb(245, 182, 193)','M'];//pink
+    var ind = ['rgb(96, 58, 134)','N'];//indigo
+    var ygr = ['rgb(154, 205, 50)','O'];//lightseagreen
+
+    var brush = cfb;
+    var swatch = [ash,egg,cfb,gdr,grn
+                 ,gry,fbc,slb,ogr,org
+                 ,sgn,pru,pnk,ind,ygr];
+
+    for (var i = 0; i < 64; i++){
+      if (i % 8 === 0){ ayteFrame.innerHTML += '<br>';}
+      var blk = document.createElement('div');
+      blk.className = 'ayte'; blk.id = 'blk'+i;
+      blk.setAttribute('onmousedown', 'mouseState(true, blk'+i+','+i+')');
+      blk.setAttribute('onmousemove', 'draw(blk'+i+','+i+')');
+      blk.setAttribute('ontouchstart','draw(blk'+i+','+i+')');
+      ayteFrame.appendChild(blk);
+    }
+    var mouseDown = false;
+    var waitForMsg = false;
+    document.body.setAttribute('onmousedown', 'mouseState(true)');
+    document.body.setAttribute('onmouseup', 'mouseState(false)');
+
+
+    function mouseState(state, bId, x){
+      if (state){ mouseDown = true;
+        if(bId){
+          draw(bId, x)
+        }
+      } else { mouseDown = false; }
+    }
+
+    function draw(bId, x){
+      if(mouseDown){
+        if (!live) { bId.style.backgroundColor = brush[0]; }
+        if (live && !waitForMsg) {
+          ayteRGB.ayte[x] = brush[0];
+          ayteByte.ayte[x] = brush[1];
+          publish([['1b',ayteByte],['1a',ayteRGB]]);
+        }
+      }
+    }
+
+    ayteFrame.addEventListener('touchmove', touchMove);
+    function touchMove(e){ mouseDown = true;
+      var x = document.elementFromPoint(e.touches[0].pageX, e.touches[0].pageY);
+      if( x.id[0]+x.id[1]+x.id[2] === 'blk') {
+        var i = 3; var n = ''; while(x.id[i]){n+=x.id[i]; i++; }
+        mouseState = true; draw(x, n);
+      }
+    }
+
+    ayteFrame.addEventListener('touchmove', function (event) {
+        event.preventDefault();
+    }, false);
+
+    for (var i = 0; i < 15; i++){
+      if (i % 5 === 0){ swatchContainer.innerHTML += '<br>';}
+      var swt = document.createElement('div');
+      swt.className = 'swatch'; swt.id = 'swt'+i;
+      swt.style.backgroundColor = swatch[i][0];
+      swt.setAttribute('onmousedown', 'brushSwap('+i+')');
+      swt.setAttribute('ontouchstart','brushSwap('+i+')');
+      swatchContainer.appendChild(swt);
+    }
+
+    function brushSwap(newCol){
+      brush = swatch[newCol];
+      console.log(brush);
+      paletteFrame.style.backgroundColor = brush[0];
+    }
+
+    function fill(col){
+      for (var i = 0; i < 64; i++){
+        document.getElementById('blk'+i).style.backgroundColor = col[0];
+      }
+    }
+
+    var live = false; var ayteChecked = false;
+    function liveStatus(){
+      if (!live) { live = true;
+        liveBtn.style.color = fbc[0];
+        liveBtn.innerHTML = 'Live!';
+        history(1, ['1b','1a']);
+      } else { live = false;
+        liveBtn.style.color = '#111';
+        liveBtn.innerHTML = 'Off Air';
+      }
+    }
+
+//-----------------------------------------------------------------------------
+//---------------------PUBNUB MESSAGE CENTER-----------------------------------
+//-----------------------------------------------------------------------------
+  var settings = {
+    publish_key: 'pub-c-926e03e9-2cbb-4a3d-b17a-2ee47ca078a5',
+    subscribe_key: 'sub-c-b3fbc6fa-0bf5-11e6-a8fd-02ee2ddab7fe'
+  };
+  var pubnub = PUBNUB(settings);
+  function history(amount, chl) {
+    for (var i = 0; i < chl.length; i++){
+      pubnub.history({
+        channel : chl[i],
+        callback: function(m) {
+          if(!ayteChecked){ ayteChecked = true;
+            ayteByte = m[0][0];
+            console.log('Last published ___ayte___', ayteByte);
+          } else { ayteRGB = m[0][0];
+            console.log('Last published ***RGB***', ayteRGB);
+            updateAyte();
+          }
+        },
+        count : amount,
+        reverse : false
+      });
+    }
+  }
+
+  pubnub.subscribe({
+    channel: '1a',
+    callback: function(m) {
+      ayteRGB = m;
+      console.log('Saw new *RGB*');
+      updateAyte();
+      waitForMsg = false;
+    },
+    error: function(err) {console.log(err);}
+  });
+
+  pubnub.subscribe({
+    channel: '1b',
+    callback: function(m) {
+      ayteByte = m;
+      console.log('Saw new _ayte_');
+    },
+    error: function(err) {console.log(err);}
+  });
+
+  //publish([['1a',ayteRGB],['1b',ayteByte]]);
+  function publish(data) {
+    waitForMsg = true;
+    for (var i = 0; i < data.length; i++){
+      pubnub.publish({
+        channel: data[i][0],
+        message: data[i][1]
+      });
+      console.log("channel: ",data[i][0],"data: ",data[i][1]);
+    }
+  }
+
+  function updateAyte() {
+    //waitForMsg = true;
+    for (var i = 0; i < 64; i++){
+      var bId = document.getElementById('blk'+i);
+      bId.style.backgroundColor = ayteRGB.ayte[i];
+    }
+  }
+
+  //---------Create mirror site without live call & with Gallery--------//
+    //create new folder for live and public break into html/css/esc...
+    //FIRST IN live folder update save to save current ayte....
+      //-save as username(keep as 'global' until log sprint) with timestamp for api.
+      //-add date-time(figure out how to do that) as id. to the milli.
+      //-publish as gallery in pubNub.
+        //HOw to delete?
+      //Gallery click, open under 'global' user to start
+      //figure out micro-eyte display. SVG? prob not a div... canvas???
+      //create aytes in 8 by 8 rows...Start off with 4 sets with micro-eyte dividers and less than 255? for i in range 255....blanks if less than 255
+      //delete! figure out how to delete...
+      //fiture out how i wann handle deleting
+        //---my thourght, public page can't (later if it's their post they can.)
+        //---live site can. publishes with api address on live site... less good looking, but i can just copy and post a delete call if i want.
+      //WHAT ELSE REALLY CAN YOU DO WITHOUT LOG IN FROM HERE.....
+
+  //---------ARDUION SLEEP ANIMATE TIMER STUFF------------//
+    //history check and sleep time incorperation....
+      //...Check for missed history update....5sec....1sec....?
+      //...set 5 min. sleep //check every 15 sec for new...
+    //on startup check for new...(set timer to 4n 30s) then roll randomDanceHalfBlk...
+    //add other two animations. 5min. per animayte, then sleep.
+    //while asleep check every 10 sec...
+
+
+  //---------LOGS SIGN INs and socialMedia STEP--------//
+
+    //...figureout how to save apis to YOUR hosted file. node.js treehouse course...?
+
+  //**********BUG FOR LATER**********//
+    //subscripe function when reading changes from phone or other browser doesn't updateAyte....the ayteByte array. so the ARD program is fine, but flashes to past arrey recordings that are hidden from the updates of other browsers
+
+
+  //*BONUS*BONUS*BONUS*//
+
+
+  </script>
+</body>
+</html>

@@ -193,7 +193,7 @@ pubnub.subscribe({
   error: function(err) {console.log(err);}
 });
 
-//publish([['1a',ayteRGB],['1b',ayteByte]]);
+publish([['1a',ayteRGB],['1b',ayteByte]]);
 function publish(data) {
   waitForMsg = true;
   for (var i = 0; i < data.length; i++){

@@ -9,8 +9,8 @@
 Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 WiFiClient client;
  
-static char ssid[] = "2WIRE648";  
-static char pass[] = "3519464889";  
+static char ssid[] = "ATT5VDK2DR";  
+static char pass[] = "6p2s+6#wqk95";  
 int keyIndex = 0;           
 int status = WL_IDLE_STATUS;
 const char server[] = "pubsub.pubnub.com";    // name address for openweathermap (using DNS)
